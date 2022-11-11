@@ -2,7 +2,7 @@
 
 namespace AdventOfCode.Year2021.Day01
 {
-    internal class Solution : ISolution
+    internal class Solver : ISolver
     {
         public async Task<string> PartOne(string input)
         {

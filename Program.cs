@@ -2,102 +2,99 @@
 {
     internal class Program
     {
+        static readonly int YEAR = 2021;
+        static readonly int DAY = 1;
+
         public static async Task Main(string[] args)
         {
-            int year = 2021;
-            int day = 1;
+            PrintHeader(YEAR, DAY);
 
-            Type? solution = Type.GetType($"AdventOfCode.Year{year}.Day{day:D2}.Solution");
-
-            if (solution == null)
-            {
-                Console.WriteLine("Check constants (type not found)!");
-                return;
-            }
-
-            ISolution? instance = Activator.CreateInstance(solution) as ISolution;
+            ISolver? instance = GetSolverInstance(YEAR, DAY);
 
             if (instance == null)
             {
-                Console.WriteLine("Check constants (constructor failed)!");
+                PrintError("Solver not found!");
                 return;
             }
 
-            Console.WriteLine("Type input or enter to use/download from web");
-            string? inputs = ReadFromConsole();
+            string? inputs = await InputService.GetInput(YEAR, DAY);
 
             if (inputs == null)
             {
-                inputs = await ReadOrDownloadFileAsync(year, day);
-            }
-
-            if (inputs == null)
-            {
-                Console.WriteLine("No input found!");
+                PrintError("No input found!");
                 return;
             }
 
             Console.WriteLine("Running part one...");
             string outputOne = await instance.PartOne(inputs);
-            Console.WriteLine("Output is:" + outputOne);
+            PrintOutput(outputOne);
 
             Console.WriteLine("Running part two...");
             string outputTwo = await instance.PartTwo(inputs);
-            Console.WriteLine("Output is:" + outputTwo);
+            PrintOutput(outputTwo);
 
+            PrintFooter();
         }
 
-        private async static Task<string?> ReadOrDownloadFileAsync(int year, int day)
+        private static void PrintFooter()
         {
-            string filePath = Environment.CurrentDirectory + "\\..\\..\\.." + $"\\Year{year}\\Day{day:D2}\\input";
-
-            Console.WriteLine($"Using file {filePath}");
-
-            if (!File.Exists(filePath))
-            {
-                Uri uri = new Uri($"https://adventofcode.com/{year}/day/{day}/input");
-
-                Console.WriteLine($"File not found, downloading {uri}...");
-
-                using (var handler = new HttpClientHandler())
-                using (var client = new HttpClient(handler))
-                {
-                    string auth = "******";
-                    client.DefaultRequestHeaders.Add("Cookie", "session=" + auth);
-                    byte[] data = await client.GetByteArrayAsync(uri);
-
-                    await File.WriteAllBytesAsync(filePath, data);
-                }
-
-            }
-
-            string fileContents = await File.ReadAllTextAsync(filePath, System.Text.Encoding.UTF8);
-            Console.WriteLine($"Returning {fileContents.Length} characters");
-
-            return fileContents;
+            Console.Write("--------------------------------------------------------------------------------\n");
         }
 
-        private static string? ReadFromConsole()
+        private static void PrintOutput(string output)
         {
-            IList<string> inputs = new List<string>();
-            string? line;
+            Console.Write("Output is: ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(output);
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine();
+        }
 
-            while ((line = Console.ReadLine()) != null)
+        private static ISolver? GetSolverInstance(int year, int day)
+        {
+            Type? solverType = Type.GetType($"AdventOfCode.Year{year}.Day{day:D2}.Solver");
+
+            if (solverType == null)
             {
-                if (string.IsNullOrWhiteSpace(line))
-                {
-                    break;
-                }
-
-                inputs.Add(line);
-            }
-
-            if (inputs.Count == 0)
-            {
+                PrintError("Check constants (type not found)!");
                 return null;
             }
 
-            return string.Join('\n', inputs);
+            ISolver? solverInstance = Activator.CreateInstance(solverType) as ISolver;
+
+            if (solverInstance == null)
+            {
+                PrintError("Check constants (constructor failed)!");
+                return null;
+            }
+
+            return solverInstance;
+        }
+
+        private static void PrintError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
+        private static void PrintHeader(int year, int day)
+        {
+            Console.Write("--------------------------------------------------------------------------------\n");
+            Console.Write("|                              Advent of Code                                   |\n");
+            Console.Write("--------------------------------------------------------------------------------\n");
+            Console.Write("Year: ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(year);
+            Console.ResetColor();
+            Console.Write(" ");
+            Console.Write("Day: ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(day);
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 }
