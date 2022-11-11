@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+﻿using AdventOfCode.Common;
 
 namespace AdventOfCode.Year2021.Day01
 {
@@ -8,7 +8,7 @@ namespace AdventOfCode.Year2021.Day01
         {
             await Task.Yield();
 
-            var numbers = ToInts(input);
+            var numbers = Helpers.AsInts(input);
 
             int prev = -1;
             int result = 0;
@@ -33,7 +33,7 @@ namespace AdventOfCode.Year2021.Day01
         {
             await Task.Yield();
 
-            var numbers = ToInts(input);
+            var numbers = Helpers.AsInts(input);
 
             int lastWindow = -1;
             int p0 = -1, p1 = -1, p2 = -1;
@@ -65,11 +65,6 @@ namespace AdventOfCode.Year2021.Day01
             }
 
             return result.ToString();
-        }
-
-        public ImmutableList<int> ToInts(string input)
-        {
-            return input.Split('\n', StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToImmutableList();
         }
     }
 }
