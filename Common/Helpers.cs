@@ -6,12 +6,12 @@ namespace AdventOfCode.Common
     {
         public static ImmutableList<int> AsInts(string input)
         {
-            return input.Split('\n', StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToImmutableList();
+            return input.Trim().Split('\n').Select(s => int.Parse(s)).ToImmutableList();
         }
 
         public static ImmutableList<string> AsLines(string input)
         {
-            return input.Split('\n', StringSplitOptions.RemoveEmptyEntries).ToImmutableList();
+            return input.Trim().Split('\n').ToImmutableList();
         }
     }
 }

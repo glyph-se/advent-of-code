@@ -15,7 +15,7 @@ namespace AdventOfCode.Year2022.Day01
             int currentElf = 0;
             foreach (string current in calories)
             {
-                if (current == "#")
+                if (current == "")
                 {
                     elfCalories.Add(currentElf);
                     currentElf = 0;
@@ -40,7 +40,7 @@ namespace AdventOfCode.Year2022.Day01
             int currentElf = 0;
             foreach (string current in calories)
             {
-                if (current == "#")
+                if (current == "")
                 {
                     elfCalories.Add(currentElf);
                     currentElf = 0;

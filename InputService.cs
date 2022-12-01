@@ -5,11 +5,29 @@
 
         public static async Task<string?> GetInput(int year, int day)
         {
-            string? inputs = ReadFromConsole();
+            Console.WriteLine("Choose problem input:");
+            Console.WriteLine(" 1. Small sample data");
+            Console.WriteLine(" 2. Full / large data");
+            Console.WriteLine(" 3. Custom data");
+            Console.Write("> ");
 
-            if (inputs == null)
+            string? inputs;
+
+            string? choice = Console.ReadLine();
+
+            switch (choice)
             {
-                inputs = await ReadOrDownloadFileAsync(year, day);
+                case "1":
+                    inputs = await ReadOrInputFileAsync(year, day);
+                    break;
+                case "2":
+                    inputs = await ReadOrDownloadFileAsync(year, day);
+                    break;
+                case "3":
+                    inputs = ReadFromConsole();
+                    break;
+                default:
+                    return null;
             }
 
             Console.WriteLine();
@@ -23,18 +41,13 @@
 
         private static string? ReadFromConsole()
         {
-            Console.WriteLine("Type input or enter to use/download from web:");
+            Console.WriteLine("Type input (end with Ctrl+Z):");
             Console.Write("> ");
             IList<string> inputs = new List<string>();
             string? line;
 
             while ((line = Console.ReadLine()) != null)
             {
-                if (string.IsNullOrWhiteSpace(line))
-                {
-                    break;
-                }
-
                 inputs.Add(line);
             }
 
@@ -48,7 +61,7 @@
 
         private async static Task<string?> ReadOrDownloadFileAsync(int year, int day)
         {
-            string filePath = Environment.CurrentDirectory + "\\..\\..\\.." + $"\\Year{year}\\Day{day:D2}\\input";
+            string filePath = Environment.CurrentDirectory + "\\..\\..\\.." + $"\\Year{year}\\Day{day:D2}\\input_full";
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -71,6 +84,29 @@
                     await File.WriteAllBytesAsync(filePath, data);
                 }
 
+            }
+
+            string fileContents = await File.ReadAllTextAsync(filePath, System.Text.Encoding.UTF8);
+
+            return fileContents;
+        }
+
+        private async static Task<string?> ReadOrInputFileAsync(int year, int day)
+        {
+            string filePath = Environment.CurrentDirectory + "\\..\\..\\.." + $"\\Year{year}\\Day{day:D2}\\input_small";
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"Using file {filePath}");
+            Console.ResetColor();
+
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine($"File not found, please enter data...");
+
+                string? data = ReadFromConsole();
+
+                await File.WriteAllTextAsync(filePath, data);
             }
 
             string fileContents = await File.ReadAllTextAsync(filePath, System.Text.Encoding.UTF8);
