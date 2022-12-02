@@ -25,6 +25,10 @@ namespace AdventOfCode.Year2022.Day01
                     currentElf += int.Parse(current);
                 }
             }
+            if (currentElf > 0)
+            {
+                elfCalories.Add(currentElf);
+            }
 
             return elfCalories.Max().ToString();
         }
@@ -49,6 +53,10 @@ namespace AdventOfCode.Year2022.Day01
                 {
                     currentElf += int.Parse(current);
                 }
+            }
+            if (currentElf > 0)
+            {
+                elfCalories.Add(currentElf);
             }
 
             var sortedList = elfCalories.OrderDescending().ToArray();
