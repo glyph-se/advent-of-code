@@ -15,11 +15,13 @@
             this.MaxDistance = maxDistance;
         }
 
+#pragma warning disable CS8767
         public bool Equals(string x, string y)
         {
             int distance = _Levenshtein.iLD(x, y);
             return distance <= MaxDistance;
         }
+#pragma warning restore CS8767
 
         public int GetHashCode(string obj)
         {
