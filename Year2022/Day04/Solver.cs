@@ -10,7 +10,7 @@ namespace AdventOfCode.Year2022.Day04
 
             int score = 0;
 
-            IList<string> pairs = Helpers.AsLines(input);
+            IList<string> pairs = StringParsing.AsLines(input);
 
             foreach (string pair in pairs)
             {
@@ -39,7 +39,7 @@ namespace AdventOfCode.Year2022.Day04
 
             int score = 0;
 
-            IList<string> pairs = Helpers.AsLines(input);
+            IList<string> pairs = StringParsing.AsLines(input);
 
             foreach (string pair in pairs)
             {

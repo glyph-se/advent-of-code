@@ -8,7 +8,7 @@ namespace AdventOfCode.Year2021.Day01
         {
             await Task.Yield();
 
-            var numbers = Helpers.AsInts(input);
+            var numbers = StringParsing.AsInts(input);
 
             int prev = -1;
             int result = 0;
@@ -33,7 +33,7 @@ namespace AdventOfCode.Year2021.Day01
         {
             await Task.Yield();
 
-            var numbers = Helpers.AsInts(input);
+            var numbers = StringParsing.AsInts(input);
 
             int lastWindow = -1;
             int p0 = -1, p1 = -1, p2 = -1;

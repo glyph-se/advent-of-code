@@ -8,7 +8,7 @@ namespace AdventOfCode.Year2022.Day01
         {
             await Task.Yield();
 
-            var calories = Helpers.AsLines(input);
+            var calories = StringParsing.AsLines(input);
 
             List<int> elfCalories = new List<int>();
 
@@ -37,7 +37,7 @@ namespace AdventOfCode.Year2022.Day01
         {
             await Task.Yield();
 
-            var calories = Helpers.AsLines(input);
+            var calories = StringParsing.AsLines(input);
 
             List<int> elfCalories = new List<int>();
 

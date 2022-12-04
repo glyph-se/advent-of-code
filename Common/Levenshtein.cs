@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Year2022.Day03
+﻿namespace AdventOfCode.Common
 {
     public class Levenshtein
     {
@@ -6,7 +6,7 @@
         /// Compute Levenshtein distance 
         /// Memory efficient version
         ///*****************************
-        public int iLD(String sRow, String sCol)
+        public int iLD(string sRow, string sCol)
         {
             int RowLen = sRow.Length;  // length of sRow
             int ColLen = sCol.Length;  // length of sCol
@@ -18,7 +18,7 @@
 
             /// Test string length
             if (Math.Max(sRow.Length, sCol.Length) > Math.Pow(2, 31))
-                throw (new Exception("\nMaximum string length in Levenshtein.iLD is " + Math.Pow(2, 31) + ".\nYours is " + Math.Max(sRow.Length, sCol.Length) + "."));
+                throw new Exception("\nMaximum string length in Levenshtein.iLD is " + Math.Pow(2, 31) + ".\nYours is " + Math.Max(sRow.Length, sCol.Length) + ".");
 
             // Step 1
 
@@ -111,8 +111,8 @@
             /// The vectors where swaped one last time at the end of the last loop,
             /// that is why the result is now in v0 rather than in v1
             //System.Console.WriteLine("iDist=" + v0[RowLen]);
-            int max = System.Math.Max(RowLen, ColLen);
-            return ((100 * v0[RowLen]) / max);
+            int max = Math.Max(RowLen, ColLen);
+            return 100 * v0[RowLen] / max;
         }
 
 
@@ -143,7 +143,7 @@
         /// Compute Levenshtein distance         
         ///*****************************
 
-        public int LD(String sNew, String sOld)
+        public int LD(string sNew, string sOld)
         {
             int[,] matrix;              // matrix
             int sNewLen = sNew.Length;  // length of sNew
@@ -156,7 +156,7 @@
 
             /// Test string length
             if (Math.Max(sNew.Length, sOld.Length) > Math.Pow(2, 31))
-                throw (new Exception("\nMaximum string length in Levenshtein.LD is " + Math.Pow(2, 31) + ".\nYours is " + Math.Max(sNew.Length, sOld.Length) + "."));
+                throw new Exception("\nMaximum string length in Levenshtein.LD is " + Math.Pow(2, 31) + ".\nYours is " + Math.Max(sNew.Length, sOld.Length) + ".");
 
             // Step 1
 
@@ -218,9 +218,9 @@
 
             /// Value between 0 - 100
             /// 0==perfect match 100==totaly different
-            System.Console.WriteLine("Dist=" + matrix[sNewLen, sOldLen]);
-            int max = System.Math.Max(sNewLen, sOldLen);
-            return (100 * matrix[sNewLen, sOldLen]) / max;
+            Console.WriteLine("Dist=" + matrix[sNewLen, sOldLen]);
+            int max = Math.Max(sNewLen, sOldLen);
+            return 100 * matrix[sNewLen, sOldLen] / max;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace AdventOfCode.Year2021.Day02
         {
             await Task.Yield();
 
-            var lines = Helpers.AsLines(input);
+            var lines = StringParsing.AsLines(input);
 
             int forwardPos = 0;
             int heightPos = 0;
@@ -42,7 +42,7 @@ namespace AdventOfCode.Year2021.Day02
 
             await Task.Yield();
 
-            var lines = Helpers.AsLines(input);
+            var lines = StringParsing.AsLines(input);
 
             int forwardPos = 0;
             int heightPos = 0;

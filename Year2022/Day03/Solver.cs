@@ -10,7 +10,7 @@ namespace AdventOfCode.Year2022.Day03
 
             long score = 0;
 
-            foreach (string rucksack in Helpers.AsLines(input))
+            foreach (string rucksack in StringParsing.AsLines(input))
             {
                 string part1 = rucksack.Substring(0, rucksack.Length / 2);
                 string part2 = rucksack.Substring(rucksack.Length / 2);
@@ -37,7 +37,7 @@ namespace AdventOfCode.Year2022.Day03
 
             long score = 0;
 
-            var rucksacks = Helpers.AsLines(input).ToArray();
+            var rucksacks = StringParsing.AsLines(input).ToArray();
 
             for (int i = 0; i < rucksacks.Length; i = i + 3)
             {

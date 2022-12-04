@@ -8,7 +8,7 @@ namespace AdventOfCode.Year2022.Day02
         {
             await Task.Yield();
 
-            var games = Helpers.AsLines(input);
+            var games = StringParsing.AsLines(input);
 
             int score = 0;
 
@@ -54,7 +54,7 @@ namespace AdventOfCode.Year2022.Day02
         {
             await Task.Yield();
 
-            var games = Helpers.AsLines(input);
+            var games = StringParsing.AsLines(input);
 
             int score = 0;
 

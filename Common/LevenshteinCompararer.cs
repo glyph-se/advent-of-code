@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Year2022.Day03
+﻿namespace AdventOfCode.Common
 {
     /// <summary>
     /// Taken from https://stackoverflow.com/a/17055215
@@ -12,7 +12,7 @@
 
         public LevenshteinComparer(int maxDistance)
         {
-            this.MaxDistance = maxDistance;
+            MaxDistance = maxDistance;
         }
 
 #pragma warning disable CS8767

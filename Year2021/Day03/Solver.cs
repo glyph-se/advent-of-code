@@ -8,7 +8,7 @@ namespace AdventOfCode.Year2021.Day03
         {
             await Task.Yield();
 
-            string first = Helpers.AsLines(input).First();
+            string first = StringParsing.AsLines(input).First();
 
             string gammaRate = "";
             string epsilonRate = "";
@@ -18,7 +18,7 @@ namespace AdventOfCode.Year2021.Day03
                 int bit0 = 0;
                 int bit1 = 0;
 
-                foreach (var bits in Helpers.AsLines(input))
+                foreach (var bits in StringParsing.AsLines(input))
                 {
                     if (bits[i] == '0')
                     {
@@ -51,7 +51,7 @@ namespace AdventOfCode.Year2021.Day03
         {
             await Task.Yield();
 
-            IEnumerable<string> lines = Helpers.AsLines(input);
+            IEnumerable<string> lines = StringParsing.AsLines(input);
             string first = lines.First();
 
             string oxygen = "";
@@ -78,7 +78,7 @@ namespace AdventOfCode.Year2021.Day03
                 }
             }
 
-            lines = Helpers.AsLines(input);
+            lines = StringParsing.AsLines(input);
 
             for (int i = 0; i < first.Length; i++)
             {
