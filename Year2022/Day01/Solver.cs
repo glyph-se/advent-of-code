@@ -8,26 +8,14 @@ namespace AdventOfCode.Year2022.Day01
         {
             await Task.Yield();
 
-            var calories = StringParsing.AsLines(input);
+            var elfs = StringParsing.AsLineBlocks(input);
 
             List<int> elfCalories = new List<int>();
 
-            int currentElf = 0;
-            foreach (string current in calories)
+            foreach (string elf in elfs)
             {
-                if (current == "")
-                {
-                    elfCalories.Add(currentElf);
-                    currentElf = 0;
-                }
-                else
-                {
-                    currentElf += int.Parse(current);
-                }
-            }
-            if (currentElf > 0)
-            {
-                elfCalories.Add(currentElf);
+                var calories = StringParsing.AsInts(elf);
+                elfCalories.Add(calories.Sum());
             }
 
             return elfCalories.Max().ToString();
@@ -37,26 +25,14 @@ namespace AdventOfCode.Year2022.Day01
         {
             await Task.Yield();
 
-            var calories = StringParsing.AsLines(input);
+            var elfs = StringParsing.AsLineBlocks(input);
 
             List<int> elfCalories = new List<int>();
 
-            int currentElf = 0;
-            foreach (string current in calories)
+            foreach (string elf in elfs)
             {
-                if (current == "")
-                {
-                    elfCalories.Add(currentElf);
-                    currentElf = 0;
-                }
-                else
-                {
-                    currentElf += int.Parse(current);
-                }
-            }
-            if (currentElf > 0)
-            {
-                elfCalories.Add(currentElf);
+                var calories = StringParsing.AsInts(elf);
+                elfCalories.Add(calories.Sum());
             }
 
             var sortedList = elfCalories.OrderDescending().ToArray();

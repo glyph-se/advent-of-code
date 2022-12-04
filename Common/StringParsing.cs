@@ -19,7 +19,7 @@ namespace AdventOfCode.Common
             return input.Trim().Split('\n').ToImmutableList();
         }
 
-        public static ImmutableList<string> AsBlocks(string input)
+        public static ImmutableList<string> AsLineBlocks(string input)
         {
             return input.Trim().Split("\n" + "\n").ToImmutableList();
         }
