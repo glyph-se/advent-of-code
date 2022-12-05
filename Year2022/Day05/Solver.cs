@@ -93,18 +93,5 @@ namespace AdventOfCode.Year2022.Day05
 
             return result.ToString();
         }
-
-        private class Elf
-        {
-            public int start;
-            public int end;
-
-            public Elf(string assignment)
-            {
-                var split = assignment.Split("-");
-                start = int.Parse(split[0]);
-                end = int.Parse(split[1]);
-            }
-        }
     }
 }
