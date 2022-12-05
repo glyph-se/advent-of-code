@@ -3,7 +3,7 @@
     internal class Program
     {
         static readonly int YEAR = 2022;
-        static readonly int DAY = 4;
+        static readonly int DAY = 5;
 
         public static async Task Main(string[] args)
         {
