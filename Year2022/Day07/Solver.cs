@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Skeleton
+﻿namespace AdventOfCode.Year2022.Day07
 {
     internal class Solver : ISolver
     {
