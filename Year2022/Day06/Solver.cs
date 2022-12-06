@@ -6,7 +6,30 @@
         {
             await Task.Yield();
 
+            List<char> last4 = new List<char>();
+
             int result = 0;
+            foreach (char c in input)
+            {
+                if (!Char.IsAsciiLetter(c))
+                {
+                    continue;
+                }
+
+                result++;
+
+                if (last4.Count == 4)
+                {
+                    last4.RemoveAt(0);
+                }
+
+                last4.Add(c);
+
+                if (last4.Distinct().Count() == 4)
+                {
+                    break;
+                }
+            }
 
             return result.ToString();
         }
@@ -15,7 +38,30 @@
         {
             await Task.Yield();
 
+            List<char> last4 = new List<char>();
+
             int result = 0;
+            foreach (char c in input)
+            {
+                if (!Char.IsAsciiLetter(c))
+                {
+                    continue;
+                }
+
+                result++;
+
+                if (last4.Count == 14)
+                {
+                    last4.RemoveAt(0);
+                }
+
+                last4.Add(c);
+
+                if (last4.Distinct().Count() == 14)
+                {
+                    break;
+                }
+            }
 
             return result.ToString();
         }
