@@ -27,5 +27,32 @@
                    group col.Value by col.Key into c
                    select c as IEnumerable<T>;
         }
+
+        /// <summary>
+        /// Generate all permutations of elemenets in a list.
+        /// </summary>
+        /// <remarks>
+        /// Taken from https://codereview.stackexchange.com/a/226816
+        /// </remarks>
+        public static IEnumerable<T[]> Permutate<T>(this IEnumerable<T> source)
+        {
+            return permutate(source, Enumerable.Empty<T>());
+            IEnumerable<T[]> permutate(IEnumerable<T> reminder, IEnumerable<T> prefix) =>
+                !reminder.Any() ? new[] { prefix.ToArray() } :
+                reminder.SelectMany((c, i) => permutate(
+                    reminder.Take(i).Concat(reminder.Skip(i + 1)).ToArray(),
+                    prefix.Append(c)));
+        }
+
+        /// <summary>
+        /// Generates all combinations of the input
+        /// </summary>
+        /// <remarks>Taken from https://stackoverflow.com/a/33336576</remarks>
+        public static IEnumerable<IEnumerable<T>> DifferentCombinations<T>(this IEnumerable<T> elements, int k)
+        {
+            return k == 0 ? new[] { new T[0] } :
+              elements.SelectMany((e, i) =>
+                elements.Skip(i + 1).DifferentCombinations(k - 1).Select(c => (new[] { e }).Concat(c)));
+        }
     }
 }
