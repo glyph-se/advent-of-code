@@ -8,9 +8,6 @@ namespace AdventOfCode.Year2022.Day07
         {
             await Task.Yield();
 
-            int result = 0;
-
-            DiskDir currentDir = null;
             List<DiskDir> allDirs = new();
             List<DiskDir> breadCrumb = new();
 
@@ -24,7 +21,7 @@ namespace AdventOfCode.Year2022.Day07
 
                 if (line.StartsWith("$ cd "))
                 {
-                    currentDir = new DiskDir(line.Split(' ')[2]);
+                    DiskDir currentDir = new DiskDir(line.Split(' ')[2]);
 
                     allDirs.Add(currentDir);
                     breadCrumb.Add(currentDir);
@@ -50,6 +47,8 @@ namespace AdventOfCode.Year2022.Day07
                 }
             }
 
+            int result = 0;
+
             foreach (DiskDir d in allDirs)
             {
                 if (d.Size <= 100000)
@@ -66,9 +65,6 @@ namespace AdventOfCode.Year2022.Day07
         {
             await Task.Yield();
 
-            int result = 0;
-
-            DiskDir currentDir = new DiskDir("/");
             List<DiskDir> allDirs = new();
             List<DiskDir> breadCrumb = new();
 
@@ -82,7 +78,7 @@ namespace AdventOfCode.Year2022.Day07
 
                 if (line.StartsWith("$ cd "))
                 {
-                    currentDir = new DiskDir(line.Split(' ')[2]);
+                    DiskDir currentDir = new DiskDir(line.Split(' ')[2]);
 
                     allDirs.Add(currentDir);
                     breadCrumb.Add(currentDir);
