@@ -8,19 +8,11 @@ namespace AdventOfCode.Year2022.Day09
         {
             await Task.Yield();
 
-            Position head = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
-            Position tail = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
+            Position head = new Position(0, 0);
+            Position tail = new Position(0, 0);
 
             HashSet<Position> tailVisited = new HashSet<Position>();
-            tailVisited.Add(new Position() { x = 0, y = 0 });
+            tailVisited.Add(new Position(0, 0));
 
             foreach (string line in StringParsing.AsLines(input))
             {
@@ -34,16 +26,16 @@ namespace AdventOfCode.Year2022.Day09
                         for (int i = 1; i <= amount; i++)
                         {
                             head.y += 1;
-                            MoveTailOnce(head, tail, tailVisited);
-                            tailVisited.Add(new Position() { x = tail.x, y = tail.y });
+                            MoveTailOnce(head, tail);
+                            tailVisited.Add(new Position(tail.x, tail.y));
                         }
                         break;
                     case "D":
                         for (int i = 1; i <= amount; i++)
                         {
                             head.y -= 1;
-                            MoveTailOnce(head, tail, tailVisited);
-                            tailVisited.Add(new Position() { x = tail.x, y = tail.y });
+                            MoveTailOnce(head, tail);
+                            tailVisited.Add(new Position(tail.x, tail.y));
                         }
                         break;
                     case "R":
@@ -51,8 +43,8 @@ namespace AdventOfCode.Year2022.Day09
                         for (int i = 1; i <= amount; i++)
                         {
                             head.x += 1;
-                            MoveTailOnce(head, tail, tailVisited);
-                            tailVisited.Add(new Position() { x = tail.x, y = tail.y });
+                            MoveTailOnce(head, tail);
+                            tailVisited.Add(new Position(tail.x, tail.y));
                         }
                         break;
                     case "L":
@@ -60,12 +52,12 @@ namespace AdventOfCode.Year2022.Day09
                         for (int i = 1; i <= amount; i++)
                         {
                             head.x -= 1;
-                            MoveTailOnce(head, tail, tailVisited);
-                            tailVisited.Add(new Position() { x = tail.x, y = tail.y });
+                            MoveTailOnce(head, tail);
+                            tailVisited.Add(new Position(tail.x, tail.y));
                         }
                         break;
                 }
-                Console.WriteLine("----------------");
+                // Console.WriteLine("----------------");
             }
 
             int result = tailVisited.Count;
@@ -73,7 +65,7 @@ namespace AdventOfCode.Year2022.Day09
             return result.ToString();
         }
 
-        private static void MoveTailOnce(Position head, Position tail, HashSet<Position> tailVisited)
+        private static void MoveTailOnce(Position head, Position tail)
         {
             if (tail.x == head.x && tail.y == head.y)
             {
@@ -131,59 +123,19 @@ namespace AdventOfCode.Year2022.Day09
             await Task.Yield();
 
 
-            Position head = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
-            Position tail1 = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
-            Position tail2 = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
-            Position tail3 = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
-            Position tail4 = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
-            Position tail5 = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
-            Position tail6 = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
-            Position tail7 = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
-            Position tail8 = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
-            Position tail9 = new Position()
-            {
-                x = 0,
-                y = 0,
-            };
+            Position head = new Position(0, 0);
+            Position tail1 = new Position(0, 0);
+            Position tail2 = new Position(0, 0);
+            Position tail3 = new Position(0, 0);
+            Position tail4 = new Position(0, 0);
+            Position tail5 = new Position(0, 0);
+            Position tail6 = new Position(0, 0);
+            Position tail7 = new Position(0, 0);
+            Position tail8 = new Position(0, 0);
+            Position tail9 = new Position(0, 0);
 
             HashSet<Position> tailVisited = new HashSet<Position>();
-            tailVisited.Add(new Position() { x = tail9.x, y = tail9.y });
+            tailVisited.Add(new Position(tail9.x, tail9.y));
 
             foreach (string line in StringParsing.AsLines(input))
             {
@@ -197,32 +149,32 @@ namespace AdventOfCode.Year2022.Day09
                         for (int i = 1; i <= amount; i++)
                         {
                             head.y += 1;
-                            MoveTailOnce(head, tail1, tailVisited);
-                            MoveTailOnce(tail1, tail2, tailVisited);
-                            MoveTailOnce(tail2, tail3, tailVisited);
-                            MoveTailOnce(tail3, tail4, tailVisited);
-                            MoveTailOnce(tail4, tail5, tailVisited);
-                            MoveTailOnce(tail5, tail6, tailVisited);
-                            MoveTailOnce(tail6, tail7, tailVisited);
-                            MoveTailOnce(tail7, tail8, tailVisited);
-                            MoveTailOnce(tail8, tail9, tailVisited);
-                            tailVisited.Add(new Position() { x = tail9.x, y = tail9.y });
+                            MoveTailOnce(head, tail1);
+                            MoveTailOnce(tail1, tail2);
+                            MoveTailOnce(tail2, tail3);
+                            MoveTailOnce(tail3, tail4);
+                            MoveTailOnce(tail4, tail5);
+                            MoveTailOnce(tail5, tail6);
+                            MoveTailOnce(tail6, tail7);
+                            MoveTailOnce(tail7, tail8);
+                            MoveTailOnce(tail8, tail9);
+                            tailVisited.Add(new Position(tail9.x, tail9.y));
                         }
                         break;
                     case "D":
                         for (int i = 1; i <= amount; i++)
                         {
                             head.y -= 1;
-                            MoveTailOnce(head, tail1, tailVisited);
-                            MoveTailOnce(tail1, tail2, tailVisited);
-                            MoveTailOnce(tail2, tail3, tailVisited);
-                            MoveTailOnce(tail3, tail4, tailVisited);
-                            MoveTailOnce(tail4, tail5, tailVisited);
-                            MoveTailOnce(tail5, tail6, tailVisited);
-                            MoveTailOnce(tail6, tail7, tailVisited);
-                            MoveTailOnce(tail7, tail8, tailVisited);
-                            MoveTailOnce(tail8, tail9, tailVisited);
-                            tailVisited.Add(new Position() { x = tail9.x, y = tail9.y });
+                            MoveTailOnce(head, tail1);
+                            MoveTailOnce(tail1, tail2);
+                            MoveTailOnce(tail2, tail3);
+                            MoveTailOnce(tail3, tail4);
+                            MoveTailOnce(tail4, tail5);
+                            MoveTailOnce(tail5, tail6);
+                            MoveTailOnce(tail6, tail7);
+                            MoveTailOnce(tail7, tail8);
+                            MoveTailOnce(tail8, tail9);
+                            tailVisited.Add(new Position(tail9.x, tail9.y));
                         }
                         break;
                     case "R":
@@ -230,16 +182,16 @@ namespace AdventOfCode.Year2022.Day09
                         for (int i = 1; i <= amount; i++)
                         {
                             head.x += 1;
-                            MoveTailOnce(head, tail1, tailVisited);
-                            MoveTailOnce(tail1, tail2, tailVisited);
-                            MoveTailOnce(tail2, tail3, tailVisited);
-                            MoveTailOnce(tail3, tail4, tailVisited);
-                            MoveTailOnce(tail4, tail5, tailVisited);
-                            MoveTailOnce(tail5, tail6, tailVisited);
-                            MoveTailOnce(tail6, tail7, tailVisited);
-                            MoveTailOnce(tail7, tail8, tailVisited);
-                            MoveTailOnce(tail8, tail9, tailVisited);
-                            tailVisited.Add(new Position() { x = tail9.x, y = tail9.y });
+                            MoveTailOnce(head, tail1);
+                            MoveTailOnce(tail1, tail2);
+                            MoveTailOnce(tail2, tail3);
+                            MoveTailOnce(tail3, tail4);
+                            MoveTailOnce(tail4, tail5);
+                            MoveTailOnce(tail5, tail6);
+                            MoveTailOnce(tail6, tail7);
+                            MoveTailOnce(tail7, tail8);
+                            MoveTailOnce(tail8, tail9);
+                            tailVisited.Add(new Position(tail9.x, tail9.y));
                         }
                         break;
                     case "L":
@@ -247,16 +199,16 @@ namespace AdventOfCode.Year2022.Day09
                         for (int i = 1; i <= amount; i++)
                         {
                             head.x -= 1;
-                            MoveTailOnce(head, tail1, tailVisited);
-                            MoveTailOnce(tail1, tail2, tailVisited);
-                            MoveTailOnce(tail2, tail3, tailVisited);
-                            MoveTailOnce(tail3, tail4, tailVisited);
-                            MoveTailOnce(tail4, tail5, tailVisited);
-                            MoveTailOnce(tail5, tail6, tailVisited);
-                            MoveTailOnce(tail6, tail7, tailVisited);
-                            MoveTailOnce(tail7, tail8, tailVisited);
-                            MoveTailOnce(tail8, tail9, tailVisited);
-                            tailVisited.Add(new Position() { x = tail9.x, y = tail9.y });
+                            MoveTailOnce(head, tail1);
+                            MoveTailOnce(tail1, tail2);
+                            MoveTailOnce(tail2, tail3);
+                            MoveTailOnce(tail3, tail4);
+                            MoveTailOnce(tail4, tail5);
+                            MoveTailOnce(tail5, tail6);
+                            MoveTailOnce(tail6, tail7);
+                            MoveTailOnce(tail7, tail8);
+                            MoveTailOnce(tail8, tail9);
+                            tailVisited.Add(new Position(tail9.x, tail9.y));
                         }
                         break;
                 }
@@ -272,6 +224,12 @@ namespace AdventOfCode.Year2022.Day09
         {
             public int x;
             public int y;
+
+            public Position(int x, int y)
+            {
+                this.x = x;
+                this.y = y;
+            }
 
             public override bool Equals(object? obj)
             {
