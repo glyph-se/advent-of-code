@@ -44,6 +44,9 @@ namespace AdventOfCode.Year2022.Day05
                 result += c.FirstOrDefault();
             }
 
+            // Skip first null - byte
+            result = result.Substring(1);
+
             return result.ToString();
         }
 
@@ -90,6 +93,9 @@ namespace AdventOfCode.Year2022.Day05
             {
                 result += c.FirstOrDefault();
             }
+
+            // Skip first null - byte
+            result = result.Substring(1);
 
             return result.ToString();
         }

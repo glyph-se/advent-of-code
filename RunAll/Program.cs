@@ -69,7 +69,7 @@ namespace RunAll
 
                 if (File.Exists(partTwoAnswer))
                 {
-                    Console.Write("Part one: ");
+                    Console.Write("Part two: ");
 
                     string expected = File.ReadAllText(partTwoAnswer);
                     string actual = await solver.PartTwo(input);
@@ -83,6 +83,8 @@ namespace RunAll
                         Console.Write("FAIL");
                     }
                 }
+
+                Console.Write("  ");
             }
         }
     }
