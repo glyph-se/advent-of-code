@@ -7,8 +7,8 @@
         public static async Task<string?> GetInput(int year, int day)
         {
             Console.WriteLine("Choose problem input:");
-            Console.WriteLine(" 1. Small sample data");
-            Console.WriteLine(" 2. Full / large data");
+            Console.WriteLine(" 1. Example 1 data");
+            Console.WriteLine(" 2. Full data");
             Console.WriteLine(" 3. Custom data");
             Console.Write("> ");
 
@@ -63,7 +63,7 @@
         private async static Task<string?> ReadOrDownloadFileAsync(int year, int day)
         {
 
-            string filePath = BaseDirectory + $"Year{year}\\Day{day:D2}\\input_full";
+            string filePath = BaseDirectory + $"Year{year}\\Day{day:D2}\\full_input";
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -95,7 +95,7 @@
 
         private async static Task<string?> ReadOrInputFileAsync(int year, int day)
         {
-            string filePath = BaseDirectory + $"Year{year}\\Day{day:D2}\\input_small";
+            string filePath = BaseDirectory + $"Year{year}\\Day{day:D2}\\example1_input";
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkGray;
