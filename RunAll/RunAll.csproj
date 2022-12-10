@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,9 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="RunAll\**" />
-    <EmbeddedResource Remove="RunAll\**" />
-    <None Remove="RunAll\**" />
+    <ProjectReference Include="..\AdventOfCode.csproj" />
   </ItemGroup>
 
 </Project>

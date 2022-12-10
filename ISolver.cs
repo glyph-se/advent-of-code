@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode
 {
-    internal interface ISolver
+    public interface ISolver
     {
         Task<string> PartOne(string input);
 
