@@ -2,8 +2,6 @@
 {
     internal static class InputService
     {
-        private static readonly string BaseDirectory = Environment.CurrentDirectory + "\\..\\..\\..\\";
-
         public static async Task<string?> GetInput(int year, int day)
         {
             Console.WriteLine("Choose problem input:");
@@ -63,7 +61,7 @@
         private async static Task<string?> ReadOrDownloadFileAsync(int year, int day)
         {
 
-            string filePath = BaseDirectory + $"Year{year}\\Day{day:D2}\\full_input";
+            string filePath = InputConstants.FullInputPath(year, day);
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -79,7 +77,7 @@
                 using (var handler = new HttpClientHandler())
                 using (var client = new HttpClient(handler))
                 {
-                    string auth = File.ReadAllText(BaseDirectory + ".sessionauth");
+                    string auth = File.ReadAllText(InputConstants.BaseDirectory + ".sessionauth");
                     client.DefaultRequestHeaders.Add("Cookie", "session=" + auth);
                     byte[] data = await client.GetByteArrayAsync(uri);
 
@@ -95,7 +93,7 @@
 
         private async static Task<string?> ReadOrInputFileAsync(int year, int day)
         {
-            string filePath = BaseDirectory + $"Year{year}\\Day{day:D2}\\example1_input";
+            string filePath = InputConstants.Example1InputPath(year, day);
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkGray;
