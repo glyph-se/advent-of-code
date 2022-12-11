@@ -70,6 +70,7 @@ namespace AdventOfCode.Year2022.Day11
                     m.items.Clear();
                 }
 
+                /*
                 Console.WriteLine($"Round {round}");
                 foreach (Monkey m in monkeys)
                 {
@@ -77,6 +78,7 @@ namespace AdventOfCode.Year2022.Day11
                     Console.Write(string.Join(",", m.items));
                     Console.WriteLine();
                 }
+                */
             }
 
             var sorted = monkeys.OrderByDescending(m => m.inspectionCount).ToList();
@@ -156,6 +158,7 @@ namespace AdventOfCode.Year2022.Day11
                     m.items.Clear();
                 }
 
+                /*
                 if (round == 1)
                 {
                     Console.WriteLine("Round " + round);
@@ -186,6 +189,7 @@ namespace AdventOfCode.Year2022.Day11
                     Console.WriteLine(monkeys[3].inspectionCount);
                     Console.WriteLine();
                 }
+                */
             }
 
             var sorted = monkeys.OrderByDescending(m => m.inspectionCount).ToList();
