@@ -34,11 +34,11 @@ namespace AdventOfCode.Year2022.Day11
                 }
                 else if (lines[2].Contains("*"))
                 {
-                    m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last().ToString()));
+                    m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last()));
                 }
                 else if (lines[2].Contains("+"))
                 {
-                    m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last().ToString()));
+                    m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last()));
                 }
 
                 m.test = long.Parse(lines[3].Split(" ").Last());
@@ -120,11 +120,11 @@ namespace AdventOfCode.Year2022.Day11
                 }
                 else if (lines[2].Contains("*"))
                 {
-                    m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last().ToString()));
+                    m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last()));
                 }
                 else if (lines[2].Contains("+"))
                 {
-                    m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last().ToString()));
+                    m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last()));
                 }
 
                 m.test = long.Parse(lines[3].Split(" ").Last());
