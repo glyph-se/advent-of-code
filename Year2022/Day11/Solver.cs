@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using AdventOfCode.Common;
+﻿using AdventOfCode.Common;
 
 namespace AdventOfCode.Year2022.Day11
 {
@@ -9,7 +8,7 @@ namespace AdventOfCode.Year2022.Day11
         {
             await Task.Yield();
 
-            ulong result = 0;
+            long result = 0;
 
             List<Monkey> monkeys = new();
 
@@ -27,22 +26,22 @@ namespace AdventOfCode.Year2022.Day11
                     .Split(":", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
                     .Last()
                     .Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                    .Select(s => BigInteger.Parse(s))
+                    .Select(s => long.Parse(s))
                     .ToList();
                 if (lines[2] == "Operation: new = old * old")
                 {
-                    m.operation = new Func<BigInteger, BigInteger>(i => i * i);
+                    m.operation = new Func<long, long>(i => i * i);
                 }
                 else if (lines[2].Contains("*"))
                 {
-                    m.operation = new Func<BigInteger, BigInteger>(i => i * BigInteger.Parse(lines[2].Split(" ").Last().ToString()));
+                    m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last().ToString()));
                 }
                 else if (lines[2].Contains("+"))
                 {
-                    m.operation = new Func<BigInteger, BigInteger>(i => i + BigInteger.Parse(lines[2].Split(" ").Last().ToString()));
+                    m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last().ToString()));
                 }
 
-                m.test = BigInteger.Parse(lines[3].Split(" ").Last());
+                m.test = long.Parse(lines[3].Split(" ").Last());
                 m.trueTarget = int.Parse(lines[4].Split(" ").Last());
                 m.falseTarget = int.Parse(lines[5].Split(" ").Last());
 
@@ -53,9 +52,9 @@ namespace AdventOfCode.Year2022.Day11
             {
                 foreach (Monkey m in monkeys)
                 {
-                    foreach (BigInteger item in m.items)
+                    foreach (long item in m.items)
                     {
-                        BigInteger worryLevel = m.operation(item);
+                        long worryLevel = m.operation(item);
                         worryLevel = worryLevel / 3;
 
                         if (worryLevel % m.test == 0)
@@ -91,9 +90,9 @@ namespace AdventOfCode.Year2022.Day11
         {
             await Task.Yield();
 
-            ulong result = 0;
+            long result = 0;
 
-            BigInteger magic_mod = 1;
+            long magicMod = 1;
 
             List<Monkey> monkeys = new();
 
@@ -111,26 +110,26 @@ namespace AdventOfCode.Year2022.Day11
                     .Split(":", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
                     .Last()
                     .Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                    .Select(s => BigInteger.Parse(s))
+                    .Select(s => long.Parse(s))
                     .ToList();
                 if (lines[2] == "Operation: new = old * old")
                 {
-                    m.operation = new Func<BigInteger, BigInteger>(i => i * i);
+                    m.operation = new Func<long, long>(i => i * i);
                 }
                 else if (lines[2].Contains("*"))
                 {
-                    m.operation = new Func<BigInteger, BigInteger>(i => i * BigInteger.Parse(lines[2].Split(" ").Last().ToString()));
+                    m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last().ToString()));
                 }
                 else if (lines[2].Contains("+"))
                 {
-                    m.operation = new Func<BigInteger, BigInteger>(i => i + BigInteger.Parse(lines[2].Split(" ").Last().ToString()));
+                    m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last().ToString()));
                 }
 
-                m.test = BigInteger.Parse(lines[3].Split(" ").Last());
+                m.test = long.Parse(lines[3].Split(" ").Last());
                 m.trueTarget = int.Parse(lines[4].Split(" ").Last());
                 m.falseTarget = int.Parse(lines[5].Split(" ").Last());
 
-                magic_mod = magic_mod * m.test;
+                magicMod = magicMod * m.test;
 
                 monkeys.Add(m);
             }
@@ -139,10 +138,10 @@ namespace AdventOfCode.Year2022.Day11
             {
                 foreach (Monkey m in monkeys)
                 {
-                    foreach (BigInteger item in m.items)
+                    foreach (long item in m.items)
                     {
-                        BigInteger worryLevel = m.operation(item);
-                        worryLevel = worryLevel % magic_mod;
+                        long worryLevel = m.operation(item);
+                        worryLevel = worryLevel % magicMod;
 
                         if (worryLevel % m.test == 0)
                         {
@@ -199,12 +198,12 @@ namespace AdventOfCode.Year2022.Day11
         public class Monkey
         {
             public int number = 0;
-            public List<BigInteger> items = new();
-            public BigInteger test;
+            public List<long> items = new();
+            public long test;
             public int trueTarget = 0;
             public int falseTarget = 0;
-            public Func<BigInteger, BigInteger> operation = new Func<BigInteger, BigInteger>(i => i);
-            public ulong inspectionCount = 0;
+            public Func<long, long> operation = new Func<long, long>(i => i);
+            public long inspectionCount = 0;
 
         }
 
