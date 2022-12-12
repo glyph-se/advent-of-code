@@ -1,6 +1,6 @@
 ﻿using AdventOfCode.Common;
 
-namespace AdventOfCode.Year2022.Day912
+namespace AdventOfCode.Year2022.Day12
 {
     internal class Solver : ISolver
     {
@@ -26,41 +26,33 @@ namespace AdventOfCode.Year2022.Day912
             return result.ToString();
         }
 
+        private static Node CreateNode(char c, int row, int col)
+        {
+            Node node = new Node()
+            {
+                elevation = c,
+                col = col,
+                row = row,
+            };
+
+            if (c == 'S')
+            {
+                node.isStart = true;
+                node.elevation = 'a';
+            }
+
+            if (c == 'E')
+            {
+                node.isEnd = true;
+                node.elevation = 'z';
+            }
+
+            return node;
+        }
+
         private static Node[,] BuildGrid(string input)
         {
-            var lines = input.AsLines();
-
-            Node[,] nodes = new Node[lines.Count, lines[0].Length];
-
-            for (int row = 0; row < lines.Count; row++)
-            {
-                string line = lines[row];
-                for (int col = 0; col < line.Length; col++)
-                {
-                    char c = line[col];
-
-                    Node node = new Node()
-                    {
-                        elevation = c,
-                        col = col,
-                        row = row,
-                    };
-
-                    nodes[row, col] = node;
-
-                    if (c == 'S')
-                    {
-                        node.isStart = true;
-                        node.elevation = 'a';
-                    }
-
-                    if (c == 'E')
-                    {
-                        node.isEnd = true;
-                        node.elevation = 'z';
-                    }
-                }
-            }
+            var nodes = input.AsGrid<Node>((c, row, col) => CreateNode(c, row, col));
 
 
             for (int row = 0; row < nodes.GetLength(0); row++)
