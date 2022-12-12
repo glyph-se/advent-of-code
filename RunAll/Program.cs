@@ -20,7 +20,7 @@ namespace RunAll
             {
                 string[] namespaces = solver
                     .GetType()
-                    .Namespace
+                    .Namespace!
                     .Split('.');
 
                 int year = int.Parse(namespaces[1].Substring(4));
