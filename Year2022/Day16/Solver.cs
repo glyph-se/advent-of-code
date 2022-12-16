@@ -6,9 +6,9 @@ namespace AdventOfCode.Year2022.Day16
     internal class Solver : ISolver
     {
         /// <summary>
-        /// Old solution that only worked for part1
+        /// Old solution that only worked for part1, to slow for part2
         /// </summary>
-        public static int Flow3(Node current, int totalMinutes)
+        public static int FlowSlow(Node current, int totalMinutes)
         {
             List<Flow3_PathWithP> paths = new();
             paths.Add(new Flow3_PathWithP(current, new HashSet<Node>(), 0));
@@ -55,7 +55,7 @@ namespace AdventOfCode.Year2022.Day16
             return paths.Max(p => p.preassureReleased);
         }
 
-        public static int Flow6(Node start, int totalMinutes)
+        public static int FlowJustMe(Node start, int totalMinutes)
         {
             Queue<(int time, Node location, int preassure, HashSet<Node> opened)> paths = new();
             int maxPreassure = 0;
@@ -100,7 +100,7 @@ namespace AdventOfCode.Year2022.Day16
             return maxPreassure;
         }
 
-        public static int Flow7(Node start, int totalMinutes)
+        public static int FlowWithElephant(Node start, int totalMinutes)
         {
             Queue<(int time, Node location, Node elefant, int preassure, HashSet<Node> opened)> paths = new();
             int maxPreassure = 0;
@@ -181,7 +181,7 @@ namespace AdventOfCode.Year2022.Day16
             Node start = nodes.Single(n => n.name == "AA");
 
 
-            return Flow6(start, 30).ToString();
+            return FlowJustMe(start, 30).ToString();
         }
 
         public async Task<string> PartTwo(string input)
@@ -192,7 +192,7 @@ namespace AdventOfCode.Year2022.Day16
 
             Node start = nodes.Single(n => n.name == "AA");
 
-            return Flow7(start, 26).ToString();
+            return FlowWithElephant(start, 26).ToString();
         }
 
 
