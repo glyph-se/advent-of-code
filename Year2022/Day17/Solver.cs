@@ -65,28 +65,24 @@
                 rocksInCave.Add(rock);
 
                 if (rocksInCave.Count == 2022) break;
-
-                Print(rocksInCave, highestRock);
             }
 
             int result = highestRock + 1;
-
-            if (input.Length == 10092)
-            {
-                // No idea why we are off-by-two on the real input
-                result += 2;
-            }
 
             return result.ToString();
 
             bool MoveRockTwice(IRock rock)
             {
+                //Print(rocksInCave, highestRock, rock);
+
                 // Blow wind
                 if (winds.Count == 0)
                 {
                     winds = new(input.Trim().ToCharArray());
                 }
                 char wind = winds.Dequeue();
+
+                //Console.WriteLine($"Wind is {wind}");
 
                 if (wind == '<')
                 {
@@ -109,10 +105,14 @@
                     }
                 }
 
+                //Print(rocksInCave, highestRock, rock);
+
+                //Console.WriteLine($"Trying fall");
+
                 // Try fall
                 rock.yPos--;
 
-                if (rock.yPos < 0 || rocksInCave.Any(r => r.BlockedPos().Intersect(rock.BlockedPos()).Any()))
+                if (rock.yPos - rock.shape.GetLength(0) + 1 < 0 || rocksInCave.Any(r => r.BlockedPos().Intersect(rock.BlockedPos()).Any()))
                 {
                     // Can't fall down, move back up
                     rock.yPos++;
@@ -125,19 +125,34 @@
             }
         }
 
-        private void Print(List<IRock> rocksInCave, int highestRock)
+        private void Print(List<IRock> rocksInCave, int highestRock, IRock extraRock = null)
         {
-            return;
+            if (extraRock != null)
+            {
+                rocksInCave.Add(extraRock);
+                highestRock += 10;
+            }
+
             IEnumerable<(int xPos, int yPos)> positions = rocksInCave.SelectMany(r => r.BlockedPos());
 
             HashSet<(int xPos, int yPos)> hpositions = positions.ToHashSet();
 
-
-
-            for (int y = highestRock; y >= highestRock - 40; y--)
+            for (int y = highestRock; y >= highestRock - 20; y--)
             {
+                if (y < -1)
+                {
+                    continue;
+                }
+                if (y == -1)
+                {
+                    Console.WriteLine("+-------+");
+                    continue;
+                }
+
+                Console.Write('|');
                 for (int x = 0; x <= 6; x++)
                 {
+
                     if (positions.Contains((x, y)))
                     {
                         Console.Write('#');
@@ -147,7 +162,14 @@
                         Console.Write('.');
                     }
                 }
+                Console.Write('|');
                 Console.WriteLine();
+            }
+
+            if (extraRock != null)
+            {
+                rocksInCave.Remove(extraRock);
+                highestRock -= 10;
             }
 
             Console.WriteLine($"Highest {highestRock}");
