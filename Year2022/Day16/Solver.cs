@@ -232,7 +232,7 @@ namespace AdventOfCode.Year2022.Day16
                 }
             }
 
-            foreach (Node n in nodes)
+            /*foreach (Node n in nodes)
             {
                 n.edgesWithDist = Dijkstra(n);
                 n.edgesWithDist.Remove(n);
@@ -248,7 +248,7 @@ namespace AdventOfCode.Year2022.Day16
                         n.edgesWithDist.Remove(kvp.Key);
                     }
                 }
-            }
+             }*/
 
             foreach (Node n in nodes.ToList())
             {
