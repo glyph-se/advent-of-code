@@ -35,12 +35,13 @@ namespace AdventOfCode.Year2022.Day18
 
                         foreach ((int xDiff, int yDiff, int zDiff) in dirs)
                         {
-                            try
+                            if (x + xDiff < 0 || y + yDiff < 0 || z + zDiff < 0)
                             {
-                                if (!grid[x + xDiff, y + yDiff, z + zDiff])
-                                    result++;
+                                result++;
+                                continue;
                             }
-                            catch (IndexOutOfRangeException)
+
+                            if (!grid[x + xDiff, y + yDiff, z + zDiff])
                             {
                                 result++;
                             }
@@ -68,7 +69,7 @@ namespace AdventOfCode.Year2022.Day18
             }
 
 
-            Point start = new Point() { x = 0, y = 0, z = 0 };
+            Point start = new Point(0, 0, 0);
 
             grid[start.x, start.y, start.z] = false;
 
@@ -82,7 +83,7 @@ namespace AdventOfCode.Year2022.Day18
             {
                 Point p = expansion.Dequeue();
 
-                if (p.x < 0 || p.x > 21 || p.y < 0 || p.y > 21 || p.z < 0 || p.z > 21)
+                if (p.x < 0 || p.x > 19 || p.y < 0 || p.y > 19 || p.z < 0 || p.z > 19)
                 {
                     continue;
                 }
@@ -91,20 +92,21 @@ namespace AdventOfCode.Year2022.Day18
 
                 foreach ((int xDiff, int yDiff, int zDiff) in dirs)
                 {
-                    try
+                    if (p.x + xDiff < 0 || p.y + yDiff < 0 || p.z + zDiff < 0)
                     {
-                        if (grid[p.x + xDiff, p.y + yDiff, p.z + zDiff] == null)
-                        {
-                            // null means nothing now
-                            Point next = new Point() { x = p.x + xDiff, y = p.y + yDiff, z = p.z + zDiff };
-
-                            // false means air
-                            grid[p.x + xDiff, p.y + yDiff, p.z + zDiff] = false;
-
-                            expansion.Enqueue(next);
-                        }
+                        continue;
                     }
-                    catch (IndexOutOfRangeException) { }
+
+                    if (grid[p.x + xDiff, p.y + yDiff, p.z + zDiff] == null)
+                    {
+                        // null means nothing now
+                        Point next = new Point(p.x + xDiff, p.y + yDiff, p.z + zDiff);
+
+                        // false means air
+                        grid[p.x + xDiff, p.y + yDiff, p.z + zDiff] = false;
+
+                        expansion.Enqueue(next);
+                    }
                 }
             }
 
@@ -126,12 +128,13 @@ namespace AdventOfCode.Year2022.Day18
 
                         foreach ((int xDiff, int yDiff, int zDiff) in dirs)
                         {
-                            try
+                            if (x + xDiff < 0 || y + yDiff < 0 || z + zDiff < 0 || x + xDiff > 19 || y + yDiff > 19 || z + zDiff > 19)
                             {
-                                if (grid[x + xDiff, y + yDiff, z + zDiff] == false)
-                                    result++;
+                                result++;
+                                continue;
                             }
-                            catch (IndexOutOfRangeException)
+
+                            if (grid[x + xDiff, y + yDiff, z + zDiff] == false)
                             {
                                 result++;
                             }
@@ -143,11 +146,6 @@ namespace AdventOfCode.Year2022.Day18
             return result.ToString();
         }
 
-        public class Point
-        {
-            public int x;
-            public int y;
-            public int z;
-        }
+        public record Point(int x, int y, int z);
     }
 }
