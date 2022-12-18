@@ -125,7 +125,7 @@
             }
         }
 
-        private void Print(List<IRock> rocksInCave, int highestRock, IRock extraRock = null)
+        private void Print(List<IRock> rocksInCave, int highestRock, IRock? extraRock = null)
         {
             if (extraRock != null)
             {
