@@ -245,7 +245,7 @@
             {
                 long rockType = rockCount % 5;
 
-                List<List<bool>> rock = null;
+                List<List<bool>> rock = null!;
 
                 if (rockType == 0)
                     rock = rock1;
