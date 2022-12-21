@@ -180,8 +180,6 @@ namespace AdventOfCode.Year2022.Day21
 
             }
 
-            long result = 0;
-
             MonkeyPart2 rootMonkey = monkeys
                 .Single(m => m.name == "root");
 
