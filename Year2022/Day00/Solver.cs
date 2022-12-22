@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode.Year2022.Day00
+﻿using AdventOfCode.Common;
+
+namespace AdventOfCode.Year2022.Day00
 {
     internal class Solver : ISolver
     {
@@ -6,9 +8,12 @@
         {
             await Task.Yield();
 
-            int result = 0;
+            long result = 0;
 
+            foreach (string line in input.AsLines())
+            {
 
+            }
 
             return result.ToString();
         }
@@ -19,7 +24,10 @@
 
             int result = 0;
 
+            foreach (string line in input.AsLines())
+            {
 
+            }
 
             return result.ToString();
         }
