@@ -24,25 +24,6 @@ namespace AdventOfCode.Common
             return input.Split("\n" + "\n", StringSplitOptions.RemoveEmptyEntries).ToImmutableList();
         }
 
-        public static TReturn[,] AsGrid<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
-        {
-            var lines = input.AsLines();
-
-            TReturn[,] grid = new TReturn[lines[0].Length, lines.Count];
-
-            for (int row = 0; row < lines.Count; row++)
-            {
-                string line = lines[row];
-                for (int col = 0; col < line.Length; col++)
-                {
-                    char c = line[col];
-                    grid[col, row] = constructor(c, row, col);
-                }
-            }
-
-            return grid;
-        }
-
 
 
         /*        public static (T1, T2) AsSplit<T1, T2>(this string input, char separator = ' ')

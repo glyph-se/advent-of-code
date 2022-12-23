@@ -26,27 +26,12 @@ namespace AdventOfCode.Year2022.Day23
 
             long result = 0;
 
-            List<Elf> allElves = new();
 
-            Elf[,] orgGrid = input.AsGrid(((c, x, y) => CreateElf(c, x, y)));
+            Elf[,] orgGrid = input.AsGridMatrix(((c, x, y) => CreateElf(c, x, y)));
 
-            Elf[,] grid = new Elf[orgGrid.GetLength(0) + 2000, orgGrid.GetLength(1) + 2000];
+            var allElves = orgGrid.AsList2();
 
-            for (int i = 0; i < orgGrid.GetLength(0); i++)
-            {
-                for (int j = 0; j < orgGrid.GetLength(1); j++)
-                {
-                    var elf = orgGrid[i, j];
-
-                    if (elf != null)
-                    {
-                        grid[i + 1000, j + 1000] = elf;
-                        elf.x += 1000;
-                        elf.y += 1000;
-                        allElves.Add(elf);
-                    }
-                }
-            }
+            Elf[,] grid = orgGrid.ExtendGridMatrix(1000);
 
             PrintGrid(grid);
 
@@ -146,12 +131,10 @@ namespace AdventOfCode.Year2022.Day23
 
             long result = 0;
 
-            //Elf[,] grid = input.AsGrid(((c, x, y) => CreateElf(c, x, y)));
 
             List<Elf> allElves = new();
 
-
-            Elf[,] orgGrid = input.AsGrid(((c, x, y) => CreateElf(c, x, y)));
+            Elf[,] orgGrid = input.AsGridMatrix(((c, x, y) => CreateElf(c, x, y)));
 
             Elf[,] grid = new Elf[orgGrid.GetLength(0) + 2000, orgGrid.GetLength(1) + 2000];
 
@@ -251,25 +234,7 @@ namespace AdventOfCode.Year2022.Day23
                 //Console.WriteLine("---------------------------------------------------------------------");
             }
 
-            int minY = allElves.Min(e => e.y);
-            int maxY = allElves.Max(e => e.y);
-            int minX = allElves.Min(e => e.x);
-            int maxX = allElves.Max(e => e.x);
-
-            for (int x = minX; x <= maxX; x++)
-            {
-                for (int y = minY; y <= maxY; y++)
-                {
-                    Elf elf = grid[x, y];
-
-                    if (elf == null)
-                    {
-                        result++;
-                    }
-                }
-            }
-
-            return result.ToString();
+            return "error";
         }
 
         private void PrintGrid(Elf[,] grid)
@@ -366,10 +331,8 @@ namespace AdventOfCode.Year2022.Day23
             throw new Exception("error");
         }
 
-        public class Elf
+        public class Elf : Point
         {
-            public int x;
-            public int y;
             public List<Direction> order;
             public Direction proposal;
 
@@ -381,7 +344,7 @@ namespace AdventOfCode.Year2022.Day23
 
             public (int x, int y) ProposalCoord()
             {
-                return (x + DirectionToCoord(proposal).dx, y + DirectionToCoord(proposal).dy);
+                return (this.x + DirectionToCoord(proposal).dx, this.y + DirectionToCoord(proposal).dy);
             }
         }
 

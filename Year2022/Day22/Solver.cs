@@ -18,15 +18,7 @@ namespace AdventOfCode.Year2022.Day22
 
             bool?[,] orgGrid = split[0].AsGridDay22<bool?>((c, x, y) => CreateNode(c, x, y));
 
-            bool?[,] grid = new bool?[orgGrid.GetLength(0) + 2, orgGrid.GetLength(1) + 2];
-
-            for (int i = 1; i < grid.GetLength(0) - 1; i++)
-            {
-                for (int j = 1; j < grid.GetLength(1) - 1; j++)
-                {
-                    grid[i, j] = orgGrid[i - 1, j - 1];
-                }
-            }
+            bool?[,] grid = orgGrid.ExtendNullableGridMatrix(1);
 
             List<string> movements = new();
 

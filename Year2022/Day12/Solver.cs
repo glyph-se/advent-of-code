@@ -52,7 +52,7 @@ namespace AdventOfCode.Year2022.Day12
 
         private static Node[,] BuildGrid(string input)
         {
-            var nodes = input.AsGrid<Node>((c, row, col) => CreateNode(c, row, col));
+            var nodes = input.AsGridMatrix<Node>((c, row, col) => CreateNode(c, row, col));
 
 
             for (int col = 0; col < nodes.GetLength(0); col++)
