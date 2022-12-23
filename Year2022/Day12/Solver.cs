@@ -55,18 +55,18 @@ namespace AdventOfCode.Year2022.Day12
             var nodes = input.AsGrid<Node>((c, row, col) => CreateNode(c, row, col));
 
 
-            for (int row = 0; row < nodes.GetLength(0); row++)
+            for (int col = 0; col < nodes.GetLength(0); col++)
             {
-                for (int col = 0; col < nodes.GetLength(1); col++)
+                for (int row = 0; row < nodes.GetLength(1); row++)
                 {
-                    Node node = nodes[row, col];
+                    Node node = nodes[col, row];
 
                     (int, int)[] dirs = { (0, 1), (1, 0), (-1, 0), (0, -1) };
 
                     foreach ((int x, int y) in dirs)
                     {
-                        int edgeX = row + x;
-                        int edgeY = col + y;
+                        int edgeX = col + x;
+                        int edgeY = row + y;
 
                         if (edgeX < 0 || edgeY < 0 || edgeX >= nodes.GetLength(0) || edgeY >= nodes.GetLength(1))
                         {
