@@ -28,7 +28,7 @@ namespace AdventOfCode.Common
         {
             var lines = input.AsLines();
 
-            TReturn[,] grid = new TReturn[lines.Count, lines[0].Length];
+            TReturn[,] grid = new TReturn[lines[0].Length, lines.Count];
 
             for (int row = 0; row < lines.Count; row++)
             {
@@ -36,7 +36,7 @@ namespace AdventOfCode.Common
                 for (int col = 0; col < line.Length; col++)
                 {
                     char c = line[col];
-                    grid[row, col] = constructor(c, row, col);
+                    grid[col, row] = constructor(c, row, col);
                 }
             }
 
