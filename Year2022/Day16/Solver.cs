@@ -267,9 +267,9 @@ namespace AdventOfCode.Year2022.Day16
         {
             public List<Node> edges = new();
             public Dictionary<Node, int> edgesWithDist = new();
-            public string name = null;
+            public string name = null!;
             public int flowRate = 0;
-            public List<string> edgeString = null;
+            public List<string> edgeString = null!;
             public bool isOpen = false;
 
 

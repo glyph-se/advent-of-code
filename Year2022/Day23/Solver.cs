@@ -88,7 +88,7 @@ namespace AdventOfCode.Year2022.Day23
                                 // MOVE
                                 elf.x = elf.ProposalCoord().x;
                                 elf.y = elf.ProposalCoord().y;
-                                grid[x, y] = null;
+                                grid[x, y] = null!;
                                 grid[elf.x, elf.y] = elf;
                             }
 
@@ -128,9 +128,6 @@ namespace AdventOfCode.Year2022.Day23
             List<Direction> proposalOrder = new() { Direction.N, Direction.S, Direction.W, Direction.E };
 
             await Task.Yield();
-
-            long result = 0;
-
 
             List<Elf> allElves = new();
 
@@ -212,7 +209,7 @@ namespace AdventOfCode.Year2022.Day23
                                 // MOVE
                                 elf.x = elf.ProposalCoord().x;
                                 elf.y = elf.ProposalCoord().y;
-                                grid[x, y] = null;
+                                grid[x, y] = null!;
                                 grid[elf.x, elf.y] = elf;
                             }
 
@@ -229,9 +226,6 @@ namespace AdventOfCode.Year2022.Day23
                 var firstProposal = proposalOrder.First();
                 proposalOrder.RemoveAt(0);
                 proposalOrder.Add(firstProposal);
-
-                PrintGrid(grid);
-                //Console.WriteLine("---------------------------------------------------------------------");
             }
 
             return "error";
@@ -239,7 +233,6 @@ namespace AdventOfCode.Year2022.Day23
 
         private void PrintGrid(Elf[,] grid)
         {
-            return;
             Console.Write("  ");
             for (int x = 0; x < grid.GetLength(0); x++)
             {
@@ -259,6 +252,8 @@ namespace AdventOfCode.Year2022.Day23
                 }
                 Console.WriteLine();
             }
+
+            Console.WriteLine("---------------------------------------------------------------------");
         }
 
         private static Elf CreateElf(char c, int row, int col)
@@ -272,7 +267,7 @@ namespace AdventOfCode.Year2022.Day23
                 };
             }
 
-            return null;
+            return null!;
         }
 
         private static List<(int dx, int dy)> DirectionToCoords(Direction direction)
