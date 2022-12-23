@@ -2,7 +2,24 @@
 {
     internal static class GridHelpers
     {
+        public static IReadOnlyDictionary<(int x, int y), TReturn> AsGridDict<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
+        {
+            var lines = input.AsLines();
 
+            Dictionary<(int x, int y), TReturn> grid = new();
+
+            for (int row = 0; row < lines.Count; row++)
+            {
+                string line = lines[row];
+                for (int col = 0; col < line.Length; col++)
+                {
+                    char c = line[col];
+                    grid.Add((col, row), constructor(c, row, col));
+                }
+            }
+
+            return grid.AsReadOnly();
+        }
 
         public static TReturn[,] AsGridMatrix<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
         {
