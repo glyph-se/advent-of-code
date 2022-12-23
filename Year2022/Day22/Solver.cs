@@ -16,7 +16,7 @@ namespace AdventOfCode.Year2022.Day22
 
             var split = input.AsLineBlocks();
 
-            bool?[,] orgGrid = split[0].AsGrid<bool?>((c, x, y) => CreateNode(c, x, y));
+            bool?[,] orgGrid = split[0].AsGridDay22<bool?>((c, x, y) => CreateNode(c, x, y));
 
             bool?[,] grid = new bool?[orgGrid.GetLength(0) + 2, orgGrid.GetLength(1) + 2];
 
@@ -184,7 +184,7 @@ namespace AdventOfCode.Year2022.Day22
 
             var split = input.AsLineBlocks();
 
-            bool?[,] orgGrid = split[0].AsGrid<bool?>((c, x, y) => CreateNode(c, x, y));
+            bool?[,] orgGrid = split[0].AsGridDay22<bool?>((c, x, y) => CreateNode(c, x, y));
 
             bool?[,] grid = new bool?[orgGrid.GetLength(0) + 2, orgGrid.GetLength(1) + 2];
 
@@ -478,6 +478,7 @@ namespace AdventOfCode.Year2022.Day22
             return false;
         }
 
+
         [DebuggerDisplay("pos={pos}, dir={dir}")]
         private class Player
         {
@@ -489,5 +490,7 @@ namespace AdventOfCode.Year2022.Day22
                 return $"pos X = {pos.col}, pos Y = {pos.row}, dir X = {dir.col}, dir Y = {dir.row}";
             }
         }
+
+
     }
 }
