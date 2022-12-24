@@ -8,14 +8,11 @@ namespace AdventOfCode.Year2022.Day24
         {
             await Task.Yield();
 
-            var lines = input.AsLines();
-
             HashSet<(int x, int y)> grid = input
                 .AsGridList((c, x, y) => CreatePoint(c, x, y))
                 .Where(p => p != null)
                 .Cast<(int x, int y)>()
                 .ToHashSet();
-
 
             List<Blizzard> blizzards = input
                 .AsGridList((c, x, y) => CreateBlizzard(c, x, y))
@@ -124,8 +121,8 @@ namespace AdventOfCode.Year2022.Day24
 
         private int FindMinutes((int x, int y) start, (int x, int y) end, int maxX, int maxY, List<Blizzard> blizzards, HashSet<(int x, int y)> grid)
         {
-            Queue<(int x, int y)> positions = new();
-            positions.Enqueue(start);
+            Queue<(int x, int y)> prevPositions = new();
+            prevPositions.Enqueue(start);
 
             for (int minute = 1; minute < 1000; minute++)
             {
@@ -135,15 +132,15 @@ namespace AdventOfCode.Year2022.Day24
 
                 Queue<(int x, int y)> nextPositions = new();
 
-                while (positions.Count != 0)
+                while (prevPositions.Count != 0)
                 {
-                    (int x, int y) currentPos = positions.Dequeue();
+                    (int x, int y) prevPos = prevPositions.Dequeue();
 
                     (int, int)[] dirs = { (0, 0), (0, 1), (1, 0), (-1, 0), (0, -1) };
 
                     foreach ((int dx, int dy) in dirs)
                     {
-                        (int x, int y) next = (currentPos.x + dx, currentPos.y + dy);
+                        (int x, int y) next = (prevPos.x + dx, prevPos.y + dy);
                         if (grid.Contains(next) && !blizzardPos.Contains(next))
                         {
                             nextPositions.Enqueue(next);
@@ -156,7 +153,7 @@ namespace AdventOfCode.Year2022.Day24
                     return minute;
                 }
 
-                positions = new(nextPositions.ToHashSet());
+                prevPositions = new(nextPositions.ToHashSet());
             }
 
             return -1;
