@@ -15,5 +15,17 @@
 
         public int x { get; set; }
         public int y { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Point point &&
+                   x == point.x &&
+                   y == point.y;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(x, y);
+        }
     }
 }

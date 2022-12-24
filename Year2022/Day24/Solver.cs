@@ -8,30 +8,21 @@ namespace AdventOfCode.Year2022.Day24
         {
             await Task.Yield();
 
-            HashSet<(int x, int y)> grid = new();
-            List<Blizzard> blizzards = new();
-
             var lines = input.AsLines();
 
-            for (int row = 0; row < lines.Count; row++)
-            {
-                string line = lines[row];
-                for (int col = 0; col < line.Length; col++)
-                {
-                    char c = line[col];
-                    if (c == '.')
-                    {
-                        grid.Add((col, row));
-                    }
-                    Blizzard? b = CreateBlizzard(c, col, row);
+            HashSet<(int x, int y)> grid = input
+                .AsGridList((c, x, y) => CreatePoint(c, x, y))
+                .Where(p => p != null)
+                .Cast<(int x, int y)>()
+                .ToHashSet();
 
-                    if (b != null)
-                    {
-                        blizzards.Add(b);
-                        grid.Add((col, row));
-                    }
-                }
-            }
+
+            List<Blizzard> blizzards = input
+                .AsGridList((c, x, y) => CreateBlizzard(c, x, y))
+                .Where(b => b != null)
+                .Cast<Blizzard>()
+                .ToList();
+
 
             int maxX = grid.Max(f => f.x);
             int maxY = grid.Max(f => f.y) - 1;
@@ -93,35 +84,31 @@ namespace AdventOfCode.Year2022.Day24
 
             return b;
         }
+        private (int x, int y)? CreatePoint(char c, int x, int y)
+        {
+            if (c == '.' || c == '>' || c == '<' || c == '^' || c == 'v')
+            {
+                return (x, y);
+            }
+            return null;
+        }
 
         public async Task<string> PartTwo(string input)
         {
             await Task.Yield();
 
-            HashSet<(int x, int y)> grid = new();
-            List<Blizzard> blizzards = new();
+            HashSet<(int x, int y)> grid = input
+                .AsGridList((c, x, y) => CreatePoint(c, x, y))
+                .Where(p => p != null)
+                .Cast<(int x, int y)>()
+                .ToHashSet();
 
-            var lines = input.AsLines();
 
-            for (int row = 0; row < lines.Count; row++)
-            {
-                string line = lines[row];
-                for (int col = 0; col < line.Length; col++)
-                {
-                    char c = line[col];
-                    if (c == '.')
-                    {
-                        grid.Add((col, row));
-                    }
-                    Blizzard? b = CreateBlizzard(c, col, row);
-
-                    if (b != null)
-                    {
-                        blizzards.Add(b);
-                        grid.Add((col, row));
-                    }
-                }
-            }
+            List<Blizzard> blizzards = input
+                .AsGridList((c, x, y) => CreateBlizzard(c, x, y))
+                .Where(b => b != null)
+                .Cast<Blizzard>()
+                .ToList();
 
             int maxX = grid.Max(f => f.x);
             int maxY = grid.Max(f => f.y) - 1;
