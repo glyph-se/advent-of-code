@@ -77,7 +77,7 @@
             return grid;
         }
 
-        public static IReadOnlyList<TReturn> AsList2<TReturn>(this TReturn[,] grid)
+        public static IReadOnlyList<TReturn> AsList<TReturn>(this TReturn[,] grid)
         {
             List<TReturn> list = new();
 

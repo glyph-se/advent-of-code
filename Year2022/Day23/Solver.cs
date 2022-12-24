@@ -29,7 +29,7 @@ namespace AdventOfCode.Year2022.Day23
 
             Elf[,] orgGrid = input.AsGridMatrix(((c, x, y) => CreateElf(c, x, y)));
 
-            var allElves = orgGrid.AsList2();
+            var allElves = orgGrid.AsList();
 
             Elf[,] grid = orgGrid.ExtendGridMatrix(1000);
 
