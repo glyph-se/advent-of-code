@@ -12,7 +12,7 @@ namespace AdventOfCode.Year2022.Day22
         /// <param name="input"></param>
         /// <param name="constructor"></param>
         /// <returns></returns>
-        public static TReturn[,] AsGridDay22<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
+        public static TReturn[,] AsGridDay22<TReturn>(string input, Func<char, int, int, TReturn> constructor)
         {
             var lines = input.AsLines();
 

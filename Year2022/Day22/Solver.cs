@@ -16,7 +16,7 @@ namespace AdventOfCode.Year2022.Day22
 
             var split = input.AsLineBlocks();
 
-            bool?[,] orgGrid = split[0].AsGridDay22<bool?>((c, x, y) => CreateNode(c, x, y));
+            bool?[,] orgGrid = Day22StringParsing.AsGridDay22<bool?>(split[0], (c, x, y) => CreateNode(c, x, y));
 
             bool?[,] grid = orgGrid.ExtendNullableGridMatrix(1);
 
@@ -176,7 +176,7 @@ namespace AdventOfCode.Year2022.Day22
 
             var split = input.AsLineBlocks();
 
-            bool?[,] orgGrid = split[0].AsGridDay22<bool?>((c, x, y) => CreateNode(c, x, y));
+            bool?[,] orgGrid = Day22StringParsing.AsGridDay22<bool?>(split[0], (c, x, y) => CreateNode(c, x, y));
 
             bool?[,] grid = new bool?[orgGrid.GetLength(0) + 2, orgGrid.GetLength(1) + 2];
 

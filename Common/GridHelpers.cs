@@ -14,7 +14,7 @@
                 for (int col = 0; col < line.Length; col++)
                 {
                     char c = line[col];
-                    grid.Add((col, row), constructor(c, row, col));
+                    grid.Add((col, row), constructor(c, col, row));
                 }
             }
 
@@ -33,7 +33,7 @@
                 for (int col = 0; col < line.Length; col++)
                 {
                     char c = line[col];
-                    grid[col, row] = constructor(c, row, col);
+                    grid[col, row] = constructor(c, col, row);
                 }
             }
 

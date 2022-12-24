@@ -33,8 +33,6 @@ namespace AdventOfCode.Year2022.Day23
 
             Elf[,] grid = orgGrid.ExtendGridMatrix(1000);
 
-            PrintGrid(grid);
-
             for (int round = 1; round <= 10; round++)
             {
                 List<(int x, int y)> proposalsForThisRound = new();
@@ -151,8 +149,6 @@ namespace AdventOfCode.Year2022.Day23
                 }
             }
 
-            PrintGrid(grid);
-
             for (int round = 1; round <= 1000; round++)
             {
                 List<(int x, int y)> proposalsForThisRound = new();
@@ -256,7 +252,7 @@ namespace AdventOfCode.Year2022.Day23
             Console.WriteLine("---------------------------------------------------------------------");
         }
 
-        private static Elf CreateElf(char c, int row, int col)
+        private static Elf CreateElf(char c, int col, int row)
         {
             if (c == '#')
             {
