@@ -35,7 +35,7 @@ namespace AdventOfCode.Year2022.Day23
 
             for (int round = 1; round <= 10; round++)
             {
-                List<(int x, int y)> proposalsForThisRound = new();
+                Dictionary<(int x, int y), List<Elf>> proposalsForThisRound = new();
 
                 for (int x = 0; x < grid.GetLength(0); x++)
                 {
@@ -60,7 +60,18 @@ namespace AdventOfCode.Year2022.Day23
                                 if (dirEmpty)
                                 {
                                     elf.proposal = dir;
-                                    proposalsForThisRound.Add((x + DirectionToCoord(dir).dx, y + DirectionToCoord(dir).dy));
+
+                                    var key = (x + DirectionToCoord(dir).dx, y + DirectionToCoord(dir).dy);
+
+                                    if (proposalsForThisRound.TryGetValue(key, out List<Elf> list))
+                                    {
+                                        list.Add(elf);
+                                    }
+                                    else
+                                    {
+                                        proposalsForThisRound.Add(key, new List<Elf>() { elf });
+                                    }
+
                                     break;
                                 }
                             }
@@ -68,30 +79,24 @@ namespace AdventOfCode.Year2022.Day23
                     }
                 }
 
-                for (int x = 0; x < grid.GetLength(0); x++)
+
+                foreach (List<Elf> elves in proposalsForThisRound.Values)
                 {
-                    for (int y = 0; y < grid.GetLength(1); y++)
+                    if (elves.Count == 1)
                     {
-                        Elf elf = grid[x, y];
+                        Elf elf = elves.Single();
 
-                        if (elf != null)
-                        {
-                            if (elf.proposal == Direction.None)
-                            {
-                                continue;
-                            }
+                        // MOVE
 
-                            if (proposalsForThisRound.Count(x => x == elf.ProposalCoord()) == 1)
-                            {
-                                // MOVE
-                                elf.x = elf.ProposalCoord().x;
-                                elf.y = elf.ProposalCoord().y;
-                                grid[x, y] = null!;
-                                grid[elf.x, elf.y] = elf;
-                            }
+                        grid[elf.x, elf.y] = null!;
+                        elf.x = elf.ProposalCoord().x;
+                        elf.y = elf.ProposalCoord().y;
+                        grid[elf.x, elf.y] = elf;
+                    }
 
-                            elf.proposal = Direction.None;
-                        }
+                    foreach (Elf e in elves)
+                    {
+                        e.proposal = Direction.None;
                     }
                 }
 
@@ -151,7 +156,7 @@ namespace AdventOfCode.Year2022.Day23
 
             for (int round = 1; round <= 1000; round++)
             {
-                List<(int x, int y)> proposalsForThisRound = new();
+                Dictionary<(int x, int y), List<Elf>> proposalsForThisRound = new();
 
                 for (int x = 0; x < grid.GetLength(0); x++)
                 {
@@ -176,7 +181,18 @@ namespace AdventOfCode.Year2022.Day23
                                 if (dirEmpty)
                                 {
                                     elf.proposal = dir;
-                                    proposalsForThisRound.Add((x + DirectionToCoord(dir).dx, y + DirectionToCoord(dir).dy));
+
+                                    var key = (x + DirectionToCoord(dir).dx, y + DirectionToCoord(dir).dy);
+
+                                    if (proposalsForThisRound.TryGetValue(key, out List<Elf> list))
+                                    {
+                                        list.Add(elf);
+                                    }
+                                    else
+                                    {
+                                        proposalsForThisRound.Add(key, new List<Elf>() { elf });
+                                    }
+
                                     break;
                                 }
                             }
@@ -186,31 +202,23 @@ namespace AdventOfCode.Year2022.Day23
 
                 bool anyMoved = false;
 
-                for (int x = 0; x < grid.GetLength(0); x++)
+                foreach (List<Elf> elves in proposalsForThisRound.Values)
                 {
-                    for (int y = 0; y < grid.GetLength(1); y++)
+                    if (elves.Count == 1)
                     {
-                        Elf elf = grid[x, y];
+                        Elf elf = elves.Single();
 
-                        if (elf != null)
-                        {
-                            if (elf.proposal == Direction.None)
-                            {
-                                continue;
-                            }
+                        // MOVE
+                        anyMoved = true;
+                        grid[elf.x, elf.y] = null!;
+                        elf.x = elf.ProposalCoord().x;
+                        elf.y = elf.ProposalCoord().y;
+                        grid[elf.x, elf.y] = elf;
+                    }
 
-                            if (proposalsForThisRound.Count(x => x == elf.ProposalCoord()) == 1)
-                            {
-                                anyMoved = true;
-                                // MOVE
-                                elf.x = elf.ProposalCoord().x;
-                                elf.y = elf.ProposalCoord().y;
-                                grid[x, y] = null!;
-                                grid[elf.x, elf.y] = elf;
-                            }
-
-                            elf.proposal = Direction.None;
-                        }
+                    foreach (Elf e in elves)
+                    {
+                        e.proposal = Direction.None;
                     }
                 }
 
