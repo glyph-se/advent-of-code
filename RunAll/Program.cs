@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using AdventOfCode;
+using AdventOfCode.Startup;
 
 namespace RunAll
 {

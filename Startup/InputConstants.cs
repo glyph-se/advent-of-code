@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode
+﻿namespace AdventOfCode.Startup
 {
     public class InputConstants
     {

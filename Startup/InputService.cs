@@ -1,32 +1,24 @@
-﻿namespace AdventOfCode
+﻿namespace AdventOfCode.Startup
 {
     internal static class InputService
     {
-        public static async Task<string?> GetInput(int year, int day)
+        public static async Task<string> GetInput(InputType inputType, int year, int day)
         {
-            Console.WriteLine("Choose problem input:");
-            Console.WriteLine(" 1. Example 1 data");
-            Console.WriteLine(" 2. Full data");
-            Console.WriteLine(" 3. Custom data");
-            Console.Write("> ");
+            string inputs;
 
-            string? inputs;
-
-            string? choice = Console.ReadLine();
-
-            switch (choice)
+            switch (inputType)
             {
-                case "1":
+                case InputType.Example1:
                     inputs = await ReadOrInputFileAsync(year, day);
                     break;
-                case "2":
+                case InputType.Full:
                     inputs = await ReadOrDownloadFileAsync(year, day);
                     break;
-                case "3":
+                case InputType.Custom:
                     inputs = ReadFromConsole();
                     break;
                 default:
-                    return null;
+                    throw new Exception($"Invalid {nameof(InputType)}");
             }
 
             Console.WriteLine();
@@ -38,7 +30,7 @@
             return inputs;
         }
 
-        private static string? ReadFromConsole()
+        private static string ReadFromConsole()
         {
             Console.WriteLine("Type input (end with Ctrl+Z):");
             Console.Write("> ");
@@ -52,13 +44,13 @@
 
             if (inputs.Count == 0)
             {
-                return null;
+                throw new Exception("No input found");
             }
 
             return string.Join('\n', inputs);
         }
 
-        private async static Task<string?> ReadOrDownloadFileAsync(int year, int day)
+        private async static Task<string> ReadOrDownloadFileAsync(int year, int day)
         {
 
             string filePath = InputConstants.FullInputPath(year, day);
@@ -91,7 +83,7 @@
             return fileContents;
         }
 
-        private async static Task<string?> ReadOrInputFileAsync(int year, int day)
+        private async static Task<string> ReadOrInputFileAsync(int year, int day)
         {
             string filePath = InputConstants.Example1InputPath(year, day);
 

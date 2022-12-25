@@ -1,9 +1,11 @@
-﻿namespace AdventOfCode
+﻿using AdventOfCode.Startup;
+
+namespace AdventOfCode
 {
     internal class Program
     {
         static readonly int YEAR = 2022;
-        static readonly int DAY = 25;
+        static readonly int DAY = 23;
 
         public static async Task Main(string[] args)
         {
@@ -17,13 +19,41 @@
                 return;
             }
 
-            string? inputs = await InputService.GetInput(YEAR, DAY);
 
-            if (inputs == null)
+            InputType inputType = InputType.None;
+
+            while (inputType == InputType.None)
             {
-                PrintError("No input found!");
-                return;
+                Console.WriteLine("Choose problem input:");
+                Console.WriteLine(" 1. Example 1 data");
+                Console.WriteLine(" 2. Full data");
+                Console.WriteLine(" 3. Custom data");
+                Console.WriteLine(" 9. Change day");
+                Console.Write("> ");
+
+                string? choiceString = Console.ReadLine();
+
+                switch (choiceString)
+                {
+                    case "1":
+                        inputType = InputType.Example1;
+                        break;
+                    case "2":
+                        inputType = InputType.Full;
+                        break;
+                    case "3":
+                        inputType = InputType.Custom;
+                        break;
+                    case "9":
+                        // TODO
+                        break;
+                    default:
+                        PrintError("Invalid choice, try again");
+                        break;
+                }
             }
+
+            string? inputs = await InputService.GetInput(inputType, YEAR, DAY);
 
             Console.WriteLine("Running part one...");
             string outputOne = await instance.PartOne(inputs);
@@ -81,9 +111,9 @@
 
         private static void PrintHeader(int year, int day)
         {
-            Console.Write("--------------------------------------------------------------------------------\n");
+            Console.Write("---------------------------------------------------------------------------------\n");
             Console.Write("|                              Advent of Code                                   |\n");
-            Console.Write("--------------------------------------------------------------------------------\n");
+            Console.Write("---------------------------------------------------------------------------------\n");
             Console.Write("Year: ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(year);
