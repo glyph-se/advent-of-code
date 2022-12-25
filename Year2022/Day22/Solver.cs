@@ -174,6 +174,11 @@ namespace AdventOfCode.Year2022.Day22
         {
             await Task.Yield();
 
+            if (input.Length != 35848)
+            {
+                return "only implemented for full";
+            }
+
             var split = input.AsLineBlocks();
 
             bool?[,] orgGrid = Day22StringParsing.AsGridDay22<bool?>(split[0], (c, x, y) => CreateNode(c, x, y));
