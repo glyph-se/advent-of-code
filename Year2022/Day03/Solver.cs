@@ -1,65 +1,66 @@
-﻿using AdventOfCode.Common;
+﻿using Shared;
+using Year2022.Common;
 
-namespace AdventOfCode.Year2022.Day03
+namespace Year2022.Day03
 {
-    internal class Solver : ISolver
-    {
-        public async Task<string> PartOne(string input)
-        {
-            await Task.Yield();
+	public class Solver : ISolver
+	{
+		public async Task<string> PartOne(string input)
+		{
+			await Task.Yield();
 
-            long score = 0;
+			long score = 0;
 
-            foreach (string rucksack in StringParsing.AsLines(input))
-            {
-                string part1 = rucksack.Substring(0, rucksack.Length / 2);
-                string part2 = rucksack.Substring(rucksack.Length / 2);
+			foreach (string rucksack in input.AsLines())
+			{
+				string part1 = rucksack.Substring(0, rucksack.Length / 2);
+				string part2 = rucksack.Substring(rucksack.Length / 2);
 
-                var result = part1.Intersect(part2);
-                char common = result.First();
+				var result = part1.Intersect(part2);
+				char common = result.First();
 
-                if (common == char.ToLower(common))
-                {
-                    score += (common - 'a') + 1;
-                }
-                if (common == char.ToUpper(common))
-                {
-                    score += (common - 'A') + 27;
-                }
-            }
+				if (common == char.ToLower(common))
+				{
+					score += common - 'a' + 1;
+				}
+				if (common == char.ToUpper(common))
+				{
+					score += common - 'A' + 27;
+				}
+			}
 
-            return score.ToString();
-        }
+			return score.ToString();
+		}
 
-        public async Task<string> PartTwo(string input)
-        {
-            await Task.Yield();
+		public async Task<string> PartTwo(string input)
+		{
+			await Task.Yield();
 
-            long score = 0;
+			long score = 0;
 
-            var rucksacks = StringParsing.AsLines(input).ToArray();
+			var rucksacks = input.AsLines().ToArray();
 
-            for (int i = 0; i < rucksacks.Length; i = i + 3)
-            {
-                string part1 = rucksacks[i];
-                string part2 = rucksacks[i + 1];
-                string part3 = rucksacks[i + 2];
+			for (int i = 0; i < rucksacks.Length; i = i + 3)
+			{
+				string part1 = rucksacks[i];
+				string part2 = rucksacks[i + 1];
+				string part3 = rucksacks[i + 2];
 
-                var result = part1.Intersect(part2).Intersect(part3);
+				var result = part1.Intersect(part2).Intersect(part3);
 
-                char common = result.First();
+				char common = result.First();
 
-                if (common == char.ToLower(common))
-                {
-                    score += (common - 'a') + 1;
-                }
-                if (common == char.ToUpper(common))
-                {
-                    score += (common - 'A') + 27;
-                }
-            }
+				if (common == char.ToLower(common))
+				{
+					score += common - 'a' + 1;
+				}
+				if (common == char.ToUpper(common))
+				{
+					score += common - 'A' + 27;
+				}
+			}
 
-            return score.ToString();
-        }
-    }
+			return score.ToString();
+		}
+	}
 }

@@ -1,69 +1,71 @@
-﻿namespace AdventOfCode.Year2022.Day06
+﻿using Shared;
+
+namespace Year2022.Day06
 {
-    internal class Solver : ISolver
-    {
-        public async Task<string> PartOne(string input)
-        {
-            await Task.Yield();
+	public class Solver : ISolver
+	{
+		public async Task<string> PartOne(string input)
+		{
+			await Task.Yield();
 
-            List<char> last4 = new List<char>();
+			List<char> last4 = new List<char>();
 
-            int result = 0;
-            foreach (char c in input)
-            {
-                if (!Char.IsAsciiLetter(c))
-                {
-                    continue;
-                }
+			int result = 0;
+			foreach (char c in input)
+			{
+				if (!char.IsAsciiLetter(c))
+				{
+					continue;
+				}
 
-                result++;
+				result++;
 
-                if (last4.Count == 4)
-                {
-                    last4.RemoveAt(0);
-                }
+				if (last4.Count == 4)
+				{
+					last4.RemoveAt(0);
+				}
 
-                last4.Add(c);
+				last4.Add(c);
 
-                if (last4.Distinct().Count() == 4)
-                {
-                    break;
-                }
-            }
+				if (last4.Distinct().Count() == 4)
+				{
+					break;
+				}
+			}
 
-            return result.ToString();
-        }
+			return result.ToString();
+		}
 
-        public async Task<string> PartTwo(string input)
-        {
-            await Task.Yield();
+		public async Task<string> PartTwo(string input)
+		{
+			await Task.Yield();
 
-            List<char> last4 = new List<char>();
+			List<char> last4 = new List<char>();
 
-            int result = 0;
-            foreach (char c in input)
-            {
-                if (!Char.IsAsciiLetter(c))
-                {
-                    continue;
-                }
+			int result = 0;
+			foreach (char c in input)
+			{
+				if (!char.IsAsciiLetter(c))
+				{
+					continue;
+				}
 
-                result++;
+				result++;
 
-                if (last4.Count == 14)
-                {
-                    last4.RemoveAt(0);
-                }
+				if (last4.Count == 14)
+				{
+					last4.RemoveAt(0);
+				}
 
-                last4.Add(c);
+				last4.Add(c);
 
-                if (last4.Distinct().Count() == 14)
-                {
-                    break;
-                }
-            }
+				if (last4.Distinct().Count() == 14)
+				{
+					break;
+				}
+			}
 
-            return result.ToString();
-        }
-    }
+			return result.ToString();
+		}
+	}
 }

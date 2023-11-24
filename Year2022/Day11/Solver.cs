@@ -1,76 +1,77 @@
-﻿using AdventOfCode.Common;
+﻿using Shared;
+using Year2022.Common;
 
-namespace AdventOfCode.Year2022.Day11
+namespace Year2022.Day11
 {
-    internal class Solver : ISolver
-    {
-        public async Task<string> PartOne(string input)
-        {
-            await Task.Yield();
+	public class Solver : ISolver
+	{
+		public async Task<string> PartOne(string input)
+		{
+			await Task.Yield();
 
-            long result = 0;
+			long result = 0;
 
-            List<Monkey> monkeys = new();
+			List<Monkey> monkeys = new();
 
-            var allMonkeyInput = input.AsLineBlocks();
-            foreach (var monkeyInput in allMonkeyInput)
-            {
-                List<string> lines = monkeyInput
-                    .AsLines()
-                    .Select(l => l.Trim())
-                    .ToList();
+			var allMonkeyInput = input.AsLineBlocks();
+			foreach (var monkeyInput in allMonkeyInput)
+			{
+				List<string> lines = monkeyInput
+					.AsLines()
+					.Select(l => l.Trim())
+					.ToList();
 
-                Monkey m = new Monkey();
-                m.number = int.Parse(lines[0].Replace("Monkey ", "").Replace(":", ""));
-                m.items = lines[1]
-                    .Split(":", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                    .Last()
-                    .Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                    .Select(s => long.Parse(s))
-                    .ToList();
-                if (lines[2] == "Operation: new = old * old")
-                {
-                    m.operation = new Func<long, long>(i => i * i);
-                }
-                else if (lines[2].Contains("*"))
-                {
-                    m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last()));
-                }
-                else if (lines[2].Contains("+"))
-                {
-                    m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last()));
-                }
+				Monkey m = new Monkey();
+				m.number = int.Parse(lines[0].Replace("Monkey ", "").Replace(":", ""));
+				m.items = lines[1]
+					.Split(":", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+					.Last()
+					.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+					.Select(s => long.Parse(s))
+					.ToList();
+				if (lines[2] == "Operation: new = old * old")
+				{
+					m.operation = new Func<long, long>(i => i * i);
+				}
+				else if (lines[2].Contains("*"))
+				{
+					m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last()));
+				}
+				else if (lines[2].Contains("+"))
+				{
+					m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last()));
+				}
 
-                m.test = long.Parse(lines[3].Split(" ").Last());
-                m.trueTarget = int.Parse(lines[4].Split(" ").Last());
-                m.falseTarget = int.Parse(lines[5].Split(" ").Last());
+				m.test = long.Parse(lines[3].Split(" ").Last());
+				m.trueTarget = int.Parse(lines[4].Split(" ").Last());
+				m.falseTarget = int.Parse(lines[5].Split(" ").Last());
 
-                monkeys.Add(m);
-            }
+				monkeys.Add(m);
+			}
 
-            for (int round = 1; round <= 20; round++)
-            {
-                foreach (Monkey m in monkeys)
-                {
-                    foreach (long item in m.items)
-                    {
-                        long worryLevel = m.operation(item);
-                        worryLevel = worryLevel / 3;
+			for (int round = 1; round <= 20; round++)
+			{
+				foreach (Monkey m in monkeys)
+				{
+					foreach (long item in m.items)
+					{
+						long worryLevel = m.operation(item);
+						worryLevel = worryLevel / 3;
 
-                        if (worryLevel % m.test == 0)
-                        {
-                            monkeys.Single(a => a.number == m.trueTarget).items.Add(worryLevel);
-                        }
-                        else
-                        {
-                            monkeys.Single(a => a.number == m.falseTarget).items.Add(worryLevel);
-                        }
-                        m.inspectionCount++;
-                    }
-                    m.items.Clear();
-                }
+						if (worryLevel % m.test == 0)
+						{
+							monkeys.Single(a => a.number == m.trueTarget).items.Add(worryLevel);
+						}
+						else
+						{
+							monkeys.Single(a => a.number == m.falseTarget).items.Add(worryLevel);
+						}
+						m.inspectionCount++;
+					}
+					m.items.Clear();
+				}
 
-                /*
+				/*
                 Console.WriteLine($"Round {round}");
                 foreach (Monkey m in monkeys)
                 {
@@ -79,86 +80,86 @@ namespace AdventOfCode.Year2022.Day11
                     Console.WriteLine();
                 }
                 */
-            }
+			}
 
-            var sorted = monkeys.OrderByDescending(m => m.inspectionCount).ToList();
+			var sorted = monkeys.OrderByDescending(m => m.inspectionCount).ToList();
 
-            result = sorted[0].inspectionCount * sorted[1].inspectionCount;
+			result = sorted[0].inspectionCount * sorted[1].inspectionCount;
 
-            return result.ToString();
-        }
+			return result.ToString();
+		}
 
-        public async Task<string> PartTwo(string input)
-        {
-            await Task.Yield();
+		public async Task<string> PartTwo(string input)
+		{
+			await Task.Yield();
 
-            long result = 0;
+			long result = 0;
 
-            long magicMod = 1;
+			long magicMod = 1;
 
-            List<Monkey> monkeys = new();
+			List<Monkey> monkeys = new();
 
-            var allMonkeyInput = input.AsLineBlocks();
-            foreach (var monkeyInput in allMonkeyInput)
-            {
-                List<string> lines = monkeyInput
-                    .AsLines()
-                    .Select(l => l.Trim())
-                    .ToList();
+			var allMonkeyInput = input.AsLineBlocks();
+			foreach (var monkeyInput in allMonkeyInput)
+			{
+				List<string> lines = monkeyInput
+					.AsLines()
+					.Select(l => l.Trim())
+					.ToList();
 
-                Monkey m = new Monkey();
-                m.number = int.Parse(lines[0].Replace("Monkey ", "").Replace(":", ""));
-                m.items = lines[1]
-                    .Split(":", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                    .Last()
-                    .Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                    .Select(s => long.Parse(s))
-                    .ToList();
-                if (lines[2] == "Operation: new = old * old")
-                {
-                    m.operation = new Func<long, long>(i => i * i);
-                }
-                else if (lines[2].Contains("*"))
-                {
-                    m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last()));
-                }
-                else if (lines[2].Contains("+"))
-                {
-                    m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last()));
-                }
+				Monkey m = new Monkey();
+				m.number = int.Parse(lines[0].Replace("Monkey ", "").Replace(":", ""));
+				m.items = lines[1]
+					.Split(":", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+					.Last()
+					.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+					.Select(s => long.Parse(s))
+					.ToList();
+				if (lines[2] == "Operation: new = old * old")
+				{
+					m.operation = new Func<long, long>(i => i * i);
+				}
+				else if (lines[2].Contains("*"))
+				{
+					m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last()));
+				}
+				else if (lines[2].Contains("+"))
+				{
+					m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last()));
+				}
 
-                m.test = long.Parse(lines[3].Split(" ").Last());
-                m.trueTarget = int.Parse(lines[4].Split(" ").Last());
-                m.falseTarget = int.Parse(lines[5].Split(" ").Last());
+				m.test = long.Parse(lines[3].Split(" ").Last());
+				m.trueTarget = int.Parse(lines[4].Split(" ").Last());
+				m.falseTarget = int.Parse(lines[5].Split(" ").Last());
 
-                magicMod = magicMod * m.test;
+				magicMod = magicMod * m.test;
 
-                monkeys.Add(m);
-            }
+				monkeys.Add(m);
+			}
 
-            for (int round = 1; round <= 10000; round++)
-            {
-                foreach (Monkey m in monkeys)
-                {
-                    foreach (long item in m.items)
-                    {
-                        long worryLevel = m.operation(item);
-                        worryLevel = worryLevel % magicMod;
+			for (int round = 1; round <= 10000; round++)
+			{
+				foreach (Monkey m in monkeys)
+				{
+					foreach (long item in m.items)
+					{
+						long worryLevel = m.operation(item);
+						worryLevel = worryLevel % magicMod;
 
-                        if (worryLevel % m.test == 0)
-                        {
-                            monkeys.Single(a => a.number == m.trueTarget).items.Add(worryLevel);
-                        }
-                        else
-                        {
-                            monkeys.Single(a => a.number == m.falseTarget).items.Add(worryLevel);
-                        }
-                        m.inspectionCount++;
-                    }
-                    m.items.Clear();
-                }
+						if (worryLevel % m.test == 0)
+						{
+							monkeys.Single(a => a.number == m.trueTarget).items.Add(worryLevel);
+						}
+						else
+						{
+							monkeys.Single(a => a.number == m.falseTarget).items.Add(worryLevel);
+						}
+						m.inspectionCount++;
+					}
+					m.items.Clear();
+				}
 
-                /*
+				/*
                 if (round == 1)
                 {
                     Console.WriteLine("Round " + round);
@@ -190,26 +191,26 @@ namespace AdventOfCode.Year2022.Day11
                     Console.WriteLine();
                 }
                 */
-            }
+			}
 
-            var sorted = monkeys.OrderByDescending(m => m.inspectionCount).ToList();
+			var sorted = monkeys.OrderByDescending(m => m.inspectionCount).ToList();
 
-            result = sorted[0].inspectionCount * sorted[1].inspectionCount;
+			result = sorted[0].inspectionCount * sorted[1].inspectionCount;
 
-            return result.ToString();
-        }
+			return result.ToString();
+		}
 
-        public class Monkey
-        {
-            public int number = 0;
-            public List<long> items = new();
-            public long test;
-            public int trueTarget = 0;
-            public int falseTarget = 0;
-            public Func<long, long> operation = new Func<long, long>(i => i);
-            public long inspectionCount = 0;
+		public class Monkey
+		{
+			public int number = 0;
+			public List<long> items = new();
+			public long test;
+			public int trueTarget = 0;
+			public int falseTarget = 0;
+			public Func<long, long> operation = new Func<long, long>(i => i);
+			public long inspectionCount = 0;
 
-        }
+		}
 
-    }
+	}
 }

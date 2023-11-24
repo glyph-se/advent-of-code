@@ -1,44 +1,45 @@
-﻿using AdventOfCode.Common;
+﻿using Shared;
+using Year2022.Common;
 
-namespace AdventOfCode.Year2022.Day01
+namespace Year2022.Day01
 {
-    internal class Solver : ISolver
-    {
-        public async Task<string> PartOne(string input)
-        {
-            await Task.Yield();
+	public class Solver : ISolver
+	{
+		public async Task<string> PartOne(string input)
+		{
+			await Task.Yield();
 
-            var elfs = StringParsing.AsLineBlocks(input);
+			var elfs = input.AsLineBlocks();
 
-            List<int> elfCalories = new List<int>();
+			List<int> elfCalories = new List<int>();
 
-            foreach (string elf in elfs)
-            {
-                var calories = StringParsing.AsInts(elf);
-                elfCalories.Add(calories.Sum());
-            }
+			foreach (string elf in elfs)
+			{
+				var calories = elf.AsInts();
+				elfCalories.Add(calories.Sum());
+			}
 
-            return elfCalories.Max().ToString();
-        }
+			return elfCalories.Max().ToString();
+		}
 
-        public async Task<string> PartTwo(string input)
-        {
-            await Task.Yield();
+		public async Task<string> PartTwo(string input)
+		{
+			await Task.Yield();
 
-            var elfs = StringParsing.AsLineBlocks(input);
+			var elfs = input.AsLineBlocks();
 
-            List<int> elfCalories = new List<int>();
+			List<int> elfCalories = new List<int>();
 
-            foreach (string elf in elfs)
-            {
-                var calories = StringParsing.AsInts(elf);
-                elfCalories.Add(calories.Sum());
-            }
+			foreach (string elf in elfs)
+			{
+				var calories = elf.AsInts();
+				elfCalories.Add(calories.Sum());
+			}
 
-            var sortedList = elfCalories.OrderDescending().ToArray();
+			var sortedList = elfCalories.OrderDescending().ToArray();
 
-            int result = sortedList[0] + sortedList[1] + sortedList[2];
-            return result.ToString();
-        }
-    }
+			int result = sortedList[0] + sortedList[1] + sortedList[2];
+			return result.ToString();
+		}
+	}
 }

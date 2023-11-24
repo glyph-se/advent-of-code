@@ -1,131 +1,132 @@
-﻿using AdventOfCode.Common;
+﻿using Shared;
+using Year2022.Common;
 
-namespace AdventOfCode.Year2022.Day10
+namespace Year2022.Day10
 {
-    internal class Solver : ISolver
-    {
-        public async Task<string> PartOne(string input)
-        {
-            await Task.Yield();
+	public class Solver : ISolver
+	{
+		public async Task<string> PartOne(string input)
+		{
+			await Task.Yield();
 
-            int xValue = 1;
-            int sumSignal = 0;
-            int cycle = 0;
+			int xValue = 1;
+			int sumSignal = 0;
+			int cycle = 0;
 
-            var lines = StringParsing.AsLines(input).ToList();
+			var lines = input.AsLines().ToList();
 
-            foreach (string command in lines)
-            {
-                if (command == "noop")
-                {
-                    cycle++;
+			foreach (string command in lines)
+			{
+				if (command == "noop")
+				{
+					cycle++;
 
-                    if (cycle % 40 == 20)
-                    {
-                        sumSignal += xValue * cycle;
-                    }
-                }
-                else
-                {
-                    var split = command.Split(' ');
-                    int change = int.Parse(split[1]);
+					if (cycle % 40 == 20)
+					{
+						sumSignal += xValue * cycle;
+					}
+				}
+				else
+				{
+					var split = command.Split(' ');
+					int change = int.Parse(split[1]);
 
-                    cycle++;
+					cycle++;
 
-                    if (cycle % 40 == 20)
-                    {
-                        sumSignal += xValue * cycle;
-                    }
+					if (cycle % 40 == 20)
+					{
+						sumSignal += xValue * cycle;
+					}
 
-                    cycle++;
+					cycle++;
 
-                    if (cycle % 40 == 20)
-                    {
-                        sumSignal += xValue * cycle;
-                    }
+					if (cycle % 40 == 20)
+					{
+						sumSignal += xValue * cycle;
+					}
 
-                    xValue += change;
-                }
-            }
+					xValue += change;
+				}
+			}
 
-            return sumSignal.ToString();
-        }
+			return sumSignal.ToString();
+		}
 
-        public async Task<string> PartTwo(string input)
-        {
-            await Task.Yield();
+		public async Task<string> PartTwo(string input)
+		{
+			await Task.Yield();
 
 
-            string result = string.Empty;
-            result += "\n";
+			string result = string.Empty;
+			result += "\n";
 
-            int xValue = 1;
-            int cycle = 0;
+			int xValue = 1;
+			int cycle = 0;
 
-            var lines = StringParsing.AsLines(input).ToList();
+			var lines = input.AsLines().ToList();
 
-            foreach (string command in lines)
-            {
-                if (command == "noop")
-                {
-                    cycle++;
+			foreach (string command in lines)
+			{
+				if (command == "noop")
+				{
+					cycle++;
 
-                    if (Math.Abs(((cycle - 1) % 40) - xValue) <= 1)
-                    {
-                        result += "#";
-                    }
-                    else
-                    {
-                        result += ".";
-                    }
+					if (Math.Abs((cycle - 1) % 40 - xValue) <= 1)
+					{
+						result += "#";
+					}
+					else
+					{
+						result += ".";
+					}
 
-                    if (cycle % 40 == 0)
-                    {
-                        result += "\n";
-                    }
-                }
-                else
-                {
-                    var split = command.Split(' ');
-                    int change = int.Parse(split[1]);
+					if (cycle % 40 == 0)
+					{
+						result += "\n";
+					}
+				}
+				else
+				{
+					var split = command.Split(' ');
+					int change = int.Parse(split[1]);
 
-                    cycle++;
+					cycle++;
 
-                    if (Math.Abs(((cycle - 1) % 40) - xValue) <= 1)
-                    {
-                        result += "#";
-                    }
-                    else
-                    {
-                        result += ".";
-                    }
+					if (Math.Abs((cycle - 1) % 40 - xValue) <= 1)
+					{
+						result += "#";
+					}
+					else
+					{
+						result += ".";
+					}
 
-                    if (cycle % 40 == 0)
-                    {
-                        result += "\n";
-                    }
+					if (cycle % 40 == 0)
+					{
+						result += "\n";
+					}
 
-                    cycle++;
+					cycle++;
 
-                    if (Math.Abs(((cycle - 1) % 40) - xValue) <= 1)
-                    {
-                        result += "#";
-                    }
-                    else
-                    {
-                        result += ".";
-                    }
+					if (Math.Abs((cycle - 1) % 40 - xValue) <= 1)
+					{
+						result += "#";
+					}
+					else
+					{
+						result += ".";
+					}
 
-                    if (cycle % 40 == 0)
-                    {
-                        result += "\n";
-                    }
+					if (cycle % 40 == 0)
+					{
+						result += "\n";
+					}
 
-                    xValue += change;
-                }
-            }
+					xValue += change;
+				}
+			}
 
-            return result.ToString();
-        }
-    }
+			return result.ToString();
+		}
+	}
 }

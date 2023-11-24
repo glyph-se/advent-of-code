@@ -1,75 +1,75 @@
-﻿using AdventOfCode.Common;
+﻿using Shared;
+using Year2021.Common;
 
-namespace AdventOfCode.Year2021.Day02
+namespace Year2021.Day02;
+
+public class Solver : ISolver
 {
-    internal class Solver : ISolver
+    public async Task<string> PartOne(string input)
     {
-        public async Task<string> PartOne(string input)
+        await Task.Yield();
+
+        var lines = StringParsing.AsLines(input);
+
+        int forwardPos = 0;
+        int heightPos = 0;
+
+        foreach (var line in lines)
         {
-            await Task.Yield();
+            var items = line.Split(' ');
+            string command = items[0];
+            int amount = int.Parse(items[1]);
 
-            var lines = StringParsing.AsLines(input);
-
-            int forwardPos = 0;
-            int heightPos = 0;
-
-            foreach (var line in lines)
+            if (command == "forward")
             {
-                var items = line.Split(' ');
-                string command = items[0];
-                int amount = int.Parse(items[1]);
-
-                if (command == "forward")
-                {
-                    forwardPos += amount;
-                }
-                if (command == "up")
-                {
-                    heightPos -= amount;
-                }
-                if (command == "down")
-                {
-                    heightPos += amount;
-                }
+                forwardPos += amount;
             }
-
-            return (heightPos * forwardPos).ToString();
+            if (command == "up")
+            {
+                heightPos -= amount;
+            }
+            if (command == "down")
+            {
+                heightPos += amount;
+            }
         }
 
-        public async Task<string> PartTwo(string input)
+        return (heightPos * forwardPos).ToString();
+    }
+
+    public async Task<string> PartTwo(string input)
+    {
+        await Task.Yield();
+
+        await Task.Yield();
+
+        var lines = StringParsing.AsLines(input);
+
+        int forwardPos = 0;
+        int heightPos = 0;
+        int aim = 0;
+
+        foreach (var line in lines)
         {
-            await Task.Yield();
+            var items = line.Split(' ');
+            string command = items[0];
+            int amount = int.Parse(items[1]);
 
-            await Task.Yield();
-
-            var lines = StringParsing.AsLines(input);
-
-            int forwardPos = 0;
-            int heightPos = 0;
-            int aim = 0;
-
-            foreach (var line in lines)
+            if (command == "forward")
             {
-                var items = line.Split(' ');
-                string command = items[0];
-                int amount = int.Parse(items[1]);
-
-                if (command == "forward")
-                {
-                    forwardPos += amount;
-                    heightPos += amount * aim;
-                }
-                if (command == "up")
-                {
-                    aim -= amount;
-                }
-                if (command == "down")
-                {
-                    aim += amount;
-                }
+                forwardPos += amount;
+                heightPos += amount * aim;
             }
-
-            return (heightPos * forwardPos).ToString();
+            if (command == "up")
+            {
+                aim -= amount;
+            }
+            if (command == "down")
+            {
+                aim += amount;
+            }
         }
+
+        return (heightPos * forwardPos).ToString();
     }
 }

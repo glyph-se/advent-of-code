@@ -1,70 +1,70 @@
-﻿using AdventOfCode.Common;
+﻿using Shared;
+using Year2021.Common;
 
-namespace AdventOfCode.Year2021.Day01
+namespace Year2021.Day01;
+
+public class Solver : ISolver
 {
-    internal class Solver : ISolver
+    public async Task<string> PartOne(string input)
     {
-        public async Task<string> PartOne(string input)
+        await Task.Yield();
+
+        var numbers = StringParsing.AsInts(input);
+
+        int prev = -1;
+        int result = 0;
+        foreach (int current in numbers)
         {
-            await Task.Yield();
-
-            var numbers = StringParsing.AsInts(input);
-
-            int prev = -1;
-            int result = 0;
-            foreach (int current in numbers)
+            if (prev == -1)
             {
-                if (prev == -1)
-                {
-                    // nothing, is first
-                }
-                else if (current > prev)
-                {
-                    result++;
-                }
-
-                prev = current;
+                // nothing, is first
+            }
+            else if (current > prev)
+            {
+                result++;
             }
 
-            return result.ToString();
+            prev = current;
         }
 
-        public async Task<string> PartTwo(string input)
+        return result.ToString();
+    }
+
+    public async Task<string> PartTwo(string input)
+    {
+        await Task.Yield();
+
+        var numbers = StringParsing.AsInts(input);
+
+        int lastWindow = -1;
+        int p0 = -1, p1 = -1, p2 = -1;
+
+        int result = 0;
+        foreach (int current in numbers)
         {
-            await Task.Yield();
+            p0 = p1;
+            p1 = p2;
+            p2 = current;
 
-            var numbers = StringParsing.AsInts(input);
-
-            int lastWindow = -1;
-            int p0 = -1, p1 = -1, p2 = -1;
-
-            int result = 0;
-            foreach (int current in numbers)
+            if (p0 == -1)
             {
-                p0 = p1;
-                p1 = p2;
-                p2 = current;
-
-                if (p0 == -1)
-                {
-                    continue;
-                }
-
-                int currentWindow = p0 + p1 + p2;
-
-                if (lastWindow == -1)
-                {
-                    // nothing, is first
-                }
-                else if (currentWindow > lastWindow)
-                {
-                    result++;
-                }
-
-                lastWindow = currentWindow;
+                continue;
             }
 
-            return result.ToString();
+            int currentWindow = p0 + p1 + p2;
+
+            if (lastWindow == -1)
+            {
+                // nothing, is first
+            }
+            else if (currentWindow > lastWindow)
+            {
+                result++;
+            }
+
+            lastWindow = currentWindow;
         }
+
+        return result.ToString();
     }
 }
