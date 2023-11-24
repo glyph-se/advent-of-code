@@ -3,33 +3,33 @@ using Year2023.Common;
 
 namespace Year2023.Day00;
 
-  public class Solver : ISolver
-  {
-      public async Task<string> PartOne(string input)
-      {
-          await Task.Yield();
+public class Solver : ISolver
+{
+	public async Task<string> PartOne(string input)
+	{
+		await Task.Yield();
 
-          long result = 0;
+		long result = 0;
 
-          foreach (string line in input.AsLines())
-          {
+		foreach (string line in input.AsLines())
+		{
 
-          }
+		}
 
-          return result.ToString();
-      }
+		return result.ToString();
+	}
 
-      public async Task<string> PartTwo(string input)
-      {
-          await Task.Yield();
+	public async Task<string> PartTwo(string input)
+	{
+		await Task.Yield();
 
-          int result = 0;
+		int result = 0;
 
-          foreach (string line in input.AsLines())
-          {
+		foreach (string line in input.AsLines())
+		{
 
-          }
+		}
 
-          return result.ToString();
-      }
-  }
+		return result.ToString();
+	}
+}
