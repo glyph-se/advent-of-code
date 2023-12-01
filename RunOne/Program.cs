@@ -6,7 +6,7 @@ namespace RunOne;
 internal class Program
 {
 	static readonly int YEAR = 2023;
-	static readonly int DAY = 1;
+	static readonly int DAY = 2;
 
 	public static async Task Main(string[] args)
 	{
