@@ -26,7 +26,15 @@ public class Solver : ISolver
 				}
 			}
 
-			result += int.Parse(nr1.ToString() + nr2.ToString());
+			try
+			{
+				result += int.Parse(nr1.ToString() + nr2.ToString());
+			}
+			catch
+			{
+				// This will happen on example 2 data
+				// Do nothing in that case
+			}
 		}
 
 		return result.ToString();
@@ -43,11 +51,19 @@ public class Solver : ISolver
 			int? nr1 = null;
 			int? nr2 = null;
 
-			string replacedLine = line.Replace("one", "one1one").Replace("two", "two2two").Replace("three", "three3three").Replace("four", "four4four").Replace("five", "five5five").Replace("six", "six6six").Replace("seven", "seven7seven").Replace("eight", "eight8eight").Replace("nine", "nine9nine");
+			string replacedLine = line
+				.Replace("one", "one1one")
+				.Replace("two", "two2two")
+				.Replace("three", "three3three")
+				.Replace("four", "four4four")
+				.Replace("five", "five5five")
+				.Replace("six", "six6six")
+				.Replace("seven", "seven7seven")
+				.Replace("eight", "eight8eight")
+				.Replace("nine", "nine9nine");
 
 			foreach (char a in replacedLine.ToCharArray())
 			{
-
 				if (int.TryParse(a.ToString(), out int i))
 				{
 					if (nr1 == null) nr1 = i;

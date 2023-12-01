@@ -6,4 +6,5 @@ public enum InputType
 	Example1 = 1,
 	Full = 2,
 	Custom = 3,
+	Example2 = 21,
 }

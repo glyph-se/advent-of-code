@@ -30,6 +30,7 @@ internal class Program
 			Console.WriteLine(" 2. Full data");
 			Console.WriteLine(" 3. Custom data");
 			Console.WriteLine(" 9. Change day");
+			Console.WriteLine(" 21. Example 2 data");
 			Console.Write("> ");
 
 			string? choiceString = Console.ReadLine();
@@ -47,6 +48,9 @@ internal class Program
 					break;
 				case "9":
 					// TODO
+					break;
+				case "21":
+					inputType = InputType.Example2;
 					break;
 				default:
 					PrintError("Invalid choice, try again");

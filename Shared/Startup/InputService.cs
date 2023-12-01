@@ -9,7 +9,10 @@ public static class InputService
 		switch (inputType)
 		{
 			case InputType.Example1:
-				inputs = await ReadOrInputFileAsync(year, day);
+				inputs = await ReadOrInputFileAsync(InputConstants.Example1InputPath(year, day));
+				break;
+			case InputType.Example2:
+				inputs = await ReadOrInputFileAsync(InputConstants.Example2InputPath(year, day));
 				break;
 			case InputType.Full:
 				inputs = await ReadOrDownloadFileAsync(year, day);
@@ -83,10 +86,8 @@ public static class InputService
 		return fileContents;
 	}
 
-	private async static Task<string> ReadOrInputFileAsync(int year, int day)
+	private async static Task<string> ReadOrInputFileAsync(string filePath)
 	{
-		string filePath = InputConstants.Example1InputPath(year, day);
-
 		Console.WriteLine();
 		Console.ForegroundColor = ConsoleColor.DarkGray;
 		Console.WriteLine($"Using file {filePath}");
