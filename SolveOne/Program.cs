@@ -6,20 +6,26 @@ namespace SolveOne;
 internal class Program
 {
 	static readonly int YEAR = 2023;
-	static readonly int DAY = 2;
+	static readonly int DAY = 3;
 
 	public static async Task Main(string[] args)
 	{
 		PrintHeader(YEAR, DAY);
 
-		ISolver? instance = GetSolverInstance(YEAR, DAY);
+		await SolveOneDayAsync(YEAR, DAY);
+
+		PrintFooter();
+	}
+
+	private static async Task SolveOneDayAsync(int year, int day)
+	{
+		ISolver? instance = GetSolverInstance(year, day);
 
 		if (instance == null)
 		{
 			PrintError("Solver not found!");
 			return;
 		}
-
 
 		InputType inputType = InputType.None;
 
@@ -29,7 +35,7 @@ internal class Program
 			Console.WriteLine(" 1. Example 1 data");
 			Console.WriteLine(" 2. Full data");
 			Console.WriteLine(" 3. Custom data");
-			Console.WriteLine(" 9. Change day");
+			Console.WriteLine(" 9. Change date");
 			Console.WriteLine(" 21. Example 2 data");
 			Console.Write("> ");
 
@@ -47,8 +53,21 @@ internal class Program
 					inputType = InputType.Custom;
 					break;
 				case "9":
-					// TODO
-					break;
+					while (true)
+					{
+						PrintWarning("Change date");
+						Console.WriteLine("Year?");
+						Console.Write("> ");
+						string? newYear = Console.ReadLine();
+						Console.WriteLine("Day?");
+						Console.Write("> ");
+						string? newDay = Console.ReadLine();
+						if (int.TryParse(newYear, out int parsedNewYear) && int.TryParse(newDay, out int parsedNewDay))
+						{
+							PrintWarning($"Changing to {parsedNewYear}/{parsedNewDay}");
+							await SolveOneDayAsync(parsedNewYear, parsedNewDay);
+						}
+					}
 				case "21":
 					inputType = InputType.Example2;
 					break;
@@ -58,7 +77,7 @@ internal class Program
 			}
 		}
 
-		string? inputs = await InputService.GetInput(inputType, YEAR, DAY);
+		string? inputs = await InputService.GetInput(inputType, year, day);
 
 		Console.WriteLine("Running part one...");
 		string outputOne = await instance.PartOne(inputs);
@@ -67,8 +86,15 @@ internal class Program
 		Console.WriteLine("Running part two...");
 		string outputTwo = await instance.PartTwo(inputs);
 		PrintOutput(outputTwo);
+	}
 
-		PrintFooter();
+	private static void PrintWarning(string text)
+	{
+		Console.WriteLine();
+		Console.ForegroundColor = ConsoleColor.Yellow;
+		Console.WriteLine(text);
+		Console.ResetColor();
+		Console.WriteLine();
 	}
 
 	private static void PrintFooter()
