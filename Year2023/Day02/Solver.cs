@@ -18,7 +18,7 @@ public class Solver : ISolver
 		foreach (string line in input.AsLines())
 		{
 			var a = line.Split(":", StringSplitOptions.TrimEntries);
-			int gameNumber = int.Parse(a[0].Replace("Game", ""));
+			int gameNumber = a[0].Replace("Game", "").ToInt();
 			var sets = a[1].Split(";", StringSplitOptions.TrimEntries);
 
 			bool gameWorks = true;
@@ -71,7 +71,7 @@ public class Solver : ISolver
 		foreach (string line in input.AsLines())
 		{
 			var a = line.Split(":", StringSplitOptions.TrimEntries);
-			int gameNumber = int.Parse(a[0].Replace("Game", ""));
+			int gameNumber = a[0].Replace("Game", "").ToInt();
 			var sets = a[1].Split(";", StringSplitOptions.TrimEntries);
 
 			int maxRed = 0;

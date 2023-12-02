@@ -28,7 +28,7 @@ public class Solver : ISolver
 
 			try
 			{
-				result += int.Parse(nr1.ToString() + nr2.ToString());
+				result += (nr1.ToString() + nr2.ToString()).ToInt();
 			}
 			catch
 			{
@@ -71,7 +71,7 @@ public class Solver : ISolver
 				}
 			}
 
-			result += int.Parse(nr1.ToString() + nr2.ToString());
+			result += (nr1.ToString() + nr2.ToString()).ToInt();
 		}
 
 		return result.ToString();

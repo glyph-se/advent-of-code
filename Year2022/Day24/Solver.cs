@@ -9,11 +9,13 @@ namespace Year2022.Day24
 		{
 			await Task.Yield();
 
+#pragma warning disable CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
 			HashSet<(int x, int y)> grid = input
 				.AsGridList((c, x, y) => CreatePoint(c, x, y))
 				.Where(p => p != null)
 				.Cast<(int x, int y)>()
 				.ToHashSet();
+#pragma warning restore CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
 
 			List<Blizzard> blizzards = input
 				.AsGridList((c, x, y) => CreateBlizzard(c, x, y))
@@ -95,11 +97,13 @@ namespace Year2022.Day24
 		{
 			await Task.Yield();
 
+#pragma warning disable CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
 			HashSet<(int x, int y)> grid = input
 				.AsGridList((c, x, y) => CreatePoint(c, x, y))
 				.Where(p => p != null)
 				.Cast<(int x, int y)>()
 				.ToHashSet();
+#pragma warning restore CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
 
 
 			List<Blizzard> blizzards = input
