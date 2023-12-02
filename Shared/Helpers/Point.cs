@@ -1,4 +1,4 @@
-﻿namespace Year2022.Common
+﻿namespace Shared.Helpers
 {
 	public class Point
 	{
@@ -19,8 +19,8 @@
 		public override bool Equals(object? obj)
 		{
 			return obj is Point point &&
-				   x == point.x &&
-				   y == point.y;
+					 x == point.x &&
+					 y == point.y;
 		}
 
 		public override int GetHashCode()

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Shared;
-using Year2022.Common;
+using Shared.Helpers;
 
 namespace Year2022.Day16
 {

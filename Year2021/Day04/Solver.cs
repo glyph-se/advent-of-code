@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 using Shared;
-using Year2021.Common;
+using Shared.Helpers;
 
 namespace Year2021.Day04;
 

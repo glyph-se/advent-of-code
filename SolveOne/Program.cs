@@ -1,12 +1,12 @@
 ﻿using Shared;
 using Shared.Startup;
 
-namespace RunOne;
+namespace SolveOne;
 
 internal class Program
 {
-	static readonly int YEAR = 2023;
-	static readonly int DAY = 3;
+	static readonly int YEAR = 2022;
+	static readonly int DAY = 24;
 
 	public static async Task Main(string[] args)
 	{

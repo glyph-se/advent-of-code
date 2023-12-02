@@ -1,6 +1,6 @@
-﻿namespace Year2022.Common
+﻿namespace Shared.Helpers
 {
-	internal static class Helpers
+	public static class Helpers
 	{
 		/// <summary>
 		/// Generates the Cartesian Product of the two given <see cref="IEnumerable{T}"/>s.
@@ -51,7 +51,7 @@
 		public static IEnumerable<IEnumerable<T>> DifferentCombinations<T>(this IEnumerable<T> elements, int k)
 		{
 			return k == 0 ? new[] { new T[0] } :
-			  elements.SelectMany((e, i) =>
+				elements.SelectMany((e, i) =>
 				elements.Skip(i + 1).DifferentCombinations(k - 1).Select(c => (new[] { e }).Concat(c)));
 		}
 	}

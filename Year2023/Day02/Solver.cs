@@ -1,5 +1,5 @@
 ﻿using Shared;
-using Year2023.Common;
+using Shared.Helpers;
 
 namespace Year2023.Day02;
 
@@ -35,7 +35,7 @@ public class Solver : ISolver
 					var splitMove = move.Split(" ");
 					if (splitMove[1] == "blue")
 					{
-						moveBlue = int.Parse(splitMove[0]);
+						moveBlue = splitMove[0].ToInt();
 					}
 					if (splitMove[1] == "red")
 					{

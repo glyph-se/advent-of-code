@@ -1,6 +1,6 @@
-﻿namespace Year2023.Common
+﻿namespace Shared.Helpers
 {
-	internal static class GridHelpers
+	public static class GridHelpers
 	{
 		public static IReadOnlyDictionary<(int x, int y), TReturn> AsGridDict<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
 		{

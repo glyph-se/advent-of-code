@@ -1,8 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Year2023.Common
+namespace Shared.Helpers
 {
-	internal class MathHelpers
+	public class MathHelpers
 	{
 		/// <remarks>From https://github.com/viceroypenguin/adventofcode/blob/master/AdventOfCode.Common/Helpers.cs</remarks>
 		[MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]

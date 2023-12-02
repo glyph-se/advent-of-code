@@ -1,4 +1,4 @@
-﻿namespace Year2023.Common
+﻿namespace Shared.Helpers
 {
 	/// <summary>
 	/// Taken from https://stackoverflow.com/a/17055215

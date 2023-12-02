@@ -1,4 +1,4 @@
-﻿namespace Year2023.Common
+﻿namespace Shared.Helpers
 {
 	public class Levenshtein
 	{

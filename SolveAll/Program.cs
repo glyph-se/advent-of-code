@@ -2,7 +2,7 @@
 using Shared;
 using Shared.Startup;
 
-namespace RunAll;
+namespace SolveAll;
 
 internal class Program
 {
