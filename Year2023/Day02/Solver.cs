@@ -22,38 +22,38 @@ public class Solver : ISolver
 			var sets = a[1].Split(";", StringSplitOptions.TrimEntries);
 
 			bool gameWorks = true;
-			foreach(string set in sets)
+			foreach (string set in sets)
 			{
 				var moves = set.Split(",", StringSplitOptions.TrimEntries);
 
 				int moveRed = 0;
 				int moveGreen = 0;
 				int moveBlue = 0;
-				
-				foreach(var move in moves)
+
+				foreach (var move in moves)
 				{
 					var splitMove = move.Split(" ");
-					if (splitMove[1] == "blue")
+					switch (splitMove[1])
 					{
-						moveBlue = splitMove[0].ToInt();
-					}
-					if (splitMove[1] == "red")
-					{
-						moveRed = int.Parse(splitMove[0]);
-					}
-					if (splitMove[1] == "green")
-					{
-						moveGreen = int.Parse(splitMove[0]);
+						case "blue":
+							moveBlue = splitMove[0].ToInt();
+							break;
+						case "red":
+							moveRed = splitMove[0].ToInt();
+							break;
+						case "green":
+							moveGreen = splitMove[0].ToInt();
+							break;
 					}
 				}
 
-				if(moveBlue > totalBlue || moveRed > totalRed || moveGreen > totalGreen)
+				if (moveBlue > totalBlue || moveRed > totalRed || moveGreen > totalGreen)
 				{
 					gameWorks = false;
 				}
 			}
 
-			if(gameWorks)
+			if (gameWorks)
 			{
 				result += gameNumber;
 			}
@@ -89,23 +89,23 @@ public class Solver : ISolver
 				foreach (var move in moves)
 				{
 					var splitMove = move.Split(" ");
-					if (splitMove[1] == "blue")
+					switch (splitMove[1])
 					{
-						moveBlue = int.Parse(splitMove[0]);
-					}
-					if (splitMove[1] == "red")
-					{
-						moveRed = int.Parse(splitMove[0]);
-					}
-					if (splitMove[1] == "green")
-					{
-						moveGreen = int.Parse(splitMove[0]);
+						case "blue":
+							moveBlue = splitMove[0].ToInt();
+							break;
+						case "red":
+							moveRed = splitMove[0].ToInt();
+							break;
+						case "green":
+							moveGreen = splitMove[0].ToInt();
+							break;
 					}
 				}
 
-				if(moveRed > maxRed) { maxRed = moveRed; }
-				if(moveGreen > maxGreen) {  maxGreen = moveGreen; }
-				if(moveBlue > maxBlue) {  maxBlue = moveBlue; }
+				if (moveRed > maxRed) { maxRed = moveRed; }
+				if (moveGreen > maxGreen) { maxGreen = moveGreen; }
+				if (moveBlue > maxBlue) { maxBlue = moveBlue; }
 			}
 
 			result += (maxRed * maxGreen * maxBlue);
