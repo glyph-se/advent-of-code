@@ -37,6 +37,12 @@ namespace Shared.Helpers
 			return long.Parse(input);
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsDigit(this char input)
+		{
+			return char.IsDigit(input);
+		}
+
 
 
 		/*        public static (T1, T2) AsSplit<T1, T2>(this string input, char separator = ' ')

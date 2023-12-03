@@ -40,9 +40,9 @@
 			return grid;
 		}
 
-		public static TReturn[,] ExtendGridMatrix<TReturn>(this TReturn[,] orgGrid, int extension) where TReturn : Point
+		public static TReturn?[,] ExtendGridMatrix<TReturn>(this TReturn?[,] orgGrid, int extension) where TReturn : Point
 		{
-			TReturn[,] grid = new TReturn[orgGrid.GetLength(0) + 2 * extension, orgGrid.GetLength(1) + 2 * extension];
+			TReturn?[,] grid = new TReturn[orgGrid.GetLength(0) + 2 * extension, orgGrid.GetLength(1) + 2 * extension];
 
 			for (int i = 0; i < orgGrid.GetLength(0); i++)
 			{
@@ -62,7 +62,7 @@
 			return grid;
 		}
 
-		public static TReturn?[,] ExtendNullableGridMatrix<TReturn>(this TReturn?[,] orgGrid, int extension) where TReturn : struct
+		public static TReturn?[,] ExtendGridMatrix<TReturn>(this TReturn?[,] orgGrid, int extension) where TReturn : struct
 		{
 			TReturn?[,] grid = new TReturn?[orgGrid.GetLength(0) + 2 * extension, orgGrid.GetLength(1) + 2 * extension];
 
@@ -107,6 +107,21 @@
 				}
 			}
 			return list;
+		}
+
+		public static IEnumerable<(int dx, int dy)> AllDirs()
+		{
+			return Diagonals().Concat(UpDowns());
+		}
+
+		public static IEnumerable<(int dx, int dy)> Diagonals()
+		{
+			return new List<(int dx, int dy)>() { (1, -1), (1, 1), (-1, 1), (-1, -1) };
+		}
+
+		public static IEnumerable<(int dx, int dy)> UpDowns()
+		{
+			return new List<(int dx,int dy)>() { (0, 1), (1, 0), (-1, 0), (0, -1) };
 		}
 	}
 }
