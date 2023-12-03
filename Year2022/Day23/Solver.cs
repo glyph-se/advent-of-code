@@ -28,11 +28,11 @@ namespace Year2022.Day23
 			long result = 0;
 
 
-			Elf[,] orgGrid = input.AsGridMatrix((c, x, y) => CreateElf(c, x, y));
+			Elf?[,] orgGrid = input.AsGridMatrix((c, x, y) => CreateElf(c, x, y));
 
 			var allElves = orgGrid.AsList();
 
-			Elf[,] grid = orgGrid.ExtendGridMatrix(1000);
+			Elf?[,] grid = orgGrid.ExtendGridMatrix(1000);
 
 			for (int round = 1; round <= 10; round++)
 			{
@@ -42,7 +42,7 @@ namespace Year2022.Day23
 				{
 					for (int y = 0; y < grid.GetLength(1); y++)
 					{
-						Elf elf = grid[x, y];
+						Elf? elf = grid[x, y];
 
 						if (elf != null)
 						{
@@ -106,16 +106,16 @@ namespace Year2022.Day23
 				proposalOrder.Add(firstProposal);
 			}
 
-			int minY = allElves.Min(e => e.y);
-			int maxY = allElves.Max(e => e.y);
-			int minX = allElves.Min(e => e.x);
-			int maxX = allElves.Max(e => e.x);
+			int minY = allElves.Min(e => e!.y);
+			int maxY = allElves.Max(e => e!.y);
+			int minX = allElves.Min(e => e!.x);
+			int maxX = allElves.Max(e => e!.x);
 
 			for (int x = minX; x <= maxX; x++)
 			{
 				for (int y = minY; y <= maxY; y++)
 				{
-					Elf elf = grid[x, y];
+					Elf? elf = grid[x, y];
 
 					if (elf == null)
 					{
@@ -135,7 +135,7 @@ namespace Year2022.Day23
 
 			List<Elf> allElves = new();
 
-			Elf[,] orgGrid = input.AsGridMatrix((c, x, y) => CreateElf(c, x, y));
+			Elf?[,] orgGrid = input.AsGridMatrix((c, x, y) => CreateElf(c, x, y));
 
 			Elf[,] grid = new Elf[orgGrid.GetLength(0) + 2000, orgGrid.GetLength(1) + 2000];
 
@@ -261,7 +261,7 @@ namespace Year2022.Day23
 			Console.WriteLine("---------------------------------------------------------------------");
 		}
 
-		private static Elf CreateElf(char c, int col, int row)
+		private static Elf? CreateElf(char c, int col, int row)
 		{
 			if (c == '#')
 			{

@@ -19,7 +19,7 @@ namespace Year2022.Day22
 
 			bool?[,] orgGrid = Day22StringParsing.AsGridDay22(split[0], (c, x, y) => CreateNode(c, x, y));
 
-			bool?[,] grid = orgGrid.ExtendNullableGridMatrix(1);
+			bool?[,] grid = orgGrid.ExtendGridMatrix(1);
 
 			List<string> movements = new();
 
