@@ -123,6 +123,8 @@ public class Solver : ISolver
 					foreach (var dirs in GridHelpers.AllDirs())
 					{
 						var checkForNumber = grid[x + dirs.dx, y + dirs.dy];
+						if(checkForNumber == null)
+							continue;
 						if (visited.Contains(checkForNumber))
 							continue;
 
