@@ -13,6 +13,18 @@ public class Solver : ISolver
 
 		foreach (string line in input.AsLines())
 		{
+			var (cardPart, winningNumberPart, myNumberPart, _) = line.AsSplit(new[] { ":", "|" });
+			int card = cardPart.Replace("Card ", "").ToInt();
+			var winningNumbers = winningNumberPart.AsSplit(" ");
+			var myNumbers = myNumberPart.AsSplit(" ");
+
+			int count = winningNumbers.Intersect(myNumbers).Count();
+
+			if(count > 0)
+			{
+				int score = (int)Math.Pow(2, count-1);
+				result += score;
+			}
 
 		}
 
@@ -23,12 +35,33 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		int result = 0;
+		long result = 0;
+
+		Dictionary<int,int> instances = new Dictionary<int,int>();
+
+		for(int i = 0; i < 300; i++)
+		{
+			instances.Add(i, 0);
+		}
 
 		foreach (string line in input.AsLines())
 		{
+			var (cardPart, winningNumberPart, myNumberPart, _) = line.AsSplit(new[] { ":", "|" });
+			int card = cardPart.Replace("Card ", "").ToInt();
+			var winningNumbers = winningNumberPart.AsSplit(" ");
+			var myNumbers = myNumberPart.AsSplit(" ");
 
+			instances[card]++;
+
+			int count = winningNumbers.Intersect(myNumbers).Count();
+
+			for (int i = 1; i <= count; i++)
+			{
+				instances[card + i] += instances[card];
+			}
 		}
+
+		result = instances.Values.Sum();
 
 		return result.ToString();
 	}
