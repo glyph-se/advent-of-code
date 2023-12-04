@@ -96,13 +96,18 @@ namespace Shared.Helpers
 			return (parts[0], parts[1], parts[2]);
 		}
 
+		/*
+		 * Use something like this?
+		 * https://stackoverflow.com/a/49191033
+		 * 
+		 * 
+		/*
+		public static (T1, T2) AsSplit<T1, T2>(this string input, char separator = ' ')
+        {
+            string[] splitted = input.Split(separator);
 
-		/*        public static (T1, T2) AsSplit<T1, T2>(this string input, char separator = ' ')
-                {
-                    string[] splitted = input.Split(separator);
-
-                    return splitted
-                }
+            return splitted
+        }
         */
 	}
 }
