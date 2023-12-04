@@ -55,6 +55,7 @@ namespace Shared.Helpers
 			return input.Split(separator, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 		}
 
+		/// <remarks>From https://stackoverflow.com/a/49191033</remarks>
 		public static void Deconstruct<T>(this IList<T> list, out T first, out IList<T> rest)
 		{
 
@@ -62,6 +63,7 @@ namespace Shared.Helpers
 			rest = list.Skip(1).ToList();
 		}
 
+		/// <remarks>From https://stackoverflow.com/a/49191033</remarks>
 		public static void Deconstruct<T>(this IList<T> list, out T first, out T second, out IList<T> rest)
 		{
 			first = list.Count > 0 ? list[0] : default(T)!; // or throw
@@ -69,6 +71,7 @@ namespace Shared.Helpers
 			rest = list.Skip(2).ToList();
 		}
 
+		/// <remarks>From https://stackoverflow.com/a/49191033</remarks>
 		public static void Deconstruct<T>(this IList<T> list, out T first, out T second, out T third, out IList<T> rest)
 		{
 			first = list.Count > 0 ? list[0] : default(T)!; // or throw
