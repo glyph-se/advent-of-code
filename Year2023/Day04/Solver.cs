@@ -15,8 +15,8 @@ public class Solver : ISolver
 		{
 			var (cardPart, winningNumberPart, myNumberPart) = line.Split3(new[] { ":", "|" });
 			int card = cardPart.Replace("Card ", "").ToInt();
-			var winningNumbers = winningNumberPart.AsSplit(" ");
-			var myNumbers = myNumberPart.AsSplit(" ");
+			var winningNumbers = winningNumberPart.TrimSplit(" ");
+			var myNumbers = myNumberPart.TrimSplit(" ");
 
 			int count = winningNumbers.Intersect(myNumbers).Count();
 
@@ -48,8 +48,8 @@ public class Solver : ISolver
 		{
 			var (cardPart, winningNumberPart, myNumberPart) = line.Split3(new[] { ":", "|" });
 			int card = cardPart.Replace("Card ", "").ToInt();
-			var winningNumbers = winningNumberPart.AsSplit(" ");
-			var myNumbers = myNumberPart.AsSplit(" ");
+			var winningNumbers = winningNumberPart.TrimSplit(" ");
+			var myNumbers = myNumberPart.TrimSplit(" ");
 
 			instances[card]++;
 

@@ -45,7 +45,7 @@ namespace Shared.Helpers
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static string[] AsSplit(this string input, string separator)
+		public static string[] TrimSplit(this string input, string separator)
 		{
 			return input.Split(separator, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 		}
@@ -58,7 +58,7 @@ namespace Shared.Helpers
 
 		public static (string first, string second) Split2(this string input, string separator)
 		{
-			var parts =input.AsSplit(separator);
+			var parts =input.TrimSplit(separator);
 			if(parts.Length != 2)
 			{
 				throw new Exception("Expected 2 parts after split");
@@ -68,7 +68,7 @@ namespace Shared.Helpers
 
 		public static (string first, string second, string third) Split3(this string input, string separator)
 		{
-			var parts = input.AsSplit(separator);
+			var parts = input.TrimSplit(separator);
 			if (parts.Length != 3)
 			{
 				throw new Exception("Expected 3 parts after split");
