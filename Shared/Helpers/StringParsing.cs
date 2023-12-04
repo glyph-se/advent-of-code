@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 
 namespace Shared.Helpers
@@ -55,29 +56,44 @@ namespace Shared.Helpers
 			return input.Split(separator, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 		}
 
-		/// <remarks>From https://stackoverflow.com/a/49191033</remarks>
-		public static void Deconstruct<T>(this IList<T> list, out T first, out IList<T> rest)
+		public static (string first, string second) Split2(this string input, string separator)
 		{
-
-			first = list.Count > 0 ? list[0] : default(T)!; // or throw
-			rest = list.Skip(1).ToList();
+			var parts =input.AsSplit(separator);
+			if(parts.Length != 2)
+			{
+				throw new Exception("Expected 2 parts after split");
+			}
+			return (parts[0], parts[1]);
 		}
 
-		/// <remarks>From https://stackoverflow.com/a/49191033</remarks>
-		public static void Deconstruct<T>(this IList<T> list, out T first, out T second, out IList<T> rest)
+		public static (string first, string second, string third) Split3(this string input, string separator)
 		{
-			first = list.Count > 0 ? list[0] : default(T)!; // or throw
-			second = list.Count > 1 ? list[1] : default(T)!; // or throw
-			rest = list.Skip(2).ToList();
+			var parts = input.AsSplit(separator);
+			if (parts.Length != 3)
+			{
+				throw new Exception("Expected 3 parts after split");
+			}
+			return (parts[0], parts[1], parts[2]);
 		}
 
-		/// <remarks>From https://stackoverflow.com/a/49191033</remarks>
-		public static void Deconstruct<T>(this IList<T> list, out T first, out T second, out T third, out IList<T> rest)
+		public static (string first, string second) Split2(this string input, string[] separator)
 		{
-			first = list.Count > 0 ? list[0] : default(T)!; // or throw
-			second = list.Count > 1 ? list[1] : default(T)!; // or throw
-			third = list.Count > 2 ? list[2] : default(T)!; // or throw
-			rest = list.Skip(3).ToList();
+			var parts = input.AsSplit(separator);
+			if (parts.Length != 2)
+			{
+				throw new Exception("Expected 2 parts after split");
+			}
+			return (parts[0], parts[1]);
+		}
+
+		public static (string first, string second, string third) Split3(this string input, string[] separator)
+		{
+			var parts = input.AsSplit(separator);
+			if (parts.Length != 3)
+			{
+				throw new Exception("Expected 3 parts after split");
+			}
+			return (parts[0], parts[1], parts[2]);
 		}
 
 

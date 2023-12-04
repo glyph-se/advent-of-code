@@ -13,7 +13,7 @@ public class Solver : ISolver
 
 		foreach (string line in input.AsLines())
 		{
-			var (cardPart, winningNumberPart, myNumberPart, _) = line.AsSplit(new[] { ":", "|" });
+			var (cardPart, winningNumberPart, myNumberPart) = line.Split3(new[] { ":", "|" });
 			int card = cardPart.Replace("Card ", "").ToInt();
 			var winningNumbers = winningNumberPart.AsSplit(" ");
 			var myNumbers = myNumberPart.AsSplit(" ");
@@ -46,7 +46,7 @@ public class Solver : ISolver
 
 		foreach (string line in input.AsLines())
 		{
-			var (cardPart, winningNumberPart, myNumberPart, _) = line.AsSplit(new[] { ":", "|" });
+			var (cardPart, winningNumberPart, myNumberPart) = line.Split3(new[] { ":", "|" });
 			int card = cardPart.Replace("Card ", "").ToInt();
 			var winningNumbers = winningNumberPart.AsSplit(" ");
 			var myNumbers = myNumberPart.AsSplit(" ");
