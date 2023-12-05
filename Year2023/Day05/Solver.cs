@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Concurrent;
+using System.Linq;
 using Shared;
 using Shared.Helpers;
 
@@ -103,12 +104,11 @@ public class Solver : ISolver
 		List<Range> temperatureToHumidity = ParseMap(blocks[6]);
 		List<Range> humidityToLocation = ParseMap(blocks[7]);
 
-
-		long minLocation = long.MaxValue;
-		object syncRoot = new object();
+		ConcurrentBag<long> allMin = new ConcurrentBag<long>();
 
 		Parallel.ForEach(seeds, seed =>
 			{
+				long parMin = long.MaxValue;
 				for (long i = seed.sourceStart; i < seed.sourceEnd; i++)
 				{
 					long soil = FindLocation(i, seedToSoil);
@@ -118,14 +118,12 @@ public class Solver : ISolver
 					long temperature = FindLocation(light, lightToTemperature);
 					long humidity = FindLocation(temperature, temperatureToHumidity);
 					long location = FindLocation(humidity, humidityToLocation);
-					lock (syncRoot)
-					{
-						minLocation = long.Min(minLocation, location);
-					}
+					parMin = long.Min(parMin, location);
 				}
+				allMin.Add(parMin);
 			});
 
-		result = minLocation;
+		result = allMin.Min();
 
 		return result.ToString();
 	}
@@ -142,7 +140,8 @@ public class Solver : ISolver
 
 		public long? Map(long source)
 		{
-			if(source >= sourceStart && source <= sourceEnd)
+			// Range "58 x 2" is 58 59, NOT 60
+			if(source >= sourceStart && source < sourceEnd)
 			{
 				long diff = source - sourceStart;
 				return destStart + diff;
