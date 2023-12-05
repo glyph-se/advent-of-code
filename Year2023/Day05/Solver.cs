@@ -87,7 +87,7 @@ public class Solver : ISolver
 		var seedString = seedBlock.Replace("seeds: ", "");
 		string[] seedNumbers = seedString.TrimSplit(" ").ToArray();
 
-		for(int i=0; i < seedNumbers.Length; i += 2)
+		for (int i = 0; i < seedNumbers.Length; i += 2)
 		{
 			seeds.Add(new Range(seedNumbers[i], long.MinValue.ToString(), seedNumbers[i + 1]));
 		}
@@ -100,22 +100,27 @@ public class Solver : ISolver
 		List<Range> temperatureToHumidity = ParseMap(blocks[6]);
 		List<Range> humidityToLocation = ParseMap(blocks[7]);
 
-		long minLocation = long.MaxValue;
 
-		foreach (Range seed in seeds)
-		{
-			for(long i = seed.sourceStart; i < seed.sourceEnd; i++)
+		long minLocation = long.MaxValue;
+		object syncRoot = new object();
+
+		Parallel.ForEach(seeds, seed =>
 			{
-				long soil = FindLocation(i, seedToSoil);
-				long fertilizer = FindLocation(soil, soilToFerilizer);
-				long water = FindLocation(fertilizer, fertilizerToWater);
-				long light = FindLocation(water, waterToLight);
-				long temperature = FindLocation(light, lightToTemperature);
-				long humidity = FindLocation(temperature, temperatureToHumidity);
-				long location = FindLocation(humidity, humidityToLocation);
-				minLocation = long.Min(minLocation, location);
-			}
-		}
+				for (long i = seed.sourceStart; i < seed.sourceEnd; i++)
+				{
+					long soil = FindLocation(i, seedToSoil);
+					long fertilizer = FindLocation(soil, soilToFerilizer);
+					long water = FindLocation(fertilizer, fertilizerToWater);
+					long light = FindLocation(water, waterToLight);
+					long temperature = FindLocation(light, lightToTemperature);
+					long humidity = FindLocation(temperature, temperatureToHumidity);
+					long location = FindLocation(humidity, humidityToLocation);
+					lock (syncRoot)
+					{
+						minLocation = long.Min(minLocation, location);
+					}
+				}
+			});
 
 		result = minLocation;
 
