@@ -74,6 +74,9 @@ public class Solver : ISolver
 		return result;
 	}
 
+	/// <summary>
+	/// This is very slow, parse the debugger after a while to get the result.
+	/// </summary>
 	public async Task<string> PartTwo(string input)
 	{
 		await Task.Yield();
