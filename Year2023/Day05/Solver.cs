@@ -17,7 +17,7 @@ public class Solver : ISolver
 
 		List<long> seeds = new List<long>();
 		var seedBlock = blocks[0];
-		var seedString = seedBlock.Replace("seeds: ", "");
+		var seedString = seedBlock.ReplaceRemove("seeds: ");
 		seeds.AddRange(seedString.TrimSplit(" ").Select(s => long.Parse(s)));
 
 		List<Map> seedToSoil = ParseMap(blocks[1]);

@@ -56,6 +56,12 @@ namespace Shared.Helpers
 			return input.Split(separator, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string ReplaceRemove(this string input, string oldValue)
+		{
+			return input.Replace(oldValue, string.Empty);
+		}
+
 		public static (string first, string second) Split2(this string input, string separator)
 		{
 			var parts =input.TrimSplit(separator);

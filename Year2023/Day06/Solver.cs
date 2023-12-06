@@ -18,8 +18,8 @@ public class Solver : ISolver
 	{
 		long result;
 		var lines = input.AsLines();
-		List<long> times = lines[0].Replace("Time:", "").TrimSplit(" ").Select(s => s.ToLong()).ToList();
-		List<long> distances = lines[1].Replace("Distance:", "").TrimSplit(" ").Select(s => s.ToLong()).ToList();
+		List<long> times = lines[0].ReplaceRemove("Time:").TrimSplit(" ").Select(s => s.ToLong()).ToList();
+		List<long> distances = lines[1].ReplaceRemove("Distance:").TrimSplit(" ").Select(s => s.ToLong()).ToList();
 
 		List<long> winnings = new List<long>();
 
