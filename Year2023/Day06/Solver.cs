@@ -9,26 +9,49 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		long result = 0;
-
-		foreach (string line in input.AsLines())
-		{
-
-		}
+		long result = CalculateResult(input);
 
 		return result.ToString();
+	}
+
+	private static long CalculateResult(string input)
+	{
+		long result;
+		var lines = input.AsLines();
+		List<long> times = lines[0].Replace("Time:", "").TrimSplit(" ").Select(s => s.ToLong()).ToList();
+		List<long> distances = lines[1].Replace("Distance:", "").TrimSplit(" ").Select(s => s.ToLong()).ToList();
+
+		List<long> winnings = new List<long>();
+
+		for (int i = 0; i < times.Count; i++)
+		{
+			long time = times[i];
+			long distance = distances[i];
+			long winner = 0;
+
+			for (int test = 1; test < time; test++)
+			{
+				long myDistance = test * (time - test);
+
+				if (myDistance > distance)
+				{
+					winner++;
+				}
+			}
+
+			winnings.Add(winner);
+		}
+
+		result = winnings.Aggregate((a, b) => a * b);
+		return result;
 	}
 
 	public async Task<string> PartTwo(string input)
 	{
 		await Task.Yield();
 
-		int result = 0;
-
-		foreach (string line in input.AsLines())
-		{
-
-		}
+		input = input.Replace(" ", "");
+		long result = CalculateResult(input);
 
 		return result.ToString();
 	}
