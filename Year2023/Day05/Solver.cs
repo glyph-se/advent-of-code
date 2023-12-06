@@ -20,13 +20,13 @@ public class Solver : ISolver
 		var seedString = seedBlock.Replace("seeds: ", "");
 		seeds.AddRange(seedString.TrimSplit(" ").Select(s => long.Parse(s)));
 
-		List<Range> seedToSoil = ParseMap(blocks[1]);
-		List<Range> soilToFerilizer = ParseMap(blocks[2]);
-		List<Range> fertilizerToWater = ParseMap(blocks[3]);
-		List<Range> waterToLight = ParseMap(blocks[4]);
-		List<Range> lightToTemperature = ParseMap(blocks[5]);
-		List<Range> temperatureToHumidity = ParseMap(blocks[6]);
-		List<Range> humidityToLocation = ParseMap(blocks[7]);
+		List<Map> seedToSoil = ParseMap(blocks[1]);
+		List<Map> soilToFerilizer = ParseMap(blocks[2]);
+		List<Map> fertilizerToWater = ParseMap(blocks[3]);
+		List<Map> waterToLight = ParseMap(blocks[4]);
+		List<Map> lightToTemperature = ParseMap(blocks[5]);
+		List<Map> temperatureToHumidity = ParseMap(blocks[6]);
+		List<Map> humidityToLocation = ParseMap(blocks[7]);
 
 		List<long> locations = new List<long>();
 
@@ -47,11 +47,11 @@ public class Solver : ISolver
 		return result.ToString();
 	}
 
-	private long FindLocation(long start, List<Range> map)
+	private long FindLocation(long start, List<Map> maps)
 	{
-		foreach(Range range in map)
+		foreach(Map map in maps)
 		{
-			long? dest = range.Map(start);
+			long? dest = map.Move(start);
 			if (dest != null)
 			{
 				return dest.Value;
@@ -61,15 +61,15 @@ public class Solver : ISolver
 		return start;
 	}
 
-	private static List<Range> ParseMap(string map)
+	private static List<Map> ParseMap(string map)
 	{
-		List<Range> result = new List<Range>();
+		List<Map> result = new List<Map>();
 
 		IEnumerable<string> lines = map.AsLines().Skip(1);
 		foreach (var line in lines)
 		{
 			(string dest, string source, string length) = line.Split3(" ");
-			result.Add(new Range(source, dest, length));
+			result.Add(new Map(source, dest, length));
 		}
 
 		return result;
@@ -93,44 +93,102 @@ public class Solver : ISolver
 
 		for (int i = 0; i < seedNumbers.Length; i += 2)
 		{
-			seeds.Add(new Range(seedNumbers[i], long.MinValue.ToString(), seedNumbers[i + 1]));
+			long start = seedNumbers[i].ToLong();
+			long length = seedNumbers[i + 1].ToLong();
+			seeds.Add(new Range(start, start + length -1));
 		}
 
-		List<Range> seedToSoil = ParseMap(blocks[1]);
-		List<Range> soilToFerilizer = ParseMap(blocks[2]);
-		List<Range> fertilizerToWater = ParseMap(blocks[3]);
-		List<Range> waterToLight = ParseMap(blocks[4]);
-		List<Range> lightToTemperature = ParseMap(blocks[5]);
-		List<Range> temperatureToHumidity = ParseMap(blocks[6]);
-		List<Range> humidityToLocation = ParseMap(blocks[7]);
+		List<Map> seedToSoil = ParseMap(blocks[1]);
+		List<Map> soilToFerilizer = ParseMap(blocks[2]);
+		List<Map> fertilizerToWater = ParseMap(blocks[3]);
+		List<Map> waterToLight = ParseMap(blocks[4]);
+		List<Map> lightToTemperature = ParseMap(blocks[5]);
+		List<Map> temperatureToHumidity = ParseMap(blocks[6]);
+		List<Map> humidityToLocation = ParseMap(blocks[7]);
+		
 
-		ConcurrentBag<long> allMin = new ConcurrentBag<long>();
-
-		Parallel.ForEach(seeds, seed =>
-			{
-				long parMin = long.MaxValue;
-				for (long i = seed.sourceStart; i < seed.sourceEnd; i++)
-				{
-					long soil = FindLocation(i, seedToSoil);
-					long fertilizer = FindLocation(soil, soilToFerilizer);
-					long water = FindLocation(fertilizer, fertilizerToWater);
-					long light = FindLocation(water, waterToLight);
-					long temperature = FindLocation(light, lightToTemperature);
-					long humidity = FindLocation(temperature, temperatureToHumidity);
-					long location = FindLocation(humidity, humidityToLocation);
-					parMin = long.Min(parMin, location);
-				}
-				allMin.Add(parMin);
-			});
-
-		result = allMin.Min();
+		List<Range> soils = FindRanges(seeds, seedToSoil);
+		List<Range> fertilizers = FindRanges(soils, soilToFerilizer);
+		List<Range> waters = FindRanges(fertilizers, fertilizerToWater);
+		List<Range> lights = FindRanges(waters, waterToLight);
+		List<Range> temperatures = FindRanges(lights, lightToTemperature);
+		List<Range> humiditys = FindRanges(temperatures, temperatureToHumidity);
+		List<Range> locations = FindRanges(humiditys, humidityToLocation);
+		
+		result = locations.Min(l => l.start);
 
 		return result.ToString();
 	}
 
+	private List<Range> FindRanges(List<Range> sources, List<Map> mappings)
+	{
+		List<Range> newRanges = new List<Range>();
+
+		Queue<Range> queue = new Queue<Range>(sources);
+
+		while(queue.Any())
+		{
+			Range source = queue.Dequeue();
+			bool found = false;
+
+			foreach (Map map in mappings)
+			{
+				if(source.start >= map.sourceStart && source.end < map.sourceEnd)
+				{
+					newRanges.Add(new Range(source.start - map.sourceStart + map.destStart, source.end - map.sourceStart + map.destStart));
+					found = true;
+				}
+				else if (source.start < map.sourceStart && source.end >= map.sourceStart && source.end < map.sourceEnd)
+				{
+					queue.Enqueue(new Range(source.start, map.sourceStart - 1));
+					newRanges.Add(new Range(map.destStart, map.destStart + source.end - map.sourceStart));
+					found = true;
+				}
+				else if(source.start < map.sourceEnd && source.end >= map.sourceEnd && source.start >= map.sourceStart)
+				{
+					queue.Enqueue(new Range(map.sourceEnd, source.end));
+					newRanges.Add(new Range(map.destStart + source.start - map.sourceStart, map.destEnd - 1));
+					found = true;
+				}
+				else if(source.start < map.sourceStart && source.end >= map.sourceEnd)
+				{
+					queue.Enqueue(new Range(source.start, map.sourceStart - 1));
+					newRanges.Add(new Range(map.destStart, map.destEnd - 1));
+					queue.Enqueue(new Range(map.sourceEnd, source.end));
+					found = true;
+				}
+				if (found)
+				{
+					break;
+				}
+			}
+
+			if(found == false)
+			{
+				// Keep the same
+				newRanges.Add(source);
+			}
+		}
+
+		return newRanges;
+	}
+
 	public class Range
 	{
-		public Range(string sourceStart, string destStart, string length)
+		public Range(long start, long end)
+		{
+			this.start = start;
+			this.end = end;
+			this.length = end - start + 1;
+		}
+		public long start;
+		public long end;
+		public long length;
+	}
+
+	public class Map
+	{
+		public Map(string sourceStart, string destStart, string length)
 		{
 			this.sourceStart = long.Parse(sourceStart);
 			this.sourceEnd = long.Parse(sourceStart) + long.Parse(length);
@@ -138,7 +196,7 @@ public class Solver : ISolver
 			this.destEnd = long.Parse(destStart) + long.Parse(length);
 		}
 
-		public long? Map(long source)
+		public long? Move(long source)
 		{
 			// Range "58 x 2" is 58 59, NOT 60
 			if(source >= sourceStart && source < sourceEnd)
