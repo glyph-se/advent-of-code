@@ -36,7 +36,8 @@ internal class Program
 			Console.WriteLine(" 2. Full data");
 			Console.WriteLine(" 3. Custom data");
 			Console.WriteLine(" 9. Change date");
-			Console.WriteLine(" 21. Example 2 data");
+			Console.WriteLine(" 22. Example 2 data");
+			Console.WriteLine(" 23. Example 3 data");
 			Console.Write("> ");
 
 			string? choiceString = Console.ReadLine();
@@ -68,8 +69,11 @@ internal class Program
 							await SolveOneDayAsync(parsedNewYear, parsedNewDay);
 						}
 					}
-				case "21":
+				case "22":
 					inputType = InputType.Example2;
+					break;
+				case "23":
+					inputType = InputType.Example3;
 					break;
 				default:
 					PrintError("Invalid choice, try again");

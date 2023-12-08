@@ -24,4 +24,9 @@ public class InputConstants
 	{
 		return BaseDirectory + $"Year{year}\\Day{day:D2}\\example2_input";
 	}
+
+	public static string Example3InputPath(int year, int day)
+	{
+		return BaseDirectory + $"Year{year}\\Day{day:D2}\\example3_input";
+	}
 }

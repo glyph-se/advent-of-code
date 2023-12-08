@@ -14,6 +14,9 @@ public static class InputService
 			case InputType.Example2:
 				inputs = await ReadOrInputFileAsync(InputConstants.Example2InputPath(year, day));
 				break;
+			case InputType.Example3:
+				inputs = await ReadOrInputFileAsync(InputConstants.Example3InputPath(year, day));
+				break;
 			case InputType.Full:
 				inputs = await ReadOrDownloadFileAsync(year, day);
 				break;
