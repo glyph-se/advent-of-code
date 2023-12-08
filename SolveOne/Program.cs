@@ -6,7 +6,7 @@ namespace SolveOne;
 internal class Program
 {
 	static readonly int YEAR = 2023;
-	static readonly int DAY = 8;
+	static readonly int DAY = 9;
 
 	public static async Task Main(string[] args)
 	{
@@ -77,19 +77,49 @@ internal class Program
 
 		string? inputs = await InputService.GetInput(inputType, year, day);
 
+		string? outputOne = null;
+		string? outputTwo = null;
+
 		if (!choiceString!.EndsWith('b'))
 		{
 			Console.WriteLine("Running part one...");
-			string outputOne = await instance.PartOne(inputs);
+			outputOne = await instance.PartOne(inputs);
 			PrintOutput(outputOne);
 		}
 
 		if (!choiceString!.EndsWith('a'))
 		{
 			Console.WriteLine("Running part two...");
-			string outputTwo = await instance.PartTwo(inputs);
+			outputTwo = await instance.PartTwo(inputs);
 			PrintOutput(outputTwo);
 		}
+
+		CopyOutputToClipboard(outputOne, outputTwo);
+	}
+
+	private static void CopyOutputToClipboard(string? outputOne, string? outputTwo)
+	{
+		if (!(string.IsNullOrWhiteSpace(outputTwo) || outputTwo.Equals("0")))
+		{
+			WindowsClipboard.SetText(outputTwo);
+			Console.ForegroundColor = ConsoleColor.DarkGray;
+			Console.Write("Copied part two to clipboard");
+			Console.ResetColor();
+		}
+		else if (!(string.IsNullOrWhiteSpace(outputOne) || outputOne.Equals("0")))
+		{
+			WindowsClipboard.SetText(outputOne);
+			Console.ForegroundColor = ConsoleColor.DarkGray;
+			Console.Write("Copied part one to clipboard");
+			Console.ResetColor();
+		}
+		else
+		{
+			Console.ForegroundColor = ConsoleColor.DarkGray;
+			Console.Write("Nothing to copy");
+			Console.ResetColor();
+		}
+		Console.WriteLine();
 	}
 
 	private static void PrintChoiceMenu()
@@ -142,15 +172,6 @@ internal class Program
 		Console.ForegroundColor = ConsoleColor.Green;
 		Console.Write(output);
 		Console.ResetColor();
-
-		if (!(string.IsNullOrWhiteSpace(output) || output.Equals("0")))
-		{
-			WindowsClipboard.SetText(output);
-			Console.ForegroundColor = ConsoleColor.DarkGray;
-			Console.Write(" [COPIED]");
-			Console.ResetColor();
-		}
-
 		Console.WriteLine();
 		Console.WriteLine();
 	}
