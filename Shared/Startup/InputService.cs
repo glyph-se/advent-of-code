@@ -105,8 +105,16 @@ public static class InputService
 			await File.WriteAllTextAsync(filePath, data);
 		}
 
-		string fileContents = await File.ReadAllTextAsync(filePath, System.Text.Encoding.UTF8);
+		string fileContents = await ReadFileAsync(filePath);
 
 		return fileContents;
 	}
+
+		public static async Task<string> ReadFileAsync(string filePath)
+		{
+			string fileContents = await File.ReadAllTextAsync(filePath, System.Text.Encoding.UTF8);
+
+			fileContents = fileContents.Replace("\r\n", "\n");
+			return fileContents;
+		}
 }

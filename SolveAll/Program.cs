@@ -52,7 +52,7 @@ internal class Program
 			return;
 		}
 
-		string input = File.ReadAllText(inputPath).Replace("\r\n", "\n"); ;
+		string input = await InputService.ReadFileAsync(inputPath);
 
 		string partOneAnswer = inputPath.Replace("_input", "_answer_partone");
 		string partTwoAnswer = inputPath.Replace("_input", "_answer_parttwo");
@@ -60,7 +60,7 @@ internal class Program
 		if (File.Exists(partOneAnswer))
 		{
 			Console.Write("Part one: ");
-			string expected = File.ReadAllText(partOneAnswer);
+			string expected = await InputService.ReadFileAsync(partOneAnswer);
 			string actual = await solver.PartOne(input);
 
 			if (expected.Equals(actual))
@@ -83,7 +83,7 @@ internal class Program
 		{
 			Console.Write("Part two: ");
 
-			string expected = File.ReadAllText(partTwoAnswer);
+			string expected = await InputService.ReadFileAsync(partTwoAnswer);
 			string actual = await solver.PartTwo(input);
 
 			if (expected.Equals(actual))
