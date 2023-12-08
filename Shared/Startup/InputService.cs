@@ -84,7 +84,7 @@ public static class InputService
 
 		}
 
-		string fileContents = await File.ReadAllTextAsync(filePath, System.Text.Encoding.UTF8);
+		string fileContents = await ReadFileAsync(filePath);
 
 		return fileContents;
 	}
