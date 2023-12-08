@@ -7,7 +7,6 @@ public class Solver : ISolver
 {
 	public async Task<string> PartOne(string input)
 	{
-		
 		await Task.Yield();
 
 		long result = 0;
@@ -32,29 +31,28 @@ public class Solver : ISolver
 
 		if (!graph.ContainsKey(current))
 		{
-			return "INVALID";
+			return "Example not valid for part 1";
 		}
 
-		for(int i=0;true;i++)
+		for (int i = 0; true; i++)
 		{
-			var dir = dirs[i%dirs.Length];
+			var dir = dirs[i % dirs.Length];
 			var nav = graph[current];
 
-			if(dir=='L')
+			if (dir == 'L')
 			{
 				current = nav.Item1;
 			}
-			if(dir=='R')
+			if (dir == 'R')
 			{
 				current = nav.Item2;
 			}
 
-			if(current == "ZZZ")
+			if (current == "ZZZ")
 			{
-				result = i+1;
+				result = i + 1;
 				break;
 			}
-
 		}
 
 		return result.ToString();
@@ -86,7 +84,7 @@ public class Solver : ISolver
 
 		List<long> results = new List<long>();
 
-		foreach(string start in starts)
+		foreach (string start in starts)
 		{
 			string current = start;
 			for (long i = 0; true; i++)
