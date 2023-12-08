@@ -28,21 +28,15 @@ internal class Program
 		}
 
 		InputType inputType = InputType.None;
+		string? choiceString = null;
 
 		while (inputType == InputType.None)
 		{
-			Console.WriteLine("Choose problem input:");
-			Console.WriteLine(" 1. Example 1 data");
-			Console.WriteLine(" 2. Full data");
-			Console.WriteLine(" 3. Custom data");
-			Console.WriteLine(" 9. Change date");
-			Console.WriteLine(" 22. Example 2 data");
-			Console.WriteLine(" 23. Example 3 data");
-			Console.Write("> ");
+			PrintChoiceMenu();
 
-			string? choiceString = Console.ReadLine();
+			choiceString = Console.ReadLine();
 
-			switch (choiceString)
+			switch (choiceString?.TrimEnd(['a', 'b']))
 			{
 				case "1":
 					inputType = InputType.Example1;
@@ -83,13 +77,49 @@ internal class Program
 
 		string? inputs = await InputService.GetInput(inputType, year, day);
 
-		Console.WriteLine("Running part one...");
-		string outputOne = await instance.PartOne(inputs);
-		PrintOutput(outputOne);
+		if (!choiceString!.EndsWith('b'))
+		{
+			Console.WriteLine("Running part one...");
+			string outputOne = await instance.PartOne(inputs);
+			PrintOutput(outputOne);
+		}
 
-		Console.WriteLine("Running part two...");
-		string outputTwo = await instance.PartTwo(inputs);
-		PrintOutput(outputTwo);
+		if (!choiceString!.EndsWith('a'))
+		{
+			Console.WriteLine("Running part two...");
+			string outputTwo = await instance.PartTwo(inputs);
+			PrintOutput(outputTwo);
+		}
+	}
+
+	private static void PrintChoiceMenu()
+	{
+		Console.Write("Choose problem input:");
+		Console.Write("\t\t\t\t");
+		Console.Write("Advanced:");
+		Console.WriteLine();
+		Console.Write(" 1. Example 1 data");
+		Console.Write("\t\t\t\t");
+		Console.Write(" 9. Change date");
+		Console.WriteLine();
+
+		Console.Write(" 2. Full data");
+		Console.Write("\t\t\t\t\t");
+		Console.Write(" 22. Example 2 data");
+		Console.WriteLine();
+		Console.Write(" 3. Custom data");
+		Console.Write("\t\t\t\t\t");
+		Console.Write(" 23. Example 3 data");
+		Console.WriteLine();
+
+		Console.WriteLine();
+		Console.ForegroundColor = ConsoleColor.DarkGray;
+		Console.Write("Suffix with 'a' or 'b' for only part one / part two");
+		Console.ResetColor();
+		Console.WriteLine();
+		Console.WriteLine();
+
+		Console.Write("> ");
 	}
 
 	private static void PrintWarning(string text)
