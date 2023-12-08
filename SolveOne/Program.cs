@@ -142,6 +142,15 @@ internal class Program
 		Console.ForegroundColor = ConsoleColor.Green;
 		Console.Write(output);
 		Console.ResetColor();
+
+		if (!(string.IsNullOrWhiteSpace(output) || output.Equals("0")))
+		{
+			WindowsClipboard.SetText(output);
+			Console.ForegroundColor = ConsoleColor.DarkGray;
+			Console.Write(" [COPIED]");
+			Console.ResetColor();
+		}
+
 		Console.WriteLine();
 		Console.WriteLine();
 	}
