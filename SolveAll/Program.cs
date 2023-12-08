@@ -12,7 +12,7 @@ internal class Program
 		Console.Write("|                                      ALL                                     |\n");
 		Console.Write("--------------------------------------------------------------------------------\n");
 
-		IEnumerable<ISolver> allSolvers = Assembly.Load("Year2023")
+		IEnumerable<ISolver> allSolvers = Assembly.Load("Year2022")
 				.GetTypes()
 				.Where(t => t.IsClass)
 				.Where(t => typeof(ISolver).IsAssignableFrom(t))
@@ -74,6 +74,7 @@ internal class Program
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.Write("FAIL");
 				Console.ResetColor();
+				Console.Write($" {expected} vs {actual}");
 			}
 		}
 
@@ -97,6 +98,7 @@ internal class Program
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.Write("FAIL");
 				Console.ResetColor();
+				Console.Write($" {expected} vs {actual}");
 			}
 		}
 
