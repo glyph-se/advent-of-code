@@ -51,18 +51,6 @@ public class Solver : ISolver
 		return diff;
 	}
 
-	private IList<long> CalcDiffTwo(IList<long> numbers)
-	{
-		var diff = new List<long>();
-
-		for (int i = 1; i < numbers.Count; i++)
-		{
-			diff.Add(numbers[i-1] - numbers[i]);
-		}
-
-		return diff;
-	}
-
 	public async Task<string> PartTwo(string input)
 	{
 		await Task.Yield();
