@@ -14,9 +14,7 @@ public class Solver : ISolver
 		Pipe[,] grid = input.AsGridMatrix((c, x, y) => new Pipe(c, x, y));
 		grid = grid.ExtendGridMatrixWithPoint(1, (c, x, y) => new Pipe(c, x, y));
 
-		Pipe start = grid.AsList().Where(p => p.c == 'S').Single();
-
-		start.c = '7';
+		Pipe start = GetStartPipe(grid);
 
 		Queue<Pipe> search = new Queue<Pipe>();
 		search.Enqueue(start);
@@ -28,8 +26,8 @@ public class Solver : ISolver
 			Pipe right = grid[current.x + 1, current.y];
 			if (right != null)
 			{
-				if(current.CanRight() && right.CanLeft() && right.dist == 0)
-				{ 
+				if (current.CanRight() && right.CanLeft() && right.dist == 0)
+				{
 					right.dist = current.dist + 1;
 					search.Enqueue(right);
 				}
@@ -68,11 +66,49 @@ public class Solver : ISolver
 
 		result = grid.AsList().Max(p => p.dist);
 
-		grid.PrintGrid();
-
 		return result.ToString();
 	}
 
+	private Pipe GetStartPipe(Pipe[,] grid)
+	{
+		Pipe start = grid.AsList().Where(p => p.c == 'S').Single();
+
+		var right = grid[start.x + 1, start.y];
+		var left = grid[start.x - 1, start.y];
+		var up = grid[start.x, start.y - 1];
+		var down = grid[start.x, start.y + 1];
+
+		if (up.CanDown() && down.CanUp())
+		{
+			start.c = '|';
+		}
+		else if (right.CanLeft() && left.CanRight())
+		{
+			start.c = '-';
+		}
+		else if (up.CanDown() && right.CanLeft())
+		{
+			start.c = 'L';
+		}
+		else if (up.CanDown() && left.CanRight())
+		{
+			start.c = 'J';
+		}
+		else if (down.CanUp() && left.CanRight())
+		{
+			start.c = '7';
+		}
+		else if (down.CanUp() && right.CanLeft())
+		{
+			start.c = 'F';
+		}
+		else
+		{
+			throw new Exception("Error, start not found");
+		}
+
+		return start;
+	}
 
 	public async Task<string> PartTwo(string input)
 	{
@@ -83,9 +119,7 @@ public class Solver : ISolver
 		Pipe[,] grid = input.AsGridMatrix((c, x, y) => new Pipe(c, x, y));
 		grid = grid.ExtendGridMatrixWithPoint(1, (c, x, y) => new Pipe(c, x, y));
 
-		Pipe start = grid.AsList().Where(p => p.c == 'S').Single();
-
-		start.c = '7';
+		Pipe start = GetStartPipe(grid);
 
 		Queue<Pipe> search = new Queue<Pipe>();
 		search.Enqueue(start);
@@ -164,7 +198,7 @@ public class Solver : ISolver
 		return result.ToString();
 	}
 
-	public class Pipe(char c, int x, int y) : CharPoint(c,x,y)
+	public class Pipe(char c, int x, int y) : CharPoint(c, x, y)
 	{
 		public int dist = 0;
 
