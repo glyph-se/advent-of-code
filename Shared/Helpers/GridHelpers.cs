@@ -40,9 +40,9 @@
 			return grid;
 		}
 
-		public static TReturn?[,] ExtendGridMatrix<TReturn>(this TReturn?[,] orgGrid, int extension) where TReturn : Point
+		public static TReturn[,] ExtendGridMatrix<TReturn>(this TReturn[,] orgGrid, int extensionCount, Func<int, int, TReturn> extensionFunc) where TReturn : Point
 		{
-			TReturn?[,] grid = new TReturn[orgGrid.GetLength(0) + 2 * extension, orgGrid.GetLength(1) + 2 * extension];
+			TReturn[,] grid = new TReturn[orgGrid.GetLength(0) + 2 * extensionCount, orgGrid.GetLength(1) + 2 * extensionCount];
 
 			for (int i = 0; i < orgGrid.GetLength(0); i++)
 			{
@@ -52,9 +52,55 @@
 
 					if (point != null)
 					{
-						grid[i + extension, j + extension] = point;
-						point.x += extension;
-						point.y += extension;
+						grid[i + extensionCount, j + extensionCount] = point;
+						point.x += extensionCount;
+						point.y += extensionCount;
+					}
+				}
+			}
+
+
+			for (int i = 0; i < grid.GetLength(0); i++)
+			{
+				for (int extension = 0; extension < extensionCount; extension++)
+				{
+					grid[i, extension] = extensionFunc(i, extension);
+					grid[i, grid.GetUpperBound(1) - extension] = extensionFunc(i, grid.GetUpperBound(1) - extension);
+				}
+			}
+
+			for (int j = 0; j < grid.GetLength(1); j++)
+			{
+				for (int extension = 0; extension < extensionCount; extension++)
+				{
+					grid[extension, j] = extensionFunc(extension, j);
+					grid[grid.GetUpperBound(0) - extension, j] = extensionFunc(grid.GetUpperBound(0) - extension, j);
+				}
+			}
+
+			return grid;
+		}
+
+		public static TReturn[,] ExtendGridMatrixWithPoint<TReturn>(this TReturn[,] orgGrid, int extensionCount, Func<char, int, int, TReturn> extensionFunc) where TReturn : Point
+		{
+			return ExtendGridMatrix(orgGrid, extensionCount, (x,y) => extensionFunc('.', x,y));
+		}
+
+		public static TReturn?[,] ExtendGridMatrix<TReturn>(this TReturn?[,] orgGrid, int extensionCount) where TReturn : Point
+		{
+			TReturn?[,] grid = new TReturn[orgGrid.GetLength(0) + 2 * extensionCount, orgGrid.GetLength(1) + 2 * extensionCount];
+
+			for (int i = 0; i < orgGrid.GetLength(0); i++)
+			{
+				for (int j = 0; j < orgGrid.GetLength(1); j++)
+				{
+					var point = orgGrid[i, j];
+
+					if (point != null)
+					{
+						grid[i + extensionCount, j + extensionCount] = point;
+						point.x += extensionCount;
+						point.y += extensionCount;
 					}
 				}
 			}
@@ -121,7 +167,26 @@
 
 		public static IEnumerable<(int dx, int dy)> UpDowns()
 		{
-			return new List<(int dx,int dy)>() { (0, 1), (1, 0), (-1, 0), (0, -1) };
+			return new List<(int dx, int dy)>() { (0, 1), (1, 0), (-1, 0), (0, -1) };
+		}
+
+		public static void PrintGrid(this Point[,] grid, Func<Point, string> printFunc)
+		{
+			for (int y = 0; y < grid.GetLength(1); y++)
+			{
+				for (int x = 0; x < grid.GetLength(0); x++)
+				{
+					Point current = grid[x, y];
+
+					Console.Write(printFunc(current));
+				}
+				Console.WriteLine();
+			}
+		}
+
+		public static void PrintGrid(this CharPoint[,] grid)
+		{
+			PrintGrid(grid, p => ((CharPoint)p).c.ToString());
 		}
 	}
 }

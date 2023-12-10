@@ -11,8 +11,8 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		Pipe[,] grid = input.AsGridMatrix((c, x, y) => new Pipe(x, y, c));
-		grid = grid.ExtendGridMatrix(1);
+		Pipe[,] grid = input.AsGridMatrix((c, x, y) => new Pipe(c, x, y));
+		grid = grid.ExtendGridMatrixWithPoint(1, (c, x, y) => new Pipe(c, x, y));
 
 		Pipe start = grid.AsList().Where(p => p.c == 'S').Single();
 
@@ -68,28 +68,11 @@ public class Solver : ISolver
 
 		result = grid.AsList().Max(p => p.dist);
 
-		//PrintGrid(grid);
+		grid.PrintGrid();
 
 		return result.ToString();
 	}
 
-	private void PrintGrid(Pipe[,] grid)
-	{
-		for (int y = 0; y < grid.GetUpperBound(1); y++)
-		{
-			for (int x = 0; x < grid.GetUpperBound(0); x++)
-			{
-				Pipe current = grid[x, y];
-
-				char c = current?.c ?? '.';
-
-				int d = current?.dist ?? 0;
-
-				Console.Write(d);
-			}
-			Console.WriteLine();
-		}
-	}
 
 	public async Task<string> PartTwo(string input)
 	{
@@ -97,8 +80,8 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		Pipe[,] grid = input.AsGridMatrix((c, x, y) => new Pipe(x, y, c));
-		grid = grid.ExtendGridMatrix(1);
+		Pipe[,] grid = input.AsGridMatrix((c, x, y) => new Pipe(c, x, y));
+		grid = grid.ExtendGridMatrixWithPoint(1, (c, x, y) => new Pipe(c, x, y));
 
 		Pipe start = grid.AsList().Where(p => p.c == 'S').Single();
 
@@ -181,15 +164,9 @@ public class Solver : ISolver
 		return result.ToString();
 	}
 
-	public class Pipe : Point
+	public class Pipe(char c, int x, int y) : CharPoint(c,x,y)
 	{
-		public char c;
 		public int dist = 0;
-
-		public Pipe(int x, int y, char c) : base(x, y)
-		{
-			this.c = c;
-		}
 
 		public bool CanRight()
 		{
