@@ -1,6 +1,5 @@
 ﻿using Shared;
 using Shared.Helpers;
-using static Year2023.Day10.Solver;
 
 namespace Year2023.Day11;
 

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Shared;
 using Shared.Helpers;
+using Part = Shared.Helpers.CharPoint;
 
 namespace Year2023.Day03;
 
@@ -25,14 +26,14 @@ public class Solver : ISolver
 
 				int number = 0;
 				bool adjacent = false;
-				if (cell.C.IsDigit())
+				if (cell.c.IsDigit())
 				{
-					number = cell.C.ToString().ToInt();
+					number = cell.c.ToString().ToInt();
 
 					foreach (var dirs in GridHelpers.AllDirs())
 					{
 						var check = grid[x + dirs.dx, y + dirs.dy];
-						if (check != null && !check.C.IsDigit())
+						if (check != null && !check.c.IsDigit())
 						{
 							adjacent = true;
 						}
@@ -45,10 +46,10 @@ public class Solver : ISolver
 
 						if (nCell == null) break;
 
-						if (nCell.C.IsDigit())
+						if (nCell.c.IsDigit())
 						{
 							number *= 10;
-							number += nCell.C.ToString().ToInt();
+							number += nCell.c.ToString().ToInt();
 						}
 						else
 						{
@@ -58,7 +59,7 @@ public class Solver : ISolver
 						foreach (var dirs in GridHelpers.AllDirs())
 						{
 							var check = grid[nx + dirs.dx, y + dirs.dy];
-							if (check != null && !check.C.IsDigit())
+							if (check != null && !check.c.IsDigit())
 							{
 								adjacent = true;
 							}
@@ -86,17 +87,6 @@ public class Solver : ISolver
 		return new Part(c, x, y);
 	}
 
-	[DebuggerDisplay("{C}, x={x},y={y}")]
-	public class Part : Point
-	{
-		public Part(char c, int x, int y) : base(x, y)
-		{
-			C = c;
-		}
-
-		public char C { get; }
-	}
-
 	public async Task<string> PartTwo(string input)
 	{
 		await Task.Yield();
@@ -115,7 +105,7 @@ public class Solver : ISolver
 				var cell = grid[x, y];
 				if (cell == null) continue;
 
-				if (cell.C == '*')
+				if (cell.c == '*')
 				{
 					int n1 = 0;
 					int n2 = 0;
@@ -128,7 +118,7 @@ public class Solver : ISolver
 						if (visited.Contains(checkForNumber))
 							continue;
 
-						if (checkForNumber != null && checkForNumber.C.IsDigit())
+						if (checkForNumber != null && checkForNumber.c.IsDigit())
 						{
 							// Find start of number by walking left
 							int numberStart = 0;
@@ -136,7 +126,7 @@ public class Solver : ISolver
 							{
 								Part? checkForStart = grid[startX, checkForNumber.y];
 
-								if (checkForStart == null || !checkForStart.C.IsDigit())
+								if (checkForStart == null || !checkForStart.c.IsDigit())
 								{
 									// Number starts on startX + 1
 									numberStart = startX + 1;
@@ -146,7 +136,7 @@ public class Solver : ISolver
 
 							Part start = grid[numberStart, checkForNumber.y]!;
 
-							int number = start.C.ToString().ToInt();
+							int number = start.c.ToString().ToInt();
 							visited.Add(start);
 
 							// Get rest of number
@@ -156,10 +146,10 @@ public class Solver : ISolver
 
 								if (nCell == null) break;
 
-								if (nCell.C.IsDigit())
+								if (nCell.c.IsDigit())
 								{
 									number *= 10;
-									number += nCell.C.ToString().ToInt();
+									number += nCell.c.ToString().ToInt();
 									visited.Add(nCell);
 								}
 								else
