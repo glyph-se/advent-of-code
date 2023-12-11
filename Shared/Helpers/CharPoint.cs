@@ -1,5 +1,8 @@
-﻿namespace Shared.Helpers
+﻿using System.Diagnostics;
+
+namespace Shared.Helpers
 {
+	[DebuggerDisplay("{c}, x={x},y={y}")]
 	public class CharPoint : Point
 	{
 		public CharPoint()
