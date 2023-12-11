@@ -97,6 +97,7 @@ public class Solver : ISolver
 			}
 		}
 
+		// We count each distance twice, both from A to B and B to A
 		result = result / 2;
 
 		return result;
