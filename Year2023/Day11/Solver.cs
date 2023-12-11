@@ -33,7 +33,6 @@ public class Solver : ISolver
 		long result = 0;
 
 		var universe = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
-		universe = universe.ExtendGridMatrixWithPoint(1, (c, x, y) => new CharPoint(c, x, y));
 
 		var universeList = universe.AsList();
 
