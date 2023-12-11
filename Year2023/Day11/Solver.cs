@@ -35,20 +35,15 @@ public class Solver : ISolver
 		var universe = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
 		universe = universe.ExtendGridMatrixWithPoint(1, (c, x, y) => new CharPoint(c, x, y));
 
+		var universeList = universe.AsList();
+
 		// Expansion
 		Dictionary<int, int> emptyCol = new Dictionary<int, int>();
 		Dictionary<int, int> emptyRow = new Dictionary<int, int>();
 
 		for (int i = 0; i < universe.GetLength(0); i++)
 		{
-			bool allEmpty = true;
-			for (int j = 0; j < universe.GetLength(1); j++)
-			{
-				if (universe[i, j].c != '.')
-				{
-					allEmpty = false;
-				}
-			}
+			bool allEmpty = universeList.Where(c => c.x == i).All(c => c.c == '.');
 
 			if (allEmpty)
 			{
@@ -58,14 +53,7 @@ public class Solver : ISolver
 
 		for (int j = 0; j < universe.GetLength(0); j++)
 		{
-			bool allEmpty = true;
-			for (int i = 0; i < universe.GetLength(1); i++)
-			{
-				if (universe[i, j].c != '.')
-				{
-					allEmpty = false;
-				}
-			}
+			bool allEmpty = universeList.Where(c => c.y == j).All(c => c.c == '.');
 
 			if (allEmpty)
 			{
@@ -75,13 +63,7 @@ public class Solver : ISolver
 
 		var galaxies = new List<CharPoint>();
 
-		foreach (var cp in universe)
-		{
-			if (cp.c == '#')
-			{
-				galaxies.Add(cp);
-			}
-		}
+		galaxies.AddRange(universeList.Where(cp => cp.c == '#'));
 
 		foreach (var g1 in galaxies)
 		{
