@@ -15,66 +15,76 @@ public class Solver : ISolver
 		{
 			var a = blocks.AsLines();
 
-			for(int tryMirror = 0; tryMirror < a.Count-1; tryMirror++)
-			{
-				bool isMirror = true;
-				for (int i = 0; i < a.Count/2; i++)
-				{
-					try
-					{
-						if (a[tryMirror - i] != a[tryMirror + i + 1])
-						{
-							isMirror = false;
-							break;
-						}
-					}
-					catch(ArgumentOutOfRangeException) { }
-				}
-
-				if (isMirror)
-				{
-					result += (tryMirror+1)*100;
-				}
-			}
+			result += FindMirror(a, 0) * 100;
 		}
 
 		foreach (string blocks in input.AsLineBlocks())
 		{
-			IEnumerable<IEnumerable<char>> a = blocks.AsLines().Select(b => b.ToCharArray().AsEnumerable<char>());
+			var a = blocks
+				.AsLines()
+				.Select(b => b.ToCharArray());
 
-			var b = a.Transpose().ToList();
+			List<string> transposed = a.Transpose()
+				.Select(c => string.Concat(c))
+				.ToList();
 
-			for (int tryMirror = 0; tryMirror < b.Count - 1; tryMirror++)
-			{
-				bool isMirror = true;
-				for (int i = 0; i < b.Count/2; i++)
-				{
-					try
-					{
-						string s1 = string.Join("", b.ElementAt(tryMirror - i));
-						string s2 = string.Join("", b.ElementAt(tryMirror + i + 1));
-						if (s1 != s2)
-						{
-							isMirror = false;
-							break;
-						}
-					}
-					catch (ArgumentOutOfRangeException) { }
-				}
-
-				if (isMirror)
-				{
-					result += (tryMirror + 1);
-				}
-			}
+			result += FindMirror(transposed, 0);
 		}
 
 		return result.ToString();
 	}
 
+	public int FindMirror(IList<string> pattern, int smudges)
+	{
+		for (int tryMirror = 0; tryMirror < pattern.Count - 1; tryMirror++)
+		{
+			int foundSmudges = 0;
+			/*
+			var afterMirror = pattern.Skip(tryMirror).ToList();
+			var beforeMirror = pattern.Take(tryMirror).Reverse().ToList();
+
+			for (int i = 0; i < Math.Min(beforeMirror.Count, afterMirror.Count); i++)
+			{
+				string s1 = beforeMirror[i];
+				string s2 = afterMirror[i];
+				for (int pos = 0; pos < s1.Length; pos++)
+				{
+					if (s1[pos] != s2[pos])
+					{
+						foundSmudges++;
+					}
+				}
+			}
+			/*/
+			for (int i = 0; i < pattern.Count/2; i++)
+			{
+				try
+				{
+					var s1 = pattern[tryMirror - i];
+					var s2 = pattern[tryMirror + i + 1];
+
+					for (int pos = 0; pos < s1.Length; pos++)
+					{
+						if (s1[pos] != s2[pos])
+						{
+							foundSmudges++;
+						}
+					}
+				}
+				catch (ArgumentOutOfRangeException e) {}
+			}
+			if (foundSmudges == smudges)
+			{
+				return tryMirror+1;
+			}
+		}
+
+		// No mirror found
+		return 0;
+	}
+
 	public async Task<string> PartTwo(string input)
 	{
-		Levenshtein levenshtein = new Levenshtein();
 		await Task.Yield();
 
 		long result = 0;
@@ -83,66 +93,20 @@ public class Solver : ISolver
 		{
 			var a = blocks.AsLines();
 
-			for (int tryMirror = 0; tryMirror < a.Count - 1; tryMirror++)
-			{
-				bool isMirror = true;
-				int smudges = 0;
-				for (int i = 0; i < a.Count / 2; i++)
-				{
-					try
-					{
-						var s1 = a[tryMirror - i];
-						var s2 = a[tryMirror + i + 1];
-						for(int j = 0; j< s1.Length; j++)
-						{
-							if (s1[j] != s2[j])
-							{
-								smudges++;
-							}
-						}
-					}
-					catch (ArgumentOutOfRangeException) { }
-				}
-				if(smudges == 1)
-				{
-					result += (tryMirror + 1) * 100;
-				}
-			}
+			result += FindMirror(a, 1) * 100;
 		}
 
 		foreach (string blocks in input.AsLineBlocks())
 		{
-			IEnumerable<IEnumerable<char>> a = blocks.AsLines().Select(b => b.ToCharArray().AsEnumerable<char>());
+			var a = blocks
+				.AsLines()
+				.Select(b => b.ToCharArray());
 
-			var b = a.Transpose().ToList();
+			List<string> transposed = a.Transpose()
+				.Select(c => string.Concat(c))
+				.ToList();
 
-			for (int tryMirror = 0; tryMirror < b.Count - 1; tryMirror++)
-			{
-				bool isMirror = true;
-				int smudges = 0;
-				for (int i = 0; i < b.Count / 2; i++)
-				{
-					try
-					{
-						string s1 = string.Join("", b.ElementAt(tryMirror - i));
-						string s2 = string.Join("", b.ElementAt(tryMirror + i + 1));
-
-						for (int j = 0; j < s1.Length; j++)
-						{
-							if (s1[j] != s2[j])
-							{
-								smudges++;
-							}
-						}
-					}
-					catch (ArgumentOutOfRangeException) { }
-				}
-
-				if (smudges == 1)
-				{
-					result += (tryMirror + 1);
-				}
-			}
+			result += FindMirror(transposed, 1);
 		}
 
 		return result.ToString();
