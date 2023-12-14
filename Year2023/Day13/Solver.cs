@@ -36,10 +36,10 @@ public class Solver : ISolver
 
 	public int FindMirror(IList<string> pattern, int smudges)
 	{
-		for (int tryMirror = 0; tryMirror < pattern.Count - 1; tryMirror++)
+		for (int tryMirror = 1; tryMirror < pattern.Count; tryMirror++)
 		{
 			int foundSmudges = 0;
-			/*
+			
 			var afterMirror = pattern.Skip(tryMirror).ToList();
 			var beforeMirror = pattern.Take(tryMirror).Reverse().ToList();
 
@@ -55,28 +55,9 @@ public class Solver : ISolver
 					}
 				}
 			}
-			/*/
-			for (int i = 0; i < pattern.Count/2; i++)
-			{
-				try
-				{
-					// TODO kolla vad Tobias skrev
-					var s1 = pattern[tryMirror - i];
-					var s2 = pattern[tryMirror + i + 1];
-
-					for (int pos = 0; pos < s1.Length; pos++)
-					{
-						if (s1[pos] != s2[pos])
-						{
-							foundSmudges++;
-						}
-					}
-				}
-				catch (ArgumentOutOfRangeException e) {}
-			}
 			if (foundSmudges == smudges)
 			{
-				return tryMirror+1;
+				return tryMirror;
 			}
 		}
 
