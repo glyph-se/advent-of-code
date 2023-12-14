@@ -60,6 +60,7 @@ public class Solver : ISolver
 			{
 				try
 				{
+					// TODO kolla vad Tobias skrev
 					var s1 = pattern[tryMirror - i];
 					var s2 = pattern[tryMirror + i + 1];
 
