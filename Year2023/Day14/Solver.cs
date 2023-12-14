@@ -6,8 +6,6 @@ namespace Year2023.Day14;
 
 public class Solver : ISolver
 {
-	private Dictionary<string, Rock[,]> DpCache = new Dictionary<string, Rock[,]>();
-
 	public async Task<string> PartOne(string input)
 	{
 		await Task.Yield();
@@ -52,7 +50,7 @@ public class Solver : ISolver
 		{
 			if(i == 1_000)
 			{
-				// Jump a head
+				// Jump ahead
 				i += (target - i) / cycle * cycle;
 			}
 
@@ -75,13 +73,13 @@ public class Solver : ISolver
 	private Rock[,] CycleOne(Rock[,] grid)
 	{
 		RollUp(grid);
-		grid = RotateMatrixCounterClockwise(grid);
+		grid = grid.RotateMatrixCounterClockwise();
 		RollUp(grid);
-		grid = RotateMatrixCounterClockwise(grid);
+		grid = grid.RotateMatrixCounterClockwise();
 		RollUp(grid);
-		grid = RotateMatrixCounterClockwise(grid);
+		grid = grid.RotateMatrixCounterClockwise();
 		RollUp(grid);
-		grid = RotateMatrixCounterClockwise(grid);
+		grid = grid.RotateMatrixCounterClockwise();
 
 		return grid;
 	}
@@ -127,45 +125,5 @@ public class Solver : ISolver
 
 	public class Rock(char c, int x, int y) : CharPoint(c, x, y)
 	{
-
-	}
-
-	/// <summary>
-	/// Taken from https://stackoverflow.com/a/18035050
-	/// </summary>
-	static Rock[,] RotateMatrixCounterClockwise(Rock[,] oldMatrix)
-	{
-		Rock[,] newMatrix = new Rock[oldMatrix.GetLength(1), oldMatrix.GetLength(0)];
-		int newColumn, newRow = 0;
-		for (int oldColumn = oldMatrix.GetLength(1) - 1; oldColumn >= 0; oldColumn--)
-		{
-			newColumn = 0;
-			for (int oldRow = 0; oldRow < oldMatrix.GetLength(0); oldRow++)
-			{
-				newMatrix[newRow, newColumn] = oldMatrix[oldRow, oldColumn];
-				newMatrix[newRow, newColumn].x = newRow;
-				newMatrix[newRow, newColumn].y = newColumn;
-				newColumn++;
-			}
-			newRow++;
-		}
-		return newMatrix;
-	}
-
-	public static string GridToStr(Rock[,] grid)
-	{
-		StringBuilder sb = new StringBuilder();
-		for (int y = 0; y < grid.GetLength(1); y++)
-		{
-			for (int x = 0; x < grid.GetLength(0); x++)
-			{
-				Rock current = grid[x, y];
-
-				sb.Append(current.c);
-			}
-			sb.AppendLine();
-		}
-
-		return sb.ToString();
 	}
 }

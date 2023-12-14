@@ -1,4 +1,6 @@
-﻿namespace Shared.Helpers
+﻿using System.Text;
+
+namespace Shared.Helpers
 {
 	public static class GridHelpers
 	{
@@ -221,6 +223,48 @@
 				rowVector[i] = matrix[row, i];
 
 			return rowVector;
+		}
+
+		/// <remarks>
+		/// Taken from https://stackoverflow.com/a/18035050
+		/// </remarks>
+		public static T[,] RotateMatrixCounterClockwise<T>(this T[,] oldMatrix) where T : Point
+		{
+			T[,] newMatrix = new T[oldMatrix.GetLength(1), oldMatrix.GetLength(0)];
+			int newColumn, newRow = 0;
+			for (int oldColumn = oldMatrix.GetLength(1) - 1; oldColumn >= 0; oldColumn--)
+			{
+				newColumn = 0;
+				for (int oldRow = 0; oldRow < oldMatrix.GetLength(0); oldRow++)
+				{
+					newMatrix[newRow, newColumn] = oldMatrix[oldRow, oldColumn];
+					newMatrix[newRow, newColumn].x = newRow;
+					newMatrix[newRow, newColumn].y = newColumn;
+					newColumn++;
+				}
+				newRow++;
+			}
+			return newMatrix;
+		}
+
+		/// <summary>
+		/// Converts the grid to a string. Useful if you want it as a key in a dictionary or similar.
+		/// </summary>
+		public static string AsString(this CharPoint[,] grid)
+		{
+			StringBuilder sb = new StringBuilder();
+			for (int y = 0; y < grid.GetLength(1); y++)
+			{
+				for (int x = 0; x < grid.GetLength(0); x++)
+				{
+					CharPoint current = grid[x, y];
+
+					sb.Append(current.c);
+				}
+				sb.AppendLine();
+			}
+
+			return sb.ToString();
 		}
 	}
 }

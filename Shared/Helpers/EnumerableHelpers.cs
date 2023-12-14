@@ -1,6 +1,6 @@
 ﻿namespace Shared.Helpers
 {
-	public static class Helpers
+	public static class EnumerableHelpers
 	{
 		/// <summary>
 		/// Generates the Cartesian Product of the two given <see cref="IEnumerable{T}"/>s.
