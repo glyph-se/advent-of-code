@@ -46,6 +46,7 @@ public class Solver : ISolver
 
 		// example1 has cycle 7
 		// full has cycle 27
+		// TODO add cycle detection
 
 		for (long i = 1; i <= target; i++)
 		{
