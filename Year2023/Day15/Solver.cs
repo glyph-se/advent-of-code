@@ -54,11 +54,11 @@ public class Solver : ISolver
 
 		foreach (var x in step)
 		{
-			var a = Regex.Match(x, "(\\w+)([-=])(\\d+)?");
+			var r = Regex.Match(x, "(\\w+)([-=])(\\d+)?");
 
-			string label = a.Groups[1].Value;
-			string op = a.Groups[2].Value;
-			string length = a.Groups[3].Value;
+			string label = r.Groups[1].Value;
+			string op = r.Groups[2].Value;
+			string length = r.Groups[3].Value;
 
 			int boxNbr = Hash(label);
 			var lenses = boxes[boxNbr];
@@ -93,6 +93,9 @@ public class Solver : ISolver
 		return result.ToString();
 	}
 
+	/// <remarks>
+	/// This class is needed in order to update the length of a lens. The built-int tuple is a value type and not a reference type.
+	/// </remarks>
 	public class Lens(string label, int length)
 	{
 		public string label = label;
