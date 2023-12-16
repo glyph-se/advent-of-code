@@ -40,20 +40,16 @@ public class Solver : ISolver
 		grid = grid.ExtendGridMatrix(1, (x, y) => new Rock('#', x, y));
 
 		long target = 1000000000;
-		long cycle = 27*7;
 
-		// example1 has cycle 7
-		// full has cycle 27
-		// TODO add cycle detection
+		var cycles = CycleHelpers.FindCycle(grid => CycleOne(grid), grid, grid => grid.AsString());
 
 		for (long i = 1; i <= target; i++)
 		{
-			if(i == 1_000)
+			if(i == cycles.start)
 			{
-				// Jump ahead
-				i += (target - i) / cycle * cycle;
+				long repetitions = (target - cycles.start) / cycles.length;
+				i += repetitions * cycles.length;
 			}
-
 			grid = CycleOne(grid);
 		}
 
