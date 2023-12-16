@@ -1,7 +1,7 @@
 ﻿using Shared;
 using Shared.Helpers;
 
-namespace Year2023.Day00;
+namespace Year2023.Day17;
 
 public class Solver : ISolver
 {
