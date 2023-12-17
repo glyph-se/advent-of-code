@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Shared.Helpers
 {
@@ -85,7 +86,7 @@ namespace Shared.Helpers
 
 		public static TReturn[,] ExtendGridMatrixWithPoint<TReturn>(this TReturn[,] orgGrid, int extensionCount, Func<char, int, int, TReturn> extensionFunc) where TReturn : Point
 		{
-			return ExtendGridMatrix(orgGrid, extensionCount, (x,y) => extensionFunc('.', x,y));
+			return ExtendGridMatrix(orgGrid, extensionCount, (x, y) => extensionFunc('.', x, y));
 		}
 
 		public static TReturn?[,] ExtendGridMatrix<TReturn>(this TReturn?[,] orgGrid, int extensionCount) where TReturn : Point
@@ -157,19 +158,46 @@ namespace Shared.Helpers
 			return list;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<(int dx, int dy)> AllDirs()
 		{
 			return Diagonals().Concat(UpDowns());
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<(int dx, int dy)> Diagonals()
 		{
 			return new List<(int dx, int dy)>() { (1, -1), (1, 1), (-1, 1), (-1, -1) };
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<(int dx, int dy)> UpDowns()
 		{
 			return new List<(int dx, int dy)>() { (0, 1), (1, 0), (-1, 0), (0, -1) };
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static (int dx, int dy) TurnLeft(this (int dx, int dy) dirs)
+		{
+			return (-dirs.dy, dirs.dx);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static (int dx, int dy) TurnRight(this (int dx, int dy) dirs)
+		{
+			return (dirs.dy, -dirs.dx);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static (int dx, int dy) TurnReverse(this (int dx, int dy) dirs)
+		{
+			return (dirs.dx * -1, dirs.dy * -1);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsInside(this Point[,] grid, (int x, int y) pos)
+		{
+			return (pos.x >= 0 && pos.x <= grid.GetUpperBound(0)) && (pos.y >= 0 && pos.y <= grid.GetUpperBound(1));
 		}
 
 		public static void PrintGrid(this Point[,] grid, Func<Point, string> printFunc)
