@@ -14,7 +14,7 @@ public class Solver : ISolver
 		var grid = input.AsGridMatrix((c, x, y) => new CityBlock(c, x, y));
 
 		var start = grid[0, 0];
-		var end = grid[grid.GetUpperBound(0), grid.GetUpperBound(0)];
+		var end = grid[grid.GetUpperBound(0), grid.GetUpperBound(1)];
 		result = Dijkstra(grid, start, end, 1, 3);
 
 		return result.ToString();
@@ -54,6 +54,7 @@ public class Solver : ISolver
 					continue;
 				}
 
+				// Add all possible distances
 				for(int distance = 1; distance<=maxDistance; distance++)
 				{
 					int newX = current.cb.x + dir.dx * distance;
@@ -99,7 +100,7 @@ public class Solver : ISolver
 		var grid = input.AsGridMatrix((c, x, y) => new CityBlock(c, x, y));
 
 		var start = grid[0, 0];
-		var end = grid[grid.GetUpperBound(0), grid.GetUpperBound(0)];
+		var end = grid[grid.GetUpperBound(0), grid.GetUpperBound(1)];
 		result = Dijkstra(grid, start, end, 4, 10);
 
 		return result.ToString();
