@@ -71,7 +71,7 @@ public class Solver : ISolver
 			prevP = p;
 		}
 
-		result = border / 2 + inside / 2 + 1;
+		result = (border / 2) + (inside / 2) + 1;
 		return result;
 	}
 
