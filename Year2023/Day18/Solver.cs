@@ -1,5 +1,6 @@
 ﻿using Shared;
 using Shared.Helpers;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Year2023.Day18;
 
@@ -11,19 +12,67 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		/*
-		var grid = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
-		grid = grid.ExtendGridMatrix(1, (x, y) => new CharPoint('.', x, y));
-		*/
+		List<Point> points = new();
 
-		/*
+		Point start = new Point(0, 0);
+		points.Add(start);
+
+		Point prev = start;
+
+		long border = 0;
+
 		foreach (string line in input.AsLines())
 		{
+			(string dir, string distString, string hex) = line.Split3(" ");
+			int dist = distString.ToInt();
 
+			Point? next = null;
+
+			switch (dir)
+			{
+				case "R":
+					next = new Point(prev.x + dist, prev.y);
+					break;
+				case "D":
+					next = new Point(prev.x, prev.y + dist);
+					break;
+				case "L":
+					next = new Point(prev.x - dist, prev.y);
+					break;
+				case "U":
+					next = new Point(prev.x, prev.y - dist);
+					break;
+				default:
+					throw new Exception("invalid input");
+			}
+
+			points.Add(next!);
+			border += dist;
+			prev = next!;
 		}
-		*/
+
+		result = CalculateLagoon(points, border);
 
 		return result.ToString();
+	}
+
+	private static long CalculateLagoon(List<Point> points, long border)
+	{
+		long result;
+		points.Reverse();
+		Point? prevP = null;
+		long inside = 0;
+		foreach (Point p in points)
+		{
+			if (prevP != null)
+			{
+				inside += (long)(prevP.x + p.x) * (long)(prevP.y - p.y);
+			}
+			prevP = p;
+		}
+
+		result = border / 2 + inside / 2 + 1;
+		return result;
 	}
 
 	public async Task<string> PartTwo(string input)
@@ -31,6 +80,50 @@ public class Solver : ISolver
 		await Task.Yield();
 
 		long result = 0;
+
+		List<Point> points = new();
+
+		Point start = new Point(0, 0);
+		points.Add(start);
+
+		Point prev = start;
+
+		long border = 0;
+
+		foreach (string line in input.AsLines())
+		{
+			(string dir, string distString, string hex) = line.Split3(" ");
+			hex = hex.Trim(['(', ')', '#']);
+
+			char hexDir = hex.ToCharArray()[^1];
+			int hexDist = int.Parse(hex.Substring(0, 5), System.Globalization.NumberStyles.HexNumber);
+
+			Point? next = null;
+
+			switch (hexDir)
+			{
+				case '0':
+					next = new Point(prev.x + hexDist, prev.y);
+					break;
+				case '1':
+					next = new Point(prev.x, prev.y + hexDist);
+					break;
+				case '2':
+					next = new Point(prev.x - hexDist, prev.y);
+					break;
+				case '3':
+					next = new Point(prev.x, prev.y - hexDist);
+					break;
+				default:
+					throw new Exception("invalid input");
+			}
+
+			points.Add(next!);
+			border += hexDist;
+			prev = next!;
+		}
+
+		result = CalculateLagoon(points, border);
 
 		return result.ToString();
 	}
