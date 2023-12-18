@@ -59,6 +59,8 @@ public class Solver : ISolver
 	private static long CalculateLagoon(List<Point> points, long border)
 	{
 		long result;
+
+		// Pont's need to be counter-clockwise
 		points.Reverse();
 		Point? prevP = null;
 		long inside = 0;
@@ -66,12 +68,14 @@ public class Solver : ISolver
 		{
 			if (prevP != null)
 			{
-				inside += (long)(prevP.x + p.x) * (long)(prevP.y - p.y);
+				// Shoelace formula
+				inside += (long)(prevP.x + p.x) * (long)(prevP.y - p.y) / 2;
 			}
 			prevP = p;
 		}
 
-		result = (border / 2) + (inside / 2) + 1;
+		// Pick's theorem
+		result = (border / 2) + inside + 1; 
 		return result;
 	}
 
