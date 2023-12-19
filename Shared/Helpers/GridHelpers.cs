@@ -24,6 +24,8 @@ namespace Shared.Helpers
 			return grid.AsReadOnly();
 		}
 
+		// TODO skapa en som gör charpoints direkt.
+		// TODO sedan en som byter innehåll i GridMatrix till annat objekt
 		public static TReturn[,] AsGridMatrix<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
 		{
 			var lines = input.AsLines();
@@ -84,6 +86,7 @@ namespace Shared.Helpers
 			return grid;
 		}
 
+		// TODO, ta bort dnena och anvnd ovan istället
 		public static TReturn[,] ExtendGridMatrixWithPoint<TReturn>(this TReturn[,] orgGrid, int extensionCount, Func<char, int, int, TReturn> extensionFunc) where TReturn : Point
 		{
 			return ExtendGridMatrix(orgGrid, extensionCount, (x, y) => extensionFunc('.', x, y));
@@ -111,6 +114,7 @@ namespace Shared.Helpers
 			return grid;
 		}
 
+		// TODO rename to "withNull"
 		public static TReturn?[,] ExtendGridMatrix<TReturn>(this TReturn?[,] orgGrid, int extension) where TReturn : struct
 		{
 			TReturn?[,] grid = new TReturn?[orgGrid.GetLength(0) + 2 * extension, orgGrid.GetLength(1) + 2 * extension];
