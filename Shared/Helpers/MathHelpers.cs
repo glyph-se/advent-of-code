@@ -4,7 +4,7 @@ namespace Shared.Helpers
 {
 	public class MathHelpers
 	{
-		/// <remarks>From https://github.com/viceroypenguin/adventofcode/blob/master/AdventOfCode.Common/Helpers.cs</remarks>
+		/// <remarks>From https://github.com/viceroypenguin/adventofcode/blob/master/AdventOfCode.Common/Extensions/NumberExtensions.cs</remarks>
 		[MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
 		public static long gcd(long a, long b)
 		{
@@ -12,7 +12,7 @@ namespace Shared.Helpers
 			return a;
 		}
 
-		/// <remarks>From https://github.com/viceroypenguin/adventofcode/blob/master/AdventOfCode.Common/Helpers.cs</remarks>
+		/// <remarks>From https://github.com/viceroypenguin/adventofcode/blob/master/AdventOfCode.Common/Extensions/NumberExtensions.cs</remarks>
 		[MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
 		public static long lcm(long a, long b)
 		{
