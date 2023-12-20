@@ -1,12 +1,11 @@
 ﻿using Shared;
 using Shared.Helpers;
-using static Year2023.Day19.Solver;
 
 namespace Year2023.Day19;
 
 public class Solver : ISolver
 {
-	List<Workflow> workflows = null;
+	List<Workflow> workflows = null!;
 
 	public async Task<string> PartOne(string input)
 	{
