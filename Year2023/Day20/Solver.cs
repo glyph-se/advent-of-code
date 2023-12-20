@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Shared;
 using Shared.Helpers;
 
@@ -7,7 +6,7 @@ namespace Year2023.Day20;
 
 public class Solver : ISolver
 {
-	static List<IModule> modules;
+	static Dictionary<string, IModule> modules = null!;
 
 	public async Task<string> PartOne(string input)
 	{
@@ -15,47 +14,12 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		modules = new List<IModule>();
-
-		modules.Add(new OutputModule("output"));
-		modules.Add(new OutputModule("rx"));
-
-		foreach (string line in input.AsLines())
-		{
-			var split = line.TrimSplit(" -> ");
-			var name = split[0];
-			var dest = split[1].TrimSplit(",").ToList();
-
-			if (name.StartsWith("%"))
-			{
-				modules.Add(new FlipFlopModule(name.Substring(1), dest));
-			}
-			if (name.StartsWith("&"))
-			{
-				modules.Add(new ConjuncationModule(name.Substring(1), dest));
-			}
-			if (name.StartsWith("b"))
-			{
-				modules.Add(new BroadcastModule(dest));
-			}
-		}
-
-		foreach(ConjuncationModule cm in modules.OfType<ConjuncationModule>())
-		{
-			// Find all modules with dest to me
-			foreach(IModule m in modules)
-			{
-				if (m.Dest.Contains(cm.Name))
-				{
-					cm.Inputs.Add(m.Name, false);
-				}
-			}
-		}
+		ParseModules(input);
 
 		long low = 0;
 		long high = 0;
 
-		for(int i = 1; i <= 1000; i++)
+		for (int i = 1; i <= 1000; i++)
 		{
 			Queue<(string next, string prev, bool state)> queue = new();
 
@@ -65,8 +29,6 @@ public class Solver : ISolver
 			{
 				var op = queue.Dequeue();
 
-				IModule pushedModule = modules.Where(m => m.Name == op.next).Single();
-
 				if (op.state)
 				{
 					high++;
@@ -75,6 +37,8 @@ public class Solver : ISolver
 				{
 					low++;
 				}
+
+				IModule pushedModule = modules[op.next];
 
 				List<(string next, bool state)> results = pushedModule.Send(op.state, op.prev);
 
@@ -87,13 +51,115 @@ public class Solver : ISolver
 		return result.ToString();
 	}
 
+	private static void ParseModules(string input)
+	{
+		modules = new Dictionary<string, IModule>();
+
+		modules.Add("output", new OutputModule("output"));
+		modules.Add("rx", new OutputModule("rx"));
+
+		foreach (string line in input.AsLines())
+		{
+			var split = line.TrimSplit(" -> ");
+			var name = split[0];
+			var dest = split[1].TrimSplit(",").ToList();
+
+			IModule module = null!;
+			if (name.StartsWith("%"))
+			{
+				module = new FlipFlopModule(name.Substring(1), dest);
+			}
+			if (name.StartsWith("&"))
+			{
+				module = new ConjuncationModule(name.Substring(1), dest);
+			}
+			if (name.StartsWith("b"))
+			{
+				module = new BroadcastModule(dest);
+			}
+			modules.Add(module!.Name, module);
+		}
+
+		foreach (ConjuncationModule cm in modules.Values.OfType<ConjuncationModule>())
+		{
+			// Find all modules with dest to me
+			foreach (IModule m in modules.Values)
+			{
+				if (m.Dest.Contains(cm.Name))
+				{
+					cm.Inputs.Add(m.Name, false);
+				}
+			}
+		}
+	}
+
 	public async Task<string> PartTwo(string input)
 	{
 		await Task.Yield();
 
-		long result = 0;
+		long result = 1;
 
-		return result.ToString();
+		ParseModules(input);
+
+		IModule? goesToRx = modules
+			.Values
+			.Where(m => m.Dest.FirstOrDefault() == "rx")
+			.SingleOrDefault();
+
+		if(goesToRx == null)
+		{
+			return "Example not valid for part 2";
+		}
+
+		HashSet<string> watch = modules
+			.Values
+			.Where(m => m.Dest.FirstOrDefault() == goesToRx.Name)
+			.Select(m => m.Name)
+			.ToHashSet();
+
+		for (int i = 1; i <= int.MaxValue; i++)
+		{
+			Queue<(string next, string prev, bool state)> queue = new();
+
+			queue.Enqueue(("broadcaster", "button", false));
+
+			while (queue.Any())
+			{
+				var op = queue.Dequeue();
+
+				IModule pushedModule = modules[op.next];
+
+				List<(string next, bool state)> results = pushedModule.Send(op.state, op.prev);
+
+				results
+					.Select(r => (r.next, op.next, r.state))
+					.ToList()
+					.ForEach(r => queue.Enqueue(r));
+
+				IEnumerable<string> found = results
+					.Where(r => r.state == false)
+					.Select(r => r.next)
+					.Intersect(watch);
+
+				// Any of the modules we watch where found in this cycle
+				if (found.Any())
+				{
+					found
+						.ToList()
+						.ForEach(f => watch.Remove(f));
+
+					result = MathHelpers.lcm(result, i);
+				}
+
+				if (watch.Count == 0)
+				{
+					// Found all
+					return result.ToString();
+				}
+			}
+		}
+
+		throw new Exception("Should not happen");
 	}
 
 	public interface IModule
@@ -123,8 +189,6 @@ public class Solver : ISolver
 			List<(string name, bool state)> result = new();
 			foreach (string d in Dest)
 			{
-				IModule m = modules.Single(m => m.Name == d);
-
 				result.Add((d, pulse));
 			}
 
@@ -162,8 +226,6 @@ public class Solver : ISolver
 				state = !state;
 				foreach (string d in Dest)
 				{
-					IModule m = modules.Single(m => m.Name == d);
-
 					result.Add((d, state));
 				}
 			}
@@ -199,7 +261,6 @@ public class Solver : ISolver
 				// All inputs high, send low
 				foreach (string d in Dest)
 				{
-					IModule m = modules.Single(m => m.Name == d);
 
 					result.Add((d, false));
 				}
@@ -208,8 +269,6 @@ public class Solver : ISolver
 			{
 				foreach (string d in Dest)
 				{
-					IModule m = modules.Single(m => m.Name == d);
-
 					result.Add((d, true));
 				}
 			}
