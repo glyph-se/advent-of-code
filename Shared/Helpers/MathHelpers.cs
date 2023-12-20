@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Shared.Helpers
 {
@@ -18,5 +19,19 @@ namespace Shared.Helpers
 		{
 			return a * b / gcd(a, b);
 		}
+
+		/// <remarks>From https://github.com/encse/adventofcode/blob/master/2020/Day13/Solution.cs</remarks>
+		public static long ChineseRemainderTheorem((long mod, long a)[] items)
+		{
+			var prod = items.Aggregate(1L, (acc, item) => acc * item.mod);
+			var sum = items.Select((item, i) => {
+				var p = prod / item.mod;
+				return item.a * ModInv(p, item.mod) * p;
+			}).Sum();
+
+			return sum % prod;
+		}
+
+		public static long ModInv(long a, long m) => (long)BigInteger.ModPow(a, m - 2, m);
 	}
 }
