@@ -11,17 +11,32 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		/*
 		var grid = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
-		grid = grid.ExtendGridMatrix(1, (x, y) => new CharPoint('.', x, y));
-		*/
+		grid = grid.ExtendGridMatrix(1, (x, y) => new CharPoint('#', x, y));
 
-		/*
-		foreach (string line in input.AsLines())
+		var start = grid.AsList().Where(g => g.c == 'S').Single();
+
+		HashSet<CharPoint> visited = new();
+		visited.Add(start);
+
+		for(int move = 1; move <= 64; move++)
 		{
-
+			HashSet<CharPoint> newVisited = new();
+			foreach (var pos in visited)
+			{
+				foreach (var dir in GridHelpers.UpDowns())
+				{
+					var next = grid[pos.x+dir.dx,pos.y+dir.dy];
+					if (next.c != '#')
+					{
+						newVisited.Add(next);
+					}
+				}
+			}
+			visited = newVisited;
 		}
-		*/
+
+		result = visited.Count;
 
 		return result.ToString();
 	}
@@ -31,6 +46,37 @@ public class Solver : ISolver
 		await Task.Yield();
 
 		long result = 0;
+
+		var grid = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
+		grid = grid.ExtendGridMatrix(1, (x, y) => new CharPoint('#', x, y));
+
+		var start = grid.AsList().Where(g => g.c == 'S').Single();
+
+		HashSet<CharPoint> visited = new();
+		visited.Add(start);
+
+		for (int move = 1; move <= 26501365; move++)
+		{
+			HashSet<CharPoint> newVisited = new();
+			foreach (var pos in visited)
+			{
+				foreach (var dir in GridHelpers.UpDowns())
+				{
+					var next = grid[pos.x + dir.dx, pos.y + dir.dy];
+					if (next.c == 'W')
+					{
+
+					}
+					if (next.c != '#')
+					{
+						newVisited.Add(next);
+					}
+				}
+			}
+			visited = newVisited;
+		}
+
+		result = visited.Count;
 
 		return result.ToString();
 	}
