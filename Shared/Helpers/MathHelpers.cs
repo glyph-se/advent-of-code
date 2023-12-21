@@ -20,6 +20,17 @@ namespace Shared.Helpers
 			return a * b / gcd(a, b);
 		}
 
+		/// <summary>
+		/// The '%' in C# is the <c>remainer</c>, not the <c>modulo</c>
+		/// </summary>
+		/// <remarks>From https://stackoverflow.com/a/51018529</remarks>
+		[MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+		public static long mod(long x, long m)
+		{
+			long r = x % m;
+			return r < 0 ? r + m : r;
+		}
+
 		/// <remarks>From https://github.com/encse/adventofcode/blob/master/2020/Day13/Solution.cs</remarks>
 		public static long ChineseRemainderTheorem((long mod, long a)[] items)
 		{
