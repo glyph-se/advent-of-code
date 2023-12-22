@@ -84,7 +84,7 @@ namespace Shared.Helpers
 			return grid;
 		}
 
-		public static TReturn?[,] ExtendGridMatrix<TReturn>(this TReturn?[,] orgGrid, int extensionCount) where TReturn : Point
+		public static TReturn?[,] ExtendGridMatrixWithNull<TReturn>(this TReturn?[,] orgGrid, int extensionCount) where TReturn : Point
 		{
 			TReturn?[,] grid = new TReturn[orgGrid.GetLength(0) + 2 * extensionCount, orgGrid.GetLength(1) + 2 * extensionCount];
 
@@ -106,8 +106,7 @@ namespace Shared.Helpers
 			return grid;
 		}
 
-		// TODO rename to "withNull"
-		public static TReturn?[,] ExtendGridMatrix<TReturn>(this TReturn?[,] orgGrid, int extension) where TReturn : struct
+		public static TReturn?[,] ExtendGridMatrixWithNull<TReturn>(this TReturn?[,] orgGrid, int extension) where TReturn : struct
 		{
 			TReturn?[,] grid = new TReturn?[orgGrid.GetLength(0) + 2 * extension, orgGrid.GetLength(1) + 2 * extension];
 

@@ -32,7 +32,7 @@ namespace Year2022.Day23
 
 			var allElves = orgGrid.AsList();
 
-			Elf?[,] grid = orgGrid.ExtendGridMatrix(1000);
+			Elf?[,] grid = orgGrid.ExtendGridMatrixWithNull(1000);
 
 			for (int round = 1; round <= 10; round++)
 			{

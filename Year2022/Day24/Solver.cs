@@ -9,13 +9,11 @@ namespace Year2022.Day24
 		{
 			await Task.Yield();
 
-#pragma warning disable CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
-			HashSet<(int x, int y)> grid = input
+			HashSet<Point> grid = input
 				.AsGridList((c, x, y) => CreatePoint(c, x, y))
 				.Where(p => p != null)
-				.Cast<(int x, int y)>()
+				.Cast<Point>()
 				.ToHashSet();
-#pragma warning restore CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
 
 			List<Blizzard> blizzards = input
 				.AsGridList((c, x, y) => CreateBlizzard(c, x, y))
@@ -26,8 +24,8 @@ namespace Year2022.Day24
 
 			int maxX = grid.Max(f => f.x);
 			int maxY = grid.Max(f => f.y) - 1;
-			(int x, int y) start = (1, 0);
-			(int x, int y) end = (maxX, maxY + 1);
+			Point start = new Point(1, 0);
+			Point end = new Point(maxX, maxY + 1);
 
 			return FindMinutes(start, end, maxX, maxY, blizzards, grid).ToString();
 		}
@@ -61,8 +59,7 @@ namespace Year2022.Day24
 
 		private Blizzard? CreateBlizzard(char c, int x, int y)
 		{
-			Blizzard b = new();
-			b.position = (x, y);
+			Blizzard b = new(x, y);
 
 			switch (c)
 			{
@@ -84,11 +81,11 @@ namespace Year2022.Day24
 
 			return b;
 		}
-		private (int x, int y)? CreatePoint(char c, int x, int y)
+		private Point? CreatePoint(char c, int x, int y)
 		{
 			if (c == '.' || c == '>' || c == '<' || c == '^' || c == 'v')
 			{
-				return (x, y);
+				return new Point(x, y);
 			}
 			return null;
 		}
@@ -97,13 +94,11 @@ namespace Year2022.Day24
 		{
 			await Task.Yield();
 
-#pragma warning disable CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
-			HashSet<(int x, int y)> grid = input
+			HashSet<Point> grid = input
 				.AsGridList((c, x, y) => CreatePoint(c, x, y))
 				.Where(p => p != null)
-				.Cast<(int x, int y)>()
+				.Cast<Point>()
 				.ToHashSet();
-#pragma warning restore CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
 
 
 			List<Blizzard> blizzards = input
@@ -114,8 +109,8 @@ namespace Year2022.Day24
 
 			int maxX = grid.Max(f => f.x);
 			int maxY = grid.Max(f => f.y) - 1;
-			(int x, int y) start = (1, 0);
-			(int x, int y) end = (maxX, maxY + 1);
+			Point start = new Point(1, 0);
+			Point end = new Point(maxX, maxY + 1);
 
 			int part1 = FindMinutes(start, end, maxX, maxY, blizzards, grid);
 			int part2 = FindMinutes(end, start, maxX, maxY, blizzards, grid);
@@ -124,28 +119,28 @@ namespace Year2022.Day24
 			return (part1 + part2 + part3).ToString();
 		}
 
-		private int FindMinutes((int x, int y) start, (int x, int y) end, int maxX, int maxY, List<Blizzard> blizzards, HashSet<(int x, int y)> grid)
+		private int FindMinutes(Point start, Point end, int maxX, int maxY, List<Blizzard> blizzards, HashSet<Point> grid)
 		{
-			Queue<(int x, int y)> prevPositions = new();
+			Queue<Point> prevPositions = new();
 			prevPositions.Enqueue(start);
 
 			for (int minute = 1; minute < 1000; minute++)
 			{
 				MoveBlizzards(blizzards, maxX, maxY);
 
-				HashSet<(int x, int y)> blizzardPos = blizzards.Select(b => b.position).ToHashSet();
+				HashSet<Point> blizzardPos = blizzards.Select(b => b.position).ToHashSet();
 
-				Queue<(int x, int y)> nextPositions = new();
+				Queue<Point> nextPositions = new();
 
 				while (prevPositions.Count != 0)
 				{
-					(int x, int y) prevPos = prevPositions.Dequeue();
+					Point prevPos = prevPositions.Dequeue();
 
 					(int, int)[] dirs = { (0, 0), (0, 1), (1, 0), (-1, 0), (0, -1) };
 
 					foreach ((int dx, int dy) in dirs)
 					{
-						(int x, int y) next = (prevPos.x + dx, prevPos.y + dy);
+						Point next = new Point(prevPos.x + dx, prevPos.y + dy);
 						if (grid.Contains(next) && !blizzardPos.Contains(next))
 						{
 							nextPositions.Enqueue(next);
@@ -166,10 +161,14 @@ namespace Year2022.Day24
 
 		public class Blizzard
 		{
+			public Blizzard(int x, int y)
+			{
+				position = new Point(x, y);
+			}
 			public (int dx, int dy) direction;
-			public (int x, int y) position;
+			public Point position;
 		}
 
-		public record State(int minutes, (int x, int y) me);
+		public record State(int minutes, Point me);
 	}
 }
