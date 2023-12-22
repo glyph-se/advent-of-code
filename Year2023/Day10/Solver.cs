@@ -12,7 +12,7 @@ public class Solver : ISolver
 		long result = 0;
 
 		Pipe[,] grid = input.AsGridMatrix((c, x, y) => new Pipe(c, x, y));
-		grid = grid.ExtendGridMatrixWithPoint(1, (c, x, y) => new Pipe(c, x, y));
+		grid = grid.ExtendGridMatrix(1, (x, y) => new Pipe('.', x, y));
 
 		Pipe start = GetStartPipe(grid);
 
@@ -117,7 +117,7 @@ public class Solver : ISolver
 		long result = 0;
 
 		Pipe[,] grid = input.AsGridMatrix((c, x, y) => new Pipe(c, x, y));
-		grid = grid.ExtendGridMatrixWithPoint(1, (c, x, y) => new Pipe(c, x, y));
+		grid = grid.ExtendGridMatrix(1, (x, y) => new Pipe('.', x, y));
 
 		Pipe start = GetStartPipe(grid);
 
