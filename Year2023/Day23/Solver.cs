@@ -115,7 +115,6 @@ public class Solver : ISolver
 
 				queue.Push((next, newVisited, current.distance + 1));
 			}
-			Console.WriteLine(longestDistance);
 		}
 
 		return longestDistance;
