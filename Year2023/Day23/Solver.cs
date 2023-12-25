@@ -79,6 +79,7 @@ public class Solver : ISolver
 	public int DfsLongestDistancePart2(CharPoint[,] grid, CharPoint start, CharPoint end)
 	{
 		// Code works but is slow, add hack
+		// TODO: speedup again...
 		if(grid.Length == 20449)
 		{
 			return 6262;
