@@ -1,4 +1,5 @@
-﻿using Shared;
+﻿using System.Diagnostics;
+using Shared;
 using Shared.Startup;
 
 namespace SolveOne;
@@ -80,18 +81,22 @@ internal class Program
 		string? outputOne = null;
 		string? outputTwo = null;
 
+		Stopwatch stopwatch = new Stopwatch();
+
 		if (!choiceString!.EndsWith('b'))
 		{
 			Console.WriteLine("Running part one...");
+			stopwatch.Restart();
 			outputOne = await instance.PartOne(inputs);
-			PrintOutput(outputOne);
+			PrintOutput(outputOne, stopwatch.ElapsedMilliseconds);
 		}
 
 		if (!choiceString!.EndsWith('a'))
 		{
 			Console.WriteLine("Running part two...");
+			stopwatch.Restart();
 			outputTwo = await instance.PartTwo(inputs);
-			PrintOutput(outputTwo);
+			PrintOutput(outputTwo, stopwatch.ElapsedMilliseconds);
 		}
 
 		CopyOutputToClipboard(outputOne, outputTwo);
@@ -166,11 +171,15 @@ internal class Program
 		Console.Write("--------------------------------------------------------------------------------\n");
 	}
 
-	private static void PrintOutput(string output)
+	private static void PrintOutput(string output, long elapsedTime)
 	{
 		Console.Write("Output is: ");
 		Console.ForegroundColor = ConsoleColor.Green;
 		Console.Write(output);
+		Console.ResetColor();
+		Console.WriteLine();
+		Console.ForegroundColor= ConsoleColor.DarkGray;
+		Console.Write($"{elapsedTime} ms");
 		Console.ResetColor();
 		Console.WriteLine();
 		Console.WriteLine();
