@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Shared.Helpers;
 
-namespace Shared.Helpers;
 public static class CycleHelpers
 {
 	public static (int start, int length, Dictionary<int, TReturn> results) FindCycle<TReturn>(
@@ -28,7 +23,7 @@ public static class CycleHelpers
 			{
 				// We are done
 				int prevSeen = seen[key];
-				return (prevSeen, cycle-prevSeen, results);
+				return (prevSeen, cycle - prevSeen, results);
 			}
 
 			results.Add(cycle, state);
