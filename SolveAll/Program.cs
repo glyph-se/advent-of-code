@@ -12,7 +12,7 @@ internal class Program
 		Console.Write("|                                      ALL                                     |\n");
 		Console.Write("--------------------------------------------------------------------------------\n");
 
-		IEnumerable<ISolver> allSolvers = Assembly.Load("Year2023")
+		IEnumerable<ISolver> allSolvers = Assembly.Load("Year2025")
 				.GetTypes()
 				.Where(t => t.IsClass)
 				.Where(t => typeof(ISolver).IsAssignableFrom(t))

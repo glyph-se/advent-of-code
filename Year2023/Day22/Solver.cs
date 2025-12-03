@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Intrinsics.X86;
-using Shared;
-using Shared.Helpers;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static Year2023.Day22.Solver;
+﻿using Shared;
 
 namespace Year2023.Day22;
 

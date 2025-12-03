@@ -1,6 +1,4 @@
 ﻿using Shared;
-using Shared.Helpers;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Year2023.Day18;
 

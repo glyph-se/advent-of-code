@@ -1,5 +1,4 @@
 ﻿using Shared;
-using Shared.Helpers;
 
 namespace Year2021.Day01;
 

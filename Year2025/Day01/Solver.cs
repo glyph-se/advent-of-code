@@ -1,7 +1,4 @@
-﻿using System.IO;
-using Shared;
-using Shared.Helpers;
-using static System.Reflection.Metadata.BlobBuilder;
+﻿using Shared;
 
 namespace Year2025.Day01;
 

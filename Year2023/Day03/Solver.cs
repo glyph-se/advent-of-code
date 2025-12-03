@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using Shared;
-using Shared.Helpers;
+﻿using Shared;
 using Part = Shared.Helpers.CharPoint;
 
 namespace Year2023.Day03;

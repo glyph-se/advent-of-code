@@ -1,6 +1,4 @@
-﻿using Shared.Helpers;
-
-namespace Year2022.Day22
+﻿namespace Year2022.Day22
 {
 	internal static class Day22StringParsing
 	{
