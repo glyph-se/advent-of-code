@@ -1,4 +1,5 @@
-﻿using Shared;
+﻿using System.Collections.Immutable;
+using Shared;
 using Shared.Helpers;
 
 namespace Year2025.Day03;
@@ -11,17 +12,11 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		/*
-		var grid = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
-		grid = grid.ExtendGridMatrix(1, (x, y) => new CharPoint('.', x, y));
-		*/
-
-		/*
 		foreach (string line in input.AsLines())
 		{
-
+			var bank = line.ToCharArray().Select(c => c.ToString().ToInt()).ToArray();
+			result += MaxJoltage(bank, 2);
 		}
-		*/
 
 		return result.ToString();
 	}
@@ -32,6 +27,27 @@ public class Solver : ISolver
 
 		long result = 0;
 
+		foreach (string line in input.AsLines())
+		{
+			var bank = line.ToCharArray().Select(c => c.ToString().ToInt()).ToArray();
+			result += MaxJoltage(bank, 12);
+		}
+
 		return result.ToString();
+	}
+
+	private long MaxJoltage(int[] bank, int count)
+	{
+		long result = 0;
+
+		for (int i = 1; i <= count; i++)
+		{
+			(int Index, int Item) max = bank[..^(count - i)].Index().MaxBy(x => x.Item);
+
+			bank = bank[(max.Index+1) ..];
+			result = 10 * result + max.Item;
+		}
+
+		return result;
 	}
 }
