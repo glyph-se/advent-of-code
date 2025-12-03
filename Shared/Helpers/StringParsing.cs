@@ -32,6 +32,12 @@ public static class StringParsing
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static int ToInt(this char input)
+	{
+		return input - '0';
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static long ToLong(this string input)
 	{
 		return long.Parse(input);

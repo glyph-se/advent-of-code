@@ -26,7 +26,7 @@ public class Solver : ISolver
 				bool adjacent = false;
 				if (cell.c.IsDigit())
 				{
-					number = cell.c.ToString().ToInt();
+					number = cell.c.ToInt();
 
 					foreach (var dirs in GridHelpers.AllDirs())
 					{
@@ -47,7 +47,7 @@ public class Solver : ISolver
 						if (nCell.c.IsDigit())
 						{
 							number *= 10;
-							number += nCell.c.ToString().ToInt();
+							number += nCell.c.ToInt();
 						}
 						else
 						{
@@ -134,7 +134,7 @@ public class Solver : ISolver
 
 							Part start = grid[numberStart, checkForNumber.y]!;
 
-							int number = start.c.ToString().ToInt();
+							int number = start.c.ToInt();
 							visited.Add(start);
 
 							// Get rest of number
@@ -147,7 +147,7 @@ public class Solver : ISolver
 								if (nCell.c.IsDigit())
 								{
 									number *= 10;
-									number += nCell.c.ToString().ToInt();
+									number += nCell.c.ToInt();
 									visited.Add(nCell);
 								}
 								else
