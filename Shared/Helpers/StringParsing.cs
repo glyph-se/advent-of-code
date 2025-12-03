@@ -63,8 +63,8 @@ public static class StringParsing
 
 	public static (string first, string second) Split2(this string input, string separator)
 	{
-		var parts =input.TrimSplit(separator);
-		if(parts.Length != 2)
+		var parts = input.TrimSplit(separator);
+		if (parts.Length != 2)
 		{
 			throw new Exception("Expected 2 parts after split");
 		}

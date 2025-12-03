@@ -18,7 +18,7 @@ public class Solver : ISolver
 		// Count points
 		foreach (Rock r in grid)
 		{
-			if(r.c == 'O')
+			if (r.c == 'O')
 			{
 				int score = grid.GetLength(1) - r.y - 1;
 				result += score;
@@ -43,7 +43,7 @@ public class Solver : ISolver
 
 		for (long i = 1; i <= target; i++)
 		{
-			if(i == cycles.start)
+			if (i == cycles.start)
 			{
 				long repetitions = (target - cycles.start) / cycles.length;
 				i += repetitions * cycles.length;
@@ -91,7 +91,7 @@ public class Solver : ISolver
 				if (rock.c == 'O')
 				{
 					// Move upwards
-					for (int k = j-1; k >= 0; k--)
+					for (int k = j - 1; k >= 0; k--)
 					{
 						var candidate = grid[i, k];
 						if (candidate.c == '#' || candidate.c == 'O')
@@ -106,11 +106,11 @@ public class Solver : ISolver
 							int oldY = candidate.y;
 							candidate.y = rock.y;
 							rock.y = oldY;
-							
+
 							grid[i, candidate.y] = candidate;
 							grid[i, rock.y] = rock;
 						}
-						
+
 					}
 				}
 			}

@@ -73,7 +73,7 @@ public class Solver : ISolver
 		}
 
 		// Pick's theorem
-		result = (border / 2) + inside + 1; 
+		result = (border / 2) + inside + 1;
 		return result;
 	}
 

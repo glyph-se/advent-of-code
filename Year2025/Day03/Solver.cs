@@ -42,7 +42,7 @@ public class Solver : ISolver
 		{
 			(int Index, int Item) max = bank[..^(count - i)].Index().MaxBy(x => x.Item);
 
-			bank = bank[(max.Index+1) ..];
+			bank = bank[(max.Index + 1)..];
 			result = 10 * result + max.Item;
 		}
 

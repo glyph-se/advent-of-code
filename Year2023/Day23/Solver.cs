@@ -64,7 +64,7 @@ public class Solver : ISolver
 				{
 					continue;
 				}
-				
+
 				HashSet<CharPoint> newVisited = new HashSet<CharPoint>(current.visited);
 				newVisited.Add(current.node);
 
@@ -79,7 +79,7 @@ public class Solver : ISolver
 	{
 		// Code works but is slow, add hack
 		// TODO: speedup again...
-		if(grid.Length == 20449)
+		if (grid.Length == 20449)
 		{
 			return 6262;
 		}

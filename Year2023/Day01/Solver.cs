@@ -17,10 +17,10 @@ public class Solver : ISolver
 
 			foreach (char a in line.ToCharArray())
 			{
-				
-				if(int.TryParse(a.ToString(), out int i))
+
+				if (int.TryParse(a.ToString(), out int i))
 				{
-					if(nr1 == null) nr1 = i;
+					if (nr1 == null) nr1 = i;
 					nr2 = i;
 				}
 			}

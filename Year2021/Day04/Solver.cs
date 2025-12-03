@@ -60,7 +60,7 @@ public class Solver : ISolver
 				}
 			}
 
-			
+
 		}
 
 		return result.ToString();

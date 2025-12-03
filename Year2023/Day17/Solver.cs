@@ -48,23 +48,23 @@ public class Solver : ISolver
 			foreach (var dir in GridHelpers.UpDowns())
 			{
 				int distIncrease = 0;
-				if(dir == current.blockedDir || dir == current.blockedDir.TurnReverse())
+				if (dir == current.blockedDir || dir == current.blockedDir.TurnReverse())
 				{
 					continue;
 				}
 
 				// Add all possible distances
-				for(int distance = 1; distance<=maxDistance; distance++)
+				for (int distance = 1; distance <= maxDistance; distance++)
 				{
 					int newX = current.cb.x + dir.dx * distance;
 					int newY = current.cb.y + dir.dy * distance;
 
-					if(grid.IsInside((newX, newY)))
+					if (grid.IsInside((newX, newY)))
 					{
 						var newCityBlock = grid[newX, newY];
 						distIncrease += newCityBlock.heat;
 
-						if(distance < minDistance)
+						if (distance < minDistance)
 						{
 							// Need to go longer
 							continue;

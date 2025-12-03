@@ -87,7 +87,7 @@ public class Solver : ISolver
 				did_move = true;
 			}
 
-			if(did_move )
+			if (did_move)
 			{
 				count++;
 			}
@@ -146,11 +146,11 @@ public class Solver : ISolver
 		public List<Point3D> Cells()
 		{
 			List<Point3D> result = new List<Point3D>();
-			if(p1.x != p2.x)
+			if (p1.x != p2.x)
 			{
 				int min = Math.Min(p1.x, p2.x);
 				int max = Math.Max(p1.x, p2.x);
-				for(int i = min; i<=max; i++)
+				for (int i = min; i <= max; i++)
 				{
 					result.Add(new Point3D(i, p1.y, p1.z));
 				}

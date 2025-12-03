@@ -80,12 +80,12 @@ public class Solver : ISolver
 
 			visited = newVisited;
 
-			
+
 			if (move % gridSize == TARGET % gridSize)
 			{
 				moveCounts.Add(move, visited.Count);
 
-				if(moveCounts.Count == 3)
+				if (moveCounts.Count == 3)
 				{
 					// We only need three value
 					break;

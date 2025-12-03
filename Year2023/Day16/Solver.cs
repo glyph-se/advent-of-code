@@ -29,7 +29,7 @@ public class Solver : ISolver
 		var grid = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
 		grid = grid.ExtendGridMatrix(1, (x, y) => new CharPoint('#', x, y));
 
-		for(int i = 0; i <= grid.GetUpperBound(0); i++)
+		for (int i = 0; i <= grid.GetUpperBound(0); i++)
 		{
 			result = Math.Max(result, DoBeam(grid, new Beam((0, 1), (i, 0))));
 			result = Math.Max(result, DoBeam(grid, new Beam((0, -1), (i, grid.GetUpperBound(1)))));

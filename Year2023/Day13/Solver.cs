@@ -38,7 +38,7 @@ public class Solver : ISolver
 		for (int tryMirror = 1; tryMirror < pattern.Count; tryMirror++)
 		{
 			int foundSmudges = 0;
-			
+
 			var afterMirror = pattern.Skip(tryMirror).ToList();
 			var beforeMirror = pattern.Take(tryMirror).Reverse().ToList();
 

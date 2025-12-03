@@ -110,11 +110,11 @@ public static class InputService
 		return fileContents;
 	}
 
-		public static async Task<string> ReadFileAsync(string filePath)
-		{
-			string fileContents = await File.ReadAllTextAsync(filePath, System.Text.Encoding.UTF8);
+	public static async Task<string> ReadFileAsync(string filePath)
+	{
+		string fileContents = await File.ReadAllTextAsync(filePath, System.Text.Encoding.UTF8);
 
-			fileContents = fileContents.Replace("\r\n", "\n");
-			return fileContents;
-		}
+		fileContents = fileContents.Replace("\r\n", "\n");
+		return fileContents;
+	}
 }

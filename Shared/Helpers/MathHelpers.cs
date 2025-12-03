@@ -35,7 +35,8 @@ public class MathHelpers
 	public static long ChineseRemainderTheorem((long mod, long a)[] items)
 	{
 		var prod = items.Aggregate(1L, (acc, item) => acc * item.mod);
-		var sum = items.Select((item, i) => {
+		var sum = items.Select((item, i) =>
+		{
 			var p = prod / item.mod;
 			return item.a * ModInv(p, item.mod) * p;
 		}).Sum();

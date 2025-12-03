@@ -19,9 +19,9 @@ public class Solver : ISolver
 
 			int count = winningNumbers.Intersect(myNumbers).Count();
 
-			if(count > 0)
+			if (count > 0)
 			{
-				int score = (int)Math.Pow(2, count-1);
+				int score = (int)Math.Pow(2, count - 1);
 				result += score;
 			}
 
@@ -36,9 +36,9 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		Dictionary<int,int> instances = new Dictionary<int,int>();
+		Dictionary<int, int> instances = new Dictionary<int, int>();
 
-		for(int i = 0; i < 300; i++)
+		for (int i = 0; i < 300; i++)
 		{
 			instances.Add(i, 0);
 		}

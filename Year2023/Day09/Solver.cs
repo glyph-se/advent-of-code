@@ -18,7 +18,7 @@ public class Solver : ISolver
 
 			var diff = numbers;
 
-			while(!diff.All(d => d == 0))
+			while (!diff.All(d => d == 0))
 			{
 				lastNumbers.Add(diff.Last());
 				diff = CalcDiff(diff);
@@ -42,9 +42,9 @@ public class Solver : ISolver
 	{
 		var diff = new List<long>();
 
-		for(int i = 1; i<numbers.Count; i++)
+		for (int i = 1; i < numbers.Count; i++)
 		{
-			diff.Add(numbers[i] - numbers[i-1]);
+			diff.Add(numbers[i] - numbers[i - 1]);
 		}
 
 		return diff;

@@ -13,7 +13,7 @@ public class Solver : ISolver
 
 		var step = input.TrimSplit(",");
 
-		foreach(var x in step)
+		foreach (var x in step)
 		{
 			result += Hash(x);
 		}
@@ -46,7 +46,7 @@ public class Solver : ISolver
 
 		Dictionary<int, List<Lens>> boxes = new();
 
-		for(int i  = 0; i <= 255; i++)
+		for (int i = 0; i <= 255; i++)
 		{
 			boxes.Add(i, new List<Lens>());
 		}
@@ -81,9 +81,9 @@ public class Solver : ISolver
 			}
 		}
 
-		foreach(var box in boxes)
+		foreach (var box in boxes)
 		{
-			foreach(var lens in box.Value)
+			foreach (var lens in box.Value)
 			{
 				result += (box.Key + 1) * (box.Value.IndexOf(lens) + 1) * lens.length;
 			}

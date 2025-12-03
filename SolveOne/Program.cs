@@ -178,7 +178,7 @@ internal class Program
 		Console.Write(output);
 		Console.ResetColor();
 		Console.WriteLine();
-		Console.ForegroundColor= ConsoleColor.DarkGray;
+		Console.ForegroundColor = ConsoleColor.DarkGray;
 		Console.Write($"{elapsedTime} ms");
 		Console.ResetColor();
 		Console.WriteLine();

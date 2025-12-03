@@ -46,7 +46,7 @@ public class Solver : ISolver
 
 	private long FindLocation(long start, List<Map> maps)
 	{
-		foreach(Map map in maps)
+		foreach (Map map in maps)
 		{
 			long? dest = map.Move(start);
 			if (dest != null)
@@ -92,7 +92,7 @@ public class Solver : ISolver
 		{
 			long start = seedNumbers[i].ToLong();
 			long length = seedNumbers[i + 1].ToLong();
-			seeds.Add(new Range(start, start + length -1));
+			seeds.Add(new Range(start, start + length - 1));
 		}
 
 		List<Map> seedToSoil = ParseMap(blocks[1]);
@@ -102,7 +102,7 @@ public class Solver : ISolver
 		List<Map> lightToTemperature = ParseMap(blocks[5]);
 		List<Map> temperatureToHumidity = ParseMap(blocks[6]);
 		List<Map> humidityToLocation = ParseMap(blocks[7]);
-		
+
 
 		List<Range> soils = FindRanges(seeds, seedToSoil);
 		List<Range> fertilizers = FindRanges(soils, soilToFerilizer);
@@ -111,7 +111,7 @@ public class Solver : ISolver
 		List<Range> temperatures = FindRanges(lights, lightToTemperature);
 		List<Range> humiditys = FindRanges(temperatures, temperatureToHumidity);
 		List<Range> locations = FindRanges(humiditys, humidityToLocation);
-		
+
 		result = locations.Min(l => l.start);
 
 		return result.ToString();
@@ -123,14 +123,14 @@ public class Solver : ISolver
 
 		Queue<Range> queue = new Queue<Range>(sources);
 
-		while(queue.Any())
+		while (queue.Any())
 		{
 			Range source = queue.Dequeue();
 			bool found = false;
 
 			foreach (Map map in mappings)
 			{
-				if(source.start >= map.sourceStart && source.end < map.sourceEnd)
+				if (source.start >= map.sourceStart && source.end < map.sourceEnd)
 				{
 					newRanges.Add(new Range(source.start - map.sourceStart + map.destStart, source.end - map.sourceStart + map.destStart));
 					found = true;
@@ -141,13 +141,13 @@ public class Solver : ISolver
 					newRanges.Add(new Range(map.destStart, map.destStart + source.end - map.sourceStart));
 					found = true;
 				}
-				else if(source.start < map.sourceEnd && source.end >= map.sourceEnd && source.start >= map.sourceStart)
+				else if (source.start < map.sourceEnd && source.end >= map.sourceEnd && source.start >= map.sourceStart)
 				{
 					queue.Enqueue(new Range(map.sourceEnd, source.end));
 					newRanges.Add(new Range(map.destStart + source.start - map.sourceStart, map.destEnd - 1));
 					found = true;
 				}
-				else if(source.start < map.sourceStart && source.end >= map.sourceEnd)
+				else if (source.start < map.sourceStart && source.end >= map.sourceEnd)
 				{
 					queue.Enqueue(new Range(source.start, map.sourceStart - 1));
 					newRanges.Add(new Range(map.destStart, map.destEnd - 1));
@@ -160,7 +160,7 @@ public class Solver : ISolver
 				}
 			}
 
-			if(found == false)
+			if (found == false)
 			{
 				// Keep the same
 				newRanges.Add(source);
@@ -196,7 +196,7 @@ public class Solver : ISolver
 		public long? Move(long source)
 		{
 			// Range "58 x 2" is 58 59, NOT 60
-			if(source >= sourceStart && source < sourceEnd)
+			if (source >= sourceStart && source < sourceEnd)
 			{
 				long diff = source - sourceStart;
 				return destStart + diff;

@@ -105,7 +105,7 @@ public class Solver : ISolver
 			.Where(m => m.Dest.FirstOrDefault() == "rx")
 			.SingleOrDefault();
 
-		if(goesToRx == null)
+		if (goesToRx == null)
 		{
 			return "Example not valid for part 2";
 		}
