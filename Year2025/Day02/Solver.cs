@@ -9,25 +9,9 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		long result = 0;
-
 		Regex regex = new Regex(@"^(\d+)\1$", RegexOptions.Compiled);
 
-		foreach (string group in input.Split(','))
-		{
-			(string low, string high) = group.Split2("-");
-
-			long lowNum = low.ToLong();
-			long highNum = high.ToLong();
-
-			for(long i= lowNum; i <= highNum; i++)
-			{
-				if(regex.IsMatch(i.ToString()))
-				{
-					result += i;
-				}
-			}
-		}
+		long result = InvalidIds(input, regex);
 
 		return result.ToString();
 	}
@@ -36,9 +20,16 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		long result = 0;
-
 		Regex regex = new Regex(@"^(\d+)\1+$", RegexOptions.Compiled);
+
+		long result = InvalidIds(input, regex);
+
+		return result.ToString();
+	}
+
+	private long InvalidIds(string input, Regex regex)
+	{
+		long result = 0;
 
 		foreach (string group in input.Split(','))
 		{
@@ -56,6 +47,6 @@ public class Solver : ISolver
 			}
 		}
 
-		return result.ToString();
+		return result;
 	}
 }
