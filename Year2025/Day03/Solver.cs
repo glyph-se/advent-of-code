@@ -12,7 +12,7 @@ public class Solver : ISolver
 
 		foreach (string line in input.AsLines())
 		{
-			var bank = line.ToCharArray().Select(c => c.ToString().ToInt());
+			var bank = line.Select(c => c.ToString().ToInt());
 			result += MaxJoltage(bank, 2);
 		}
 
@@ -27,7 +27,7 @@ public class Solver : ISolver
 
 		foreach (string line in input.AsLines())
 		{
-			var bank = line.ToCharArray().Select(c => c.ToString().ToInt());
+			var bank = line.Select(c => c.ToString().ToInt());
 			result += MaxJoltage(bank, 12);
 		}
 
