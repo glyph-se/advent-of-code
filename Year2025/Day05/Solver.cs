@@ -15,12 +15,13 @@ public class Solver : ISolver
 
 		ImmutableList<long> available = blocks[1].AsLongs();
 
-		IEnumerable<Range> freshRanges = blocks[0].AsLines()
-			.Select(line =>
-			{
-				var parts = line.TrimSplit("-");
-				return new Range(long.Parse(parts[0]), long.Parse(parts[1]));
-			});
+		List<Range> freshRanges = new();
+
+		foreach(string line in blocks[0].AsLines())
+		{
+			(string start, string end) = line.Split2("-");
+			freshRanges.Add(new Range(start.ToLong(), end.ToLong()));
+		}
 
 		foreach(var avail in available)
 		{
@@ -41,12 +42,13 @@ public class Solver : ISolver
 
 		var blocks = input.AsLineBlocks();
 
-		IEnumerable<Range> freshRanges = blocks[0].AsLines()
-			.Select(line =>
-			{
-				var parts = line.TrimSplit("-");
-				return new Range(long.Parse(parts[0]), long.Parse(parts[1]));
-			});
+		List<Range> freshRanges = new();
+
+		foreach (string line in blocks[0].AsLines())
+		{
+			(string start, string end) = line.Split2("-");
+			freshRanges.Add(new Range(start.ToLong(), end.ToLong()));
+		}
 
 		var mergedRanges = MergeOverlappingRanges(freshRanges);
 
