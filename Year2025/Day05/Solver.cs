@@ -1,4 +1,5 @@
-﻿using Shared;
+﻿using System.Collections.Immutable;
+using Shared;
 
 namespace Year2025.Day05;
 
@@ -10,25 +11,24 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		/*
-		var grid = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
-		grid = grid.ExtendGridMatrix(1, (x, y) => new CharPoint('.', x, y));
+		var blocks = input.AsLineBlocks();
 
-		for (int y = 1; y < grid.GetLength(0); y++)
-		{
-			for (int x = 1; x < grid.GetLength(1); x++)
+		ImmutableList<long> available = blocks[1].AsLongs();
+
+		IEnumerable<Range> freshRanges = blocks[0].AsLines()
+			.Select(line =>
 			{
+				var parts = line.TrimSplit("-");
+				return new Range(long.Parse(parts[0]), long.Parse(parts[1]));
+			});
 
+		foreach(var avail in available)
+		{
+			if(freshRanges.Any(r => r.start <= avail && r.end >= avail))
+			{
+				result++;
 			}
 		}
-		*/
-
-		/*
-		foreach (string line in input.AsLines())
-		{
-
-		}
-		*/
 
 		return result.ToString();
 	}
@@ -39,6 +39,59 @@ public class Solver : ISolver
 
 		long result = 0;
 
+		var blocks = input.AsLineBlocks();
+
+		IEnumerable<Range> freshRanges = blocks[0].AsLines()
+			.Select(line =>
+			{
+				var parts = line.TrimSplit("-");
+				return new Range(long.Parse(parts[0]), long.Parse(parts[1]));
+			});
+
+		var mergedRanges = MergeOverlappingRanges(freshRanges);
+
+		result = mergedRanges.Sum(r => r.length);
+
 		return result.ToString();
+	}
+
+	private static IEnumerable<Range> MergeOverlappingRanges(IEnumerable<Range> ranges)
+	{
+		var sorted = ranges.OrderBy(r => r.start).ToList();
+
+		List<Range> merged = new List<Range>();
+
+		Range current = sorted.First();
+
+		foreach (var next in sorted.Skip(1))
+		{
+			if (next.start <= current.end)
+			{
+				current.end = Math.Max(current.end, next.end);
+			}
+			else
+			{
+				merged.Add(current);
+				current = next;
+			}
+		}
+
+		merged.Add(current);
+
+		return merged;
+	}
+
+	public class Range
+	{
+		public Range(long start, long end)
+		{
+			this.start = start;
+			this.end = end;
+		}
+		public long start;
+
+		public long end;
+
+		public long length => end - start + 1;
 	}
 }
