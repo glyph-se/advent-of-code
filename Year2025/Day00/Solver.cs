@@ -14,9 +14,9 @@ public class Solver : ISolver
 		var grid = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
 		grid = grid.ExtendGridMatrix(1, (x, y) => new CharPoint('.', x, y));
 
-		for (int y = 1; y < grid.GetLength(0); y++)
+		for (int y = 1; y < grid.LengthY(); y++)
 		{
-			for (int x = 1; x < grid.GetLength(1); x++)
+			for (int x = 1; x < grid.LengthX(); x++)
 			{
 
 			}

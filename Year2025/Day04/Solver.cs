@@ -46,9 +46,9 @@ public class Solver : ISolver
 	{
 		long result = 0;
 
-		for (int y = 1; y < grid.GetLength(0); y++)
+		for (int y = 1; y < grid.LengthY(); y++)
 		{
-			for (int x = 1; x < grid.GetLength(1); x++)
+			for (int x = 1; x < grid.LengthX(); x++)
 			{
 				if (grid[x, y].c != '@')
 				{

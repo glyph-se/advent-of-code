@@ -154,6 +154,18 @@ public static class GridHelpers
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static int LengthY<TReturn>(this TReturn[,] grid)
+	{
+		return grid.GetLength(0);
+	}
+
+	public static int LengthX<TReturn>(this TReturn[,] grid)
+	{
+		return grid.GetLength(1);
+	}
+
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static IEnumerable<(int dx, int dy)> AllDirs()
 	{
 		return Diagonals().Concat(UpDowns());
