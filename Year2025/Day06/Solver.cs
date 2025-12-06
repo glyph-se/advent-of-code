@@ -51,17 +51,17 @@ public class Solver : ISolver
 			var problem = line.AsLines();
 			char operand = problem.First().Last();
 
-			List<long> numbers = new();
-			numbers.Add(long.Parse(new string(problem.First().SkipLast(1).ToArray()).Trim()));
-			numbers.AddRange(problem.Skip(1).Select(x => long.Parse(x)));
+			List<string> numbers = new();
+			numbers.Add(new string(problem.First().SkipLast(1).ToArray()).Trim());
+			numbers.AddRange(problem.Skip(1));
 
 			if (operand == '+')
 			{
-				result += numbers.Aggregate(0L, (acc, x) => acc + x);
+				result += numbers.Aggregate(0L, (acc, x) => acc + long.Parse(x));
 			}
 			else if (operand == '*')
 			{
-				result += numbers.Aggregate(1L, (acc, x) => acc * x);
+				result += numbers.Aggregate(1L, (acc, x) => acc * long.Parse(x));
 			}
 		}
 
