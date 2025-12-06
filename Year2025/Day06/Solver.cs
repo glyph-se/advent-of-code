@@ -44,36 +44,25 @@ public class Solver : ISolver
 
 		IEnumerable<IEnumerable<char>> transposed = input.AsLines().Transpose();
 
-		// Add extra line to process last block
-		transposed = transposed.Concat(Enumerable.Repeat(Enumerable.Repeat(' ', transposed.Count()), 1));
+		string transposedInput = string.Join("\n", transposed.Select(c => string.Concat(c).Trim()));
 
-		List<long> numbersSaved = new();
-		char operandSaved = ' ';
-
-		foreach (var number in transposed)
+		foreach (string line in transposedInput.AsLineBlocks())
 		{
-			var operand = number.Last();
+			var problem = line.AsLines();
+			char operand = problem.First().Last();
 
-			if(operand == '+' || operand == '*')
+			List<long> numbers = new();
+			numbers.Add(long.Parse(new string(problem.First().SkipLast(1).ToArray()).Trim()));
+			numbers.AddRange(problem.Skip(1).Select(x => long.Parse(x)));
+
+			if (operand == '+')
 			{
-				operandSaved = operand;
+				result += numbers.Aggregate(0L, (acc, x) => acc + x);
 			}
-
-			if(number.All(c => c == ' '))
+			else if (operand == '*')
 			{
-				if (operandSaved == '+')
-				{
-					result += numbersSaved.Aggregate(0L, (acc, x) => acc + x);
-				}
-				else if (operandSaved == '*')
-				{
-					result += numbersSaved.Aggregate(1L, (acc, x) => acc * x);
-				}
-				numbersSaved.Clear();
-				continue;
+				result += numbers.Aggregate(1L, (acc, x) => acc * x);
 			}
-
-			numbersSaved.Add(long.Parse(new string(number.SkipLast(1).ToArray()).Trim()));
 		}
 
 		return result.ToString();
