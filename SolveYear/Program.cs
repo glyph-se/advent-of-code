@@ -6,13 +6,15 @@ namespace SolveAll;
 
 internal class Program
 {
-	static async Task Main(string[] args)
-	{
-		Console.Write("--------------------------------------------------------------------------------\n");
-		Console.Write("|                                      ALL                                     |\n");
-		Console.Write("--------------------------------------------------------------------------------\n");
+	private static readonly int YEAR = 2025;
 
-		IEnumerable<ISolver> allSolvers = Assembly.Load("Year2025")
+	public static async Task Main(string[] args)
+	{
+		Console.Write("----------------------------------------------------------------------------------\n");
+		Console.Write($"|                                      {YEAR}                                      |\n");
+		Console.Write("----------------------------------------------------------------------------------\n");
+
+		IEnumerable<ISolver> allSolvers = Assembly.Load($"Year{YEAR}")
 				.GetTypes()
 				.Where(t => t.IsClass)
 				.Where(t => typeof(ISolver).IsAssignableFrom(t))

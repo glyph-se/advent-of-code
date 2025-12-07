@@ -6,8 +6,8 @@ namespace SolveOne;
 
 internal class Program
 {
-	static readonly int YEAR = 2025;
-	static readonly int DAY = 8;
+	private static readonly int YEAR = 2025;
+	private static readonly int DAY = 8;
 
 	public static async Task Main(string[] args)
 	{
@@ -168,7 +168,7 @@ internal class Program
 
 	private static void PrintFooter()
 	{
-		Console.Write("--------------------------------------------------------------------------------\n");
+		Console.Write("----------------------------------------------------------------------------------\n");
 	}
 
 	private static void PrintOutput(string output, long elapsedTime)
@@ -215,9 +215,9 @@ internal class Program
 
 	private static void PrintHeader(int year, int day)
 	{
-		Console.Write("---------------------------------------------------------------------------------\n");
-		Console.Write("|                              Advent of Code                                   |\n");
-		Console.Write("---------------------------------------------------------------------------------\n");
+		Console.Write("----------------------------------------------------------------------------------\n");
+		Console.Write("|                                 Advent of Code                                 |\n");
+		Console.Write("----------------------------------------------------------------------------------\n");
 		Console.Write("Year: ");
 		Console.ForegroundColor = ConsoleColor.Green;
 		Console.Write(year);
