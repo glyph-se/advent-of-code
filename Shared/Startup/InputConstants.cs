@@ -1,9 +1,11 @@
-﻿namespace Shared.Startup;
+﻿using System.Runtime.CompilerServices;
+
+namespace Shared.Startup;
 
 public class InputConstants
 {
 
-	public static readonly string BaseDirectory = Environment.CurrentDirectory + "\\..\\..\\..\\..\\";
+	public static readonly string BaseDirectory = GetDirectoryForThisFile() + "\\..\\..\\";
 
 	public static string PuzzleDirectory(int year, int day)
 	{
@@ -28,5 +30,10 @@ public class InputConstants
 	public static string Example3InputPath(int year, int day)
 	{
 		return BaseDirectory + $"Year{year}\\Day{day:D2}\\example3_input";
+	}
+
+	private static string GetDirectoryForThisFile([CallerFilePath] string callerFilePath = "")
+	{
+		return Path.GetDirectoryName(callerFilePath)!;
 	}
 }
