@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using Shared;
 
 namespace Year2021.Day04;
 

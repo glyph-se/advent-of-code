@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using Shared;
 
 namespace Year2025.Day05;
 
@@ -17,15 +16,15 @@ public class Solver : ISolver
 
 		List<Range> freshRanges = new();
 
-		foreach(string line in blocks[0].AsLines())
+		foreach (string line in blocks[0].AsLines())
 		{
 			(string start, string end) = line.Split2("-");
 			freshRanges.Add(new Range(start.ToLong(), end.ToLong()));
 		}
 
-		foreach(var avail in available)
+		foreach (var avail in available)
 		{
-			if(freshRanges.Any(r => r.start <= avail && r.end >= avail))
+			if (freshRanges.Any(r => r.start <= avail && r.end >= avail))
 			{
 				result++;
 			}

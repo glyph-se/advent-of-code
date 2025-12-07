@@ -1,6 +1,4 @@
-﻿using Shared;
-
-namespace Year2023.Day19;
+﻿namespace Year2023.Day19;
 
 public class Solver : ISolver
 {

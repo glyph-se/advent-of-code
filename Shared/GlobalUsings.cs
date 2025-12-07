@@ -1,1 +1,2 @@
-﻿global using Shared.Helpers;
+﻿global using Shared;
+global using Shared.Helpers;

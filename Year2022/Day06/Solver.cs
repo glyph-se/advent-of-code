@@ -1,71 +1,68 @@
-﻿using Shared;
+﻿namespace Year2022.Day06;
 
-namespace Year2022.Day06
+public class Solver : ISolver
 {
-	public class Solver : ISolver
+	public async Task<string> PartOne(string input)
 	{
-		public async Task<string> PartOne(string input)
+		await Task.Yield();
+
+		List<char> last4 = new List<char>();
+
+		int result = 0;
+		foreach (char c in input)
 		{
-			await Task.Yield();
-
-			List<char> last4 = new List<char>();
-
-			int result = 0;
-			foreach (char c in input)
+			if (!char.IsAsciiLetter(c))
 			{
-				if (!char.IsAsciiLetter(c))
-				{
-					continue;
-				}
-
-				result++;
-
-				if (last4.Count == 4)
-				{
-					last4.RemoveAt(0);
-				}
-
-				last4.Add(c);
-
-				if (last4.Distinct().Count() == 4)
-				{
-					break;
-				}
+				continue;
 			}
 
-			return result.ToString();
-		}
+			result++;
 
-		public async Task<string> PartTwo(string input)
-		{
-			await Task.Yield();
-
-			List<char> last4 = new List<char>();
-
-			int result = 0;
-			foreach (char c in input)
+			if (last4.Count == 4)
 			{
-				if (!char.IsAsciiLetter(c))
-				{
-					continue;
-				}
-
-				result++;
-
-				if (last4.Count == 14)
-				{
-					last4.RemoveAt(0);
-				}
-
-				last4.Add(c);
-
-				if (last4.Distinct().Count() == 14)
-				{
-					break;
-				}
+				last4.RemoveAt(0);
 			}
 
-			return result.ToString();
+			last4.Add(c);
+
+			if (last4.Distinct().Count() == 4)
+			{
+				break;
+			}
 		}
+
+		return result.ToString();
+	}
+
+	public async Task<string> PartTwo(string input)
+	{
+		await Task.Yield();
+
+		List<char> last4 = new List<char>();
+
+		int result = 0;
+		foreach (char c in input)
+		{
+			if (!char.IsAsciiLetter(c))
+			{
+				continue;
+			}
+
+			result++;
+
+			if (last4.Count == 14)
+			{
+				last4.RemoveAt(0);
+			}
+
+			last4.Add(c);
+
+			if (last4.Distinct().Count() == 14)
+			{
+				break;
+			}
+		}
+
+		return result.ToString();
 	}
 }

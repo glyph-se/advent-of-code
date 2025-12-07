@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using Shared;
 
 namespace Year2023.Day24;
 

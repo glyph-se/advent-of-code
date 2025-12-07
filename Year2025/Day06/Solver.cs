@@ -1,6 +1,4 @@
-﻿using Shared;
-
-namespace Year2025.Day06;
+﻿namespace Year2025.Day06;
 
 public class Solver : ISolver
 {
@@ -9,7 +7,7 @@ public class Solver : ISolver
 		await Task.Yield();
 
 		long result = 0;
-		
+
 		List<List<string>> numbers = new();
 
 		foreach (string line in input.AsLines())
@@ -23,11 +21,11 @@ public class Solver : ISolver
 		{
 			var operand = problem.Last();
 
-			if(operand == "+")
+			if (operand == "+")
 			{
 				result += problem.SkipLast(1).Aggregate(0L, (acc, x) => acc + long.Parse(x));
 			}
-			else if(operand == "*")
+			else if (operand == "*")
 			{
 				result += problem.SkipLast(1).Aggregate(1L, (acc, x) => acc * long.Parse(x));
 			}
