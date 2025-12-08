@@ -2,7 +2,7 @@
 
 namespace Shared.Helpers;
 
-[DebuggerDisplay("x={x},y={y},,z={z}")]
+[DebuggerDisplay("x={x},y={y},z={z}")]
 public class Point3D
 {
 	public Point3D()
