@@ -7,7 +7,7 @@ namespace SolveOne;
 internal class Program
 {
 	private static readonly int YEAR = 2025;
-	private static readonly int DAY = 8;
+	private static readonly int DAY = 9;
 
 	public static async Task Main(string[] args)
 	{
