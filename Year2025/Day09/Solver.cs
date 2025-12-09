@@ -19,7 +19,10 @@ public class Solver : ISolver
 
 		foreach (IEnumerable<Point> pair in points.DifferentCombinations(2))
 		{
-			long area = Area(pair.First(), pair.Skip(1).First());
+			var p1 = pair.First();
+			var p2 = pair.Skip(1).First();
+
+			long area = RectangleArea(p1, p2);
 			if (area > result)
 			{
 				result = area;
@@ -56,11 +59,13 @@ public class Solver : ISolver
 
 			bool isValid = true;
 
+			// Check if any line segment is inside the rectangle
 			for (int i = 0; i < points.Count; i++)
 			{
 				var l1 = points[i];
 				var l2 = points[(i + 1) % points.Count];
 
+				// It should be completely outside
 				if (!(Math.Max(l1.x, l2.x) <= x2 || Math.Min(l1.x, l2.x) >= x1 || Math.Max(l1.y, l2.y) <= y2 || Math.Min(l1.y, l2.y) >= y1))
 				{
 					isValid = false;
@@ -73,7 +78,7 @@ public class Solver : ISolver
 				continue;
 			}
 
-			long area = Area(p1, p2);
+			long area = RectangleArea(p1, p2);
 			if (area > result)
 			{
 				result = area;
@@ -83,7 +88,7 @@ public class Solver : ISolver
 		return result.ToString();
 	}
 
-	private long Area(Point p1, Point p2)
+	private long RectangleArea(Point p1, Point p2)
 	{
 		long x1 = Math.Max(p1.x, p2.x);
 		long x2 = Math.Min(p1.x, p2.x);
