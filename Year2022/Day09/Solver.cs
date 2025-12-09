@@ -12,7 +12,7 @@ public class Solver : ISolver
 		HashSet<Position> tailVisited = new HashSet<Position>();
 		tailVisited.Add(new Position(0, 0));
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var split = line.Split(' ');
 			string direction = split[0];
@@ -135,7 +135,7 @@ public class Solver : ISolver
 		HashSet<Position> tailVisited = new HashSet<Position>();
 		tailVisited.Add(new Position(tail9.x, tail9.y));
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var split = line.Split(' ');
 			string direction = split[0];

@@ -11,7 +11,7 @@ public class Solver : ISolver
 
 		Dictionary<string, List<string>> components = new();
 
-		foreach (var line in input.AsLines())
+		foreach (var line in input.ParseLines())
 		{
 			(string name, string connectionString) = line.Split2([":"]);
 

@@ -6,7 +6,7 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		string first = StringParsing.AsLines(input).First();
+		string first = StringParsing.ParseLines(input).First();
 
 		string gammaRate = "";
 		string epsilonRate = "";
@@ -16,7 +16,7 @@ public class Solver : ISolver
 			int bit0 = 0;
 			int bit1 = 0;
 
-			foreach (var bits in StringParsing.AsLines(input))
+			foreach (var bits in StringParsing.ParseLines(input))
 			{
 				if (bits[i] == '0')
 				{
@@ -49,7 +49,7 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		IEnumerable<string> lines = StringParsing.AsLines(input);
+		IEnumerable<string> lines = StringParsing.ParseLines(input);
 		string first = lines.First();
 
 		string oxygen = "";
@@ -76,7 +76,7 @@ public class Solver : ISolver
 			}
 		}
 
-		lines = StringParsing.AsLines(input);
+		lines = StringParsing.ParseLines(input);
 
 		for (int i = 0; i < first.Length; i++)
 		{

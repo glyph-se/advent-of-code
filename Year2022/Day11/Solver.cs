@@ -10,11 +10,11 @@ public class Solver : ISolver
 
 		List<Monkey> monkeys = new();
 
-		var allMonkeyInput = input.AsLineBlocks();
+		var allMonkeyInput = input.ParseLineBlocks();
 		foreach (var monkeyInput in allMonkeyInput)
 		{
 			List<string> lines = monkeyInput
-				.AsLines()
+				.ParseLines()
 				.Select(l => l.Trim())
 				.ToList();
 
@@ -96,11 +96,11 @@ public class Solver : ISolver
 
 		List<Monkey> monkeys = new();
 
-		var allMonkeyInput = input.AsLineBlocks();
+		var allMonkeyInput = input.ParseLineBlocks();
 		foreach (var monkeyInput in allMonkeyInput)
 		{
 			List<string> lines = monkeyInput
-				.AsLines()
+				.ParseLines()
 				.Select(l => l.Trim())
 				.ToList();
 

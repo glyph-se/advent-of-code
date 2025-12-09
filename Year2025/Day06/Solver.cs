@@ -10,7 +10,7 @@ public class Solver : ISolver
 
 		List<List<string>> numbers = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			numbers.Add(line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).ToList());
 		}
@@ -40,13 +40,13 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		IEnumerable<IEnumerable<char>> transposed = input.AsLines().Transpose();
+		IEnumerable<IEnumerable<char>> transposed = input.ParseLines().Transpose();
 
 		string transposedInput = string.Join("\n", transposed.Select(c => string.Concat(c).Trim()));
 
-		foreach (string line in transposedInput.AsLineBlocks())
+		foreach (string line in transposedInput.ParseLineBlocks())
 		{
-			var problem = line.AsLines();
+			var problem = line.ParseLines();
 			char operand = problem.First().Last();
 
 			List<string> numbers = new();

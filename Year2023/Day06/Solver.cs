@@ -14,7 +14,7 @@ public class Solver : ISolver
 	private static long CalculateResult(string input)
 	{
 		long result;
-		var lines = input.AsLines();
+		var lines = input.ParseLines();
 		List<long> times = lines[0].ReplaceRemove("Time:").TrimSplit(" ").Select(s => s.ToLong()).ToList();
 		List<long> distances = lines[1].ReplaceRemove("Distance:").TrimSplit(" ").Select(s => s.ToLong()).ToList();
 

@@ -9,7 +9,7 @@ public class Solver : ISolver
 		List<DiskDir> allDirs = new();
 		List<DiskDir> breadCrumb = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			if (line.Equals("$ cd .."))
 			{
@@ -66,7 +66,7 @@ public class Solver : ISolver
 		List<DiskDir> allDirs = new();
 		List<DiskDir> breadCrumb = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			if (line.Equals("$ cd .."))
 			{

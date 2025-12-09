@@ -10,7 +10,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			string dir = line.Substring(0, 1);
 			int dist = line.Substring(1).ToInt();
@@ -43,7 +43,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			string dir = line.Substring(0, 1);
 			int dist = line.Substring(1).ToInt();

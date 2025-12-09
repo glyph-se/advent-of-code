@@ -12,7 +12,7 @@ public class Solver : ISolver
 		int totalGreen = 13;
 		int totalBlue = 14;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var a = line.Split(":", StringSplitOptions.TrimEntries);
 			int gameNumber = a[0].ReplaceRemove("Game").ToInt();
@@ -65,7 +65,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var a = line.Split(":", StringSplitOptions.TrimEntries);
 			int gameNumber = a[0].ReplaceRemove("Game").ToInt();

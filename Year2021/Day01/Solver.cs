@@ -6,7 +6,7 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		var numbers = StringParsing.AsInts(input);
+		var numbers = StringParsing.ParseInts(input);
 
 		int prev = -1;
 		int result = 0;
@@ -31,7 +31,7 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		var numbers = StringParsing.AsInts(input);
+		var numbers = StringParsing.ParseInts(input);
 
 		int lastWindow = -1;
 		int p0 = -1, p1 = -1, p2 = -1;

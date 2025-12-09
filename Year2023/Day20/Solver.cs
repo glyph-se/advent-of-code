@@ -56,7 +56,7 @@ public class Solver : ISolver
 		modules.Add("output", new OutputModule("output"));
 		modules.Add("rx", new OutputModule("rx"));
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var split = line.TrimSplit(" -> ");
 			var name = split[0];

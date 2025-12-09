@@ -14,7 +14,7 @@ public class Solver : ISolver
 
 		List<Hand> hands = new List<Hand>();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var parts = line.TrimSplit(" ");
 
@@ -108,7 +108,7 @@ public class Solver : ISolver
 
 		List<HandJ> hands = new List<HandJ>();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var parts = line.TrimSplit(" ");
 

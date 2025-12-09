@@ -10,7 +10,7 @@ public class Solver : ISolver
 
 		List<MonkeyPart1> monkeys = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			string name1;
 			string name2;
@@ -100,7 +100,7 @@ public class Solver : ISolver
 
 		List<MonkeyPart2> monkeys = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			string name1;
 			string name2;

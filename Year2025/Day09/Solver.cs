@@ -11,7 +11,7 @@ public class Solver : ISolver
 
 		List<Point> points = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			(string x, string y) = line.Split2(",");
 			points.Add(new Point(x.ToInt(), y.ToInt()));
@@ -40,7 +40,7 @@ public class Solver : ISolver
 
 		List<Point> points = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			(string x, string y) = line.Split2(",");
 			points.Add(new Point(x.ToInt(), y.ToInt()));

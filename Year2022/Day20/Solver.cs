@@ -10,7 +10,7 @@ public class Solver : ISolver
 
 		List<EncryptionNumber> numbersList = new();
 
-		int[] original = input.AsInts().ToArray();
+		int[] original = input.ParseInts().ToArray();
 		EncryptionNumber[] oldList = new EncryptionNumber[original.Length];
 
 		for (int pos = 0; pos < original.Length; pos++)
@@ -70,7 +70,7 @@ public class Solver : ISolver
 
 		List<EncryptionNumber> numbersList = new();
 
-		int[] original = input.AsInts().ToArray();
+		int[] original = input.ParseInts().ToArray();
 		EncryptionNumber[] oldList = new EncryptionNumber[original.Length];
 
 		for (int pos = 0; pos < original.Length; pos++)

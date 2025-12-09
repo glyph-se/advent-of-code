@@ -13,7 +13,7 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		var split = input.AsLineBlocks();
+		var split = input.ParseLineBlocks();
 
 		bool?[,] orgGrid = Day22StringParsing.AsGridDay22(split[0], (c, x, y) => CreateNode(c, x, y));
 
@@ -178,7 +178,7 @@ public class Solver : ISolver
 			return "only implemented for full";
 		}
 
-		var split = input.AsLineBlocks();
+		var split = input.ParseLineBlocks();
 
 		bool?[,] orgGrid = Day22StringParsing.AsGridDay22(split[0], (c, x, y) => CreateNode(c, x, y));
 

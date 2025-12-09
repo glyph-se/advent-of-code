@@ -6,7 +6,7 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		var lines = StringParsing.AsLines(input);
+		var lines = StringParsing.ParseLines(input);
 
 		int forwardPos = 0;
 		int heightPos = 0;
@@ -40,7 +40,7 @@ public class Solver : ISolver
 
 		await Task.Yield();
 
-		var lines = StringParsing.AsLines(input);
+		var lines = StringParsing.ParseLines(input);
 
 		int forwardPos = 0;
 		int heightPos = 0;

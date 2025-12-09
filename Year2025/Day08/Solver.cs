@@ -74,7 +74,7 @@ public class Solver : ISolver
 	private static List<Point3DWithNetwork> ParsePoints(string input)
 	{
 		List<Point3DWithNetwork> points = new();
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			(string x, string y, string z) = line.Split3(",");
 			points.Add(new Point3DWithNetwork(x.ToInt(), y.ToInt(), z.ToInt()));

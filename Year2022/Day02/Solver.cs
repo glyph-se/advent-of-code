@@ -6,7 +6,7 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		var games = input.AsLines();
+		var games = input.ParseLines();
 
 		int score = 0;
 
@@ -52,7 +52,7 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		var games = input.AsLines();
+		var games = input.ParseLines();
 
 		int score = 0;
 

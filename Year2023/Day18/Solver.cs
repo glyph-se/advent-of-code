@@ -17,7 +17,7 @@ public class Solver : ISolver
 
 		long border = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			(string dir, string distString, string hex) = line.Split3(" ");
 			int dist = distString.ToInt();
@@ -90,7 +90,7 @@ public class Solver : ISolver
 
 		long border = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			(string dir, string distString, string hex) = line.Split3(" ");
 			hex = hex.Trim(['(', ')', '#']);

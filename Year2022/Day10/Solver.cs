@@ -10,7 +10,7 @@ public class Solver : ISolver
 		int sumSignal = 0;
 		int cycle = 0;
 
-		var lines = input.AsLines().ToList();
+		var lines = input.ParseLines().ToList();
 
 		foreach (string command in lines)
 		{
@@ -60,7 +60,7 @@ public class Solver : ISolver
 		int xValue = 1;
 		int cycle = 0;
 
-		var lines = input.AsLines().ToList();
+		var lines = input.ParseLines().ToList();
 
 		foreach (string command in lines)
 		{

@@ -10,13 +10,13 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var blocks = input.AsLineBlocks();
+		var blocks = input.ParseLineBlocks();
 
-		ImmutableList<long> available = blocks[1].AsLongs();
+		ImmutableList<long> available = blocks[1].ParseLongs();
 
 		List<Range> freshRanges = new();
 
-		foreach (string line in blocks[0].AsLines())
+		foreach (string line in blocks[0].ParseLines())
 		{
 			(string start, string end) = line.Split2("-");
 			freshRanges.Add(new Range(start.ToLong(), end.ToLong()));
@@ -39,11 +39,11 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var blocks = input.AsLineBlocks();
+		var blocks = input.ParseLineBlocks();
 
 		List<Range> freshRanges = new();
 
-		foreach (string line in blocks[0].AsLines())
+		foreach (string line in blocks[0].ParseLines())
 		{
 			(string start, string end) = line.Split2("-");
 			freshRanges.Add(new Range(start.ToLong(), end.ToLong()));

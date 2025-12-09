@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		long score = 0;
 
-		foreach (string rucksack in input.AsLines())
+		foreach (string rucksack in input.ParseLines())
 		{
 			string part1 = rucksack.Substring(0, rucksack.Length / 2);
 			string part2 = rucksack.Substring(rucksack.Length / 2);
@@ -35,7 +35,7 @@ public class Solver : ISolver
 
 		long score = 0;
 
-		var rucksacks = input.AsLines().ToArray();
+		var rucksacks = input.ParseLines().ToArray();
 
 		for (int i = 0; i < rucksacks.Length; i = i + 3)
 		{

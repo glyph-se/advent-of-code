@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		int result = 0;
 
-		var rowStrings = input.AsLines();
+		var rowStrings = input.ParseLines();
 
 		List<List<Tree>> rowTrees = new();
 
@@ -117,7 +117,7 @@ public class Solver : ISolver
 
 		int result = 0;
 
-		var rowStrings = input.AsLines();
+		var rowStrings = input.ParseLines();
 
 		List<List<Tree>> rowTrees = new();
 

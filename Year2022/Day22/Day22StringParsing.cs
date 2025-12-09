@@ -12,7 +12,7 @@ internal static class Day22StringParsing
 	/// <returns></returns>
 	public static TReturn[,] AsGridDay22<TReturn>(string input, Func<char, int, int, TReturn> constructor)
 	{
-		var lines = input.AsLines();
+		var lines = input.ParseLines();
 
 		TReturn[,] grid = new TReturn[lines.Count, lines[0].Length];
 

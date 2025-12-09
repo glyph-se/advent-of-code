@@ -10,7 +10,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			(string a, string b) = line.Split2(" ");
 			var springs = a.ToCharArray().ToList(); ;
@@ -81,7 +81,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			(string a, string b) = line.Split2(" ");
 			a = string.Join("?", [a, a, a, a, a]);

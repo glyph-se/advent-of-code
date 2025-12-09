@@ -12,7 +12,7 @@ public class Solver : ISolver
 
 		List<Hail> points = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var split = line.TrimSplit(["@", ","]);
 
@@ -131,7 +131,7 @@ public class Solver : ISolver
 
 		List<Hail> points = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var split = line.TrimSplit(["@", ","]);
 

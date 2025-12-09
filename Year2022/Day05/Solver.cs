@@ -6,7 +6,7 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		var all = input.AsLineBlocks();
+		var all = input.ParseLineBlocks();
 
 		var crates = all[0].Split('\n')
 			.Transpose()
@@ -15,7 +15,7 @@ public class Solver : ISolver
 			.Select(cs => new List<char>(cs))
 			.ToList();
 
-		var allOps = all[1].AsLines();
+		var allOps = all[1].ParseLines();
 
 		crates.Insert(0, new List<char>());
 
@@ -52,7 +52,7 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		var all = input.AsLineBlocks();
+		var all = input.ParseLineBlocks();
 
 		var crates = all[0].Split('\n')
 			.Transpose()
@@ -61,7 +61,7 @@ public class Solver : ISolver
 			.Select(cs => new List<char>(cs))
 			.ToList();
 
-		var allOps = all[1].AsLines();
+		var allOps = all[1].ParseLines();
 
 		crates.Insert(0, new List<char>());
 

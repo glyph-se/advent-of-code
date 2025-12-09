@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			int? nr1 = null;
 			int? nr2 = null;
@@ -43,7 +43,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			int? nr1 = null;
 			int? nr2 = null;

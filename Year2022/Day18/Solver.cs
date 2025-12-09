@@ -10,7 +10,7 @@ public class Solver : ISolver
 
 		bool[,,] grid = new bool[21, 21, 21];
 
-		foreach (var line in input.AsLines())
+		foreach (var line in input.ParseLines())
 		{
 			var split = line.Split(',').Select(s => int.Parse(s));
 
@@ -59,7 +59,7 @@ public class Solver : ISolver
 
 		bool?[,,] grid = new bool?[21, 21, 21];
 
-		foreach (var line in input.AsLines())
+		foreach (var line in input.ParseLines())
 		{
 			var split = line.Split(',').Select(s => int.Parse(s));
 

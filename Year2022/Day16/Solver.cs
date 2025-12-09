@@ -199,7 +199,7 @@ public class Solver : ISolver
 	{
 		List<Node> nodes = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			string line2 = line.Replace("Valve ", "");
 			line2 = line2.Replace("has flow rate=", "");

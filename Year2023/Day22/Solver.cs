@@ -43,7 +43,7 @@ public class Solver : ISolver
 	{
 		List<Brick> bricks = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var split = line.Split('~');
 

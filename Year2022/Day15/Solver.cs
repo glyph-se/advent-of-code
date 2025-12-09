@@ -111,7 +111,7 @@ public class Solver : ISolver
 	{
 		List<Measurement> points = new();
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var split = line.Split(':');
 

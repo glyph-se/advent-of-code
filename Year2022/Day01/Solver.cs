@@ -6,13 +6,13 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		var elfs = input.AsLineBlocks();
+		var elfs = input.ParseLineBlocks();
 
 		List<int> elfCalories = new List<int>();
 
 		foreach (string elf in elfs)
 		{
-			var calories = elf.AsInts();
+			var calories = elf.ParseInts();
 			elfCalories.Add(calories.Sum());
 		}
 
@@ -23,13 +23,13 @@ public class Solver : ISolver
 	{
 		await Task.Yield();
 
-		var elfs = input.AsLineBlocks();
+		var elfs = input.ParseLineBlocks();
 
 		List<int> elfCalories = new List<int>();
 
 		foreach (string elf in elfs)
 		{
-			var calories = elf.AsInts();
+			var calories = elf.ParseInts();
 			elfCalories.Add(calories.Sum());
 		}
 

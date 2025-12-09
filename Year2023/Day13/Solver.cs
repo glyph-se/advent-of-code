@@ -8,17 +8,17 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string blocks in input.AsLineBlocks())
+		foreach (string blocks in input.ParseLineBlocks())
 		{
-			var a = blocks.AsLines();
+			var a = blocks.ParseLines();
 
 			result += FindMirror(a, 0) * 100;
 		}
 
-		foreach (string blocks in input.AsLineBlocks())
+		foreach (string blocks in input.ParseLineBlocks())
 		{
 			var a = blocks
-				.AsLines()
+				.ParseLines()
 				.Select(b => b.ToCharArray());
 
 			List<string> transposed = a.Transpose()
@@ -68,17 +68,17 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string blocks in input.AsLineBlocks())
+		foreach (string blocks in input.ParseLineBlocks())
 		{
-			var a = blocks.AsLines();
+			var a = blocks.ParseLines();
 
 			result += FindMirror(a, 1) * 100;
 		}
 
-		foreach (string blocks in input.AsLineBlocks())
+		foreach (string blocks in input.ParseLineBlocks())
 		{
 			var a = blocks
-				.AsLines()
+				.ParseLines()
 				.Select(b => b.ToCharArray());
 
 			List<string> transposed = a.Transpose()

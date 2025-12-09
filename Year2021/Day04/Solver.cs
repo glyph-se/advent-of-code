@@ -10,7 +10,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		ImmutableList<string> blocks = input.AsLineBlocks();
+		ImmutableList<string> blocks = input.ParseLineBlocks();
 
 		IEnumerable<int> numbersCalled = blocks
 			.First()
@@ -21,7 +21,7 @@ public class Solver : ISolver
 
 		foreach (string b in blocks.Skip(1))
 		{
-			var lines = b.AsLines().ToArray();
+			var lines = b.ParseLines().ToArray();
 
 			int[,] boardBuilding = new int[5, 5];
 
@@ -71,7 +71,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		ImmutableList<string> blocks = input.AsLineBlocks();
+		ImmutableList<string> blocks = input.ParseLineBlocks();
 
 		IEnumerable<int> numbersCalled = blocks
 			.First()
@@ -82,7 +82,7 @@ public class Solver : ISolver
 
 		foreach (string b in blocks.Skip(1))
 		{
-			var lines = b.AsLines().ToArray();
+			var lines = b.ParseLines().ToArray();
 
 			int[,] boardBuilding = new int[5, 5];
 

@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			IList<long> numbers = line.TrimSplit(" ").Select(l => l.ToLong()).ToList();
 
@@ -54,7 +54,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			IList<long> numbers = line.TrimSplit(" ").Select(l => l.ToLong()).ToList();
 

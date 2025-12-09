@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var blocks = input.AsLineBlocks().ToArray();
+		var blocks = input.ParseLineBlocks().ToArray();
 
 		List<long> seeds = new List<long>();
 		var seedBlock = blocks[0];
@@ -60,7 +60,7 @@ public class Solver : ISolver
 	{
 		List<Map> result = new List<Map>();
 
-		IEnumerable<string> lines = map.AsLines().Skip(1);
+		IEnumerable<string> lines = map.ParseLines().Skip(1);
 		foreach (var line in lines)
 		{
 			(string dest, string source, string length) = line.Split3(" ");
@@ -79,7 +79,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var blocks = input.AsLineBlocks().ToArray();
+		var blocks = input.ParseLineBlocks().ToArray();
 
 		List<Range> seeds = new List<Range>();
 		var seedBlock = blocks[0];

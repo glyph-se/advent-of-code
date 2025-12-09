@@ -19,7 +19,7 @@ public class Solver : ISolver
 		}
 		grid[500, 0] = '+';
 
-		foreach (string rockPath in input.AsLines())
+		foreach (string rockPath in input.ParseLines())
 		{
 			(int x, int y) prev = (0, 0);
 			foreach (string rock in rockPath.Split(" -> "))
@@ -127,7 +127,7 @@ public class Solver : ISolver
 		}
 		grid[500, 0] = '+';
 
-		foreach (string rockPath in input.AsLines())
+		foreach (string rockPath in input.ParseLines())
 		{
 			(int x, int y) prev = (0, 0);
 			foreach (string rock in rockPath.Split(" -> "))

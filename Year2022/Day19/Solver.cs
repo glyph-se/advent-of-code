@@ -13,7 +13,7 @@ public class Solver : ISolver
 		int result = 0;
 
 		List<Blueprint> blueprints = new();
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var matches = Regex.Match(line, "Blueprint (\\d+): Each ore robot costs (\\d+) ore. Each clay robot costs (\\d+) ore. Each obsidian robot costs (\\d+) ore and (\\d+) clay. Each geode robot costs (\\d+) ore and (\\d+) obsidian.");
 
@@ -126,7 +126,7 @@ public class Solver : ISolver
 		int result = 0;
 
 		List<Blueprint> blueprints = new();
-		foreach (string line in input.AsLines().Take(3))
+		foreach (string line in input.ParseLines().Take(3))
 		{
 			var matches = Regex.Match(line, "Blueprint (\\d+): Each ore robot costs (\\d+) ore. Each clay robot costs (\\d+) ore. Each obsidian robot costs (\\d+) ore and (\\d+) clay. Each geode robot costs (\\d+) ore and (\\d+) obsidian.");
 

@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var (cardPart, winningNumberPart, myNumberPart) = line.Split3(new[] { ":", "|" });
 			int card = cardPart.ReplaceRemove("Card ").ToInt();
@@ -41,7 +41,7 @@ public class Solver : ISolver
 			instances.Add(i, 0);
 		}
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			var (cardPart, winningNumberPart, myNumberPart) = line.Split3(new[] { ":", "|" });
 			int card = cardPart.ReplaceRemove("Card ").ToInt();

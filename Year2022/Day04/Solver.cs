@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		int score = 0;
 
-		IList<string> pairs = input.AsLines();
+		IList<string> pairs = input.ParseLines();
 
 		foreach (string pair in pairs)
 		{
@@ -37,7 +37,7 @@ public class Solver : ISolver
 
 		int score = 0;
 
-		IList<string> pairs = input.AsLines();
+		IList<string> pairs = input.ParseLines();
 
 		foreach (string pair in pairs)
 		{

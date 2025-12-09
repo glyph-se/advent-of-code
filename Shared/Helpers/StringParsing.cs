@@ -5,22 +5,22 @@ namespace Shared.Helpers;
 
 public static class StringParsing
 {
-	public static ImmutableList<int> AsInts(this string input)
+	public static ImmutableList<int> ParseInts(this string input)
 	{
 		return input.Split('\n', StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToImmutableList();
 	}
 
-	public static ImmutableList<long> AsLongs(this string input)
+	public static ImmutableList<long> ParseLongs(this string input)
 	{
 		return input.Split('\n', StringSplitOptions.RemoveEmptyEntries).Select(s => long.Parse(s)).ToImmutableList();
 	}
 
-	public static ImmutableList<string> AsLines(this string input)
+	public static ImmutableList<string> ParseLines(this string input)
 	{
 		return input.Split('\n', StringSplitOptions.RemoveEmptyEntries).ToImmutableList();
 	}
 
-	public static ImmutableList<string> AsLineBlocks(this string input)
+	public static ImmutableList<string> ParseLineBlocks(this string input)
 	{
 		return input.Split("\n" + "\n", StringSplitOptions.RemoveEmptyEntries).ToImmutableList();
 	}

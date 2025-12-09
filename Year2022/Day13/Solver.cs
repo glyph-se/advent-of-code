@@ -11,9 +11,9 @@ public class Solver : ISolver
 		int result = 0;
 		int index = 1;
 
-		foreach (string packets in input.AsLineBlocks())
+		foreach (string packets in input.ParseLineBlocks())
 		{
-			var lines = packets.AsLines();
+			var lines = packets.ParseLines();
 			if (IsRightOrder(lines[0], lines[1]))
 			{
 				result += index;

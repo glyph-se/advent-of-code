@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		long sum = 0;
 
-		foreach (string line in input.AsLines())
+		foreach (string line in input.ParseLines())
 		{
 			long number = 0;
 

@@ -8,13 +8,13 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var blocks = input.AsLineBlocks();
+		var blocks = input.ParseLineBlocks();
 
 		var dirs = blocks[0].ToCharArray();
 
 		Dictionary<string, (string, string)> graph = new Dictionary<string, (string, string)>();
 
-		foreach (string line in blocks[1].AsLines())
+		foreach (string line in blocks[1].ParseLines())
 		{
 			(string source, string dests) = line.Split2("=");
 			(string leftDest, string rightDest) = dests.Split2(",");
@@ -61,13 +61,13 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var blocks = input.AsLineBlocks();
+		var blocks = input.ParseLineBlocks();
 
 		var dirs = blocks[0].ToCharArray();
 
 		Dictionary<string, (string, string)> graph = new Dictionary<string, (string, string)>();
 
-		foreach (string line in blocks[1].AsLines())
+		foreach (string line in blocks[1].ParseLines())
 		{
 			(string source, string dests) = line.Split2("=");
 			(string leftDest, string rightDest) = dests.Split2(",");

@@ -10,11 +10,11 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var blocks = input.AsLineBlocks();
+		var blocks = input.ParseLineBlocks();
 		List<Part> parts = new List<Part>();
 		workflows = new List<Workflow>();
 
-		foreach (string workFlowLine in blocks[0].AsLines())
+		foreach (string workFlowLine in blocks[0].ParseLines())
 		{
 			var split = workFlowLine.TrimSplit(["{", "}", ","]);
 
@@ -34,7 +34,7 @@ public class Solver : ISolver
 			workflows.Add(w);
 		}
 
-		foreach (string partLine in blocks[1].AsLines())
+		foreach (string partLine in blocks[1].ParseLines())
 		{
 			string cleaned = partLine.Trim(['{', '}']);
 			var ratings = cleaned.TrimSplit(",")
@@ -78,10 +78,10 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var blocks = input.AsLineBlocks();
+		var blocks = input.ParseLineBlocks();
 		workflows = new List<Workflow>();
 
-		foreach (string workFlowLine in blocks[0].AsLines())
+		foreach (string workFlowLine in blocks[0].ParseLines())
 		{
 			var split = workFlowLine.TrimSplit(["{", "}", ","]);
 
