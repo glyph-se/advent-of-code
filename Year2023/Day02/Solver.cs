@@ -14,14 +14,15 @@ public class Solver : ISolver
 
 		foreach (string line in input.ParseLines())
 		{
-			var a = line.Split(":", StringSplitOptions.TrimEntries);
-			int gameNumber = a[0].ReplaceRemove("Game").ToInt();
-			var sets = a[1].Split(";", StringSplitOptions.TrimEntries);
+			(string first, string second) = line.Split2(":");
+
+			int gameNumber = first.ReplaceRemove("Game").ToInt();
+			string[] sets = second.TrimSplit(";");
 
 			bool gameWorks = true;
 			foreach (string set in sets)
 			{
-				var moves = set.Split(",", StringSplitOptions.TrimEntries);
+				var moves = set.TrimSplit(",");
 
 				int moveRed = 0;
 				int moveGreen = 0;
@@ -67,9 +68,10 @@ public class Solver : ISolver
 
 		foreach (string line in input.ParseLines())
 		{
-			var a = line.Split(":", StringSplitOptions.TrimEntries);
-			int gameNumber = a[0].ReplaceRemove("Game").ToInt();
-			var sets = a[1].Split(";", StringSplitOptions.TrimEntries);
+			(string first, string second) = line.Split2(":");
+
+			int gameNumber = first.ReplaceRemove("Game").ToInt();
+			string[] sets = second.TrimSplit(";");
 
 			int maxRed = 0;
 			int maxGreen = 0;
@@ -77,7 +79,7 @@ public class Solver : ISolver
 
 			foreach (string set in sets)
 			{
-				var moves = set.Split(",", StringSplitOptions.TrimEntries);
+				var moves = set.TrimSplit(",");
 
 				int moveRed = 0;
 				int moveGreen = 0;

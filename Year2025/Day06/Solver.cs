@@ -12,7 +12,7 @@ public class Solver : ISolver
 
 		foreach (string line in input.ParseLines())
 		{
-			numbers.Add(line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).ToList());
+			numbers.Add(line.TrimSplit(" ").ToList());
 		}
 
 		IEnumerable<IEnumerable<string>> transposed = numbers.Transpose();

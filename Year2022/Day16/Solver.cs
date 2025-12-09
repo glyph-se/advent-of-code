@@ -201,23 +201,20 @@ public class Solver : ISolver
 
 		foreach (string line in input.ParseLines())
 		{
-			string line2 = line.Replace("Valve ", "");
-			line2 = line2.Replace("has flow rate=", "");
-			line2 = line2.Replace("tunnels lead to valves ", "");
-			line2 = line2.Replace("tunnel leads to valve ", "");
+			string line2 = line.ReplaceRemove("Valve ");
+			line2 = line2.ReplaceRemove("has flow rate");
+			line2 = line2.ReplaceRemove("tunnels lead to valves ");
+			line2 = line2.ReplaceRemove("tunnel leads to valve ");
 
-			var split = line2.Split(';', StringSplitOptions.TrimEntries);
+			(string valse, string tunnelsString) = line2.Split2(";");
 
-			var tunnels = split[1].Split(",", StringSplitOptions.TrimEntries).ToList();
+			var tunnels = tunnelsString.TrimSplit(",").ToList();
 
-			split = split[0].Split(" ");
-
-			string name = split[0];
-			int flow = int.Parse(split[1]);
+			(string name, string flowString) = valse.Split2("=");
 
 			Node n = new Node();
 			n.name = name;
-			n.flowRate = flow;
+			n.flowRate = flowString.ToInt();
 			n.edgeString = tunnels;
 
 			nodes.Add(n);

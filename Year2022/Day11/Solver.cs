@@ -19,12 +19,12 @@ public class Solver : ISolver
 				.ToList();
 
 			Monkey m = new Monkey();
-			m.number = int.Parse(lines[0].Replace("Monkey ", "").Replace(":", ""));
+			m.number = lines[0].Replace("Monkey ", "").ReplaceRemove(":").ToInt();
 			m.items = lines[1]
-				.Split(":", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+				.TrimSplit(":")
 				.Last()
-				.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-				.Select(s => long.Parse(s))
+				.TrimSplit(",")
+				.Select(s => s.ToLong())
 				.ToList();
 			if (lines[2] == "Operation: new = old * old")
 			{
@@ -32,16 +32,16 @@ public class Solver : ISolver
 			}
 			else if (lines[2].Contains("*"))
 			{
-				m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last()));
+				m.operation = new Func<long, long>(i => i * lines[2].Split(" ").Last().ToLong());
 			}
 			else if (lines[2].Contains("+"))
 			{
-				m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last()));
+				m.operation = new Func<long, long>(i => i + lines[2].Split(" ").Last().ToLong());
 			}
 
-			m.test = long.Parse(lines[3].Split(" ").Last());
-			m.trueTarget = int.Parse(lines[4].Split(" ").Last());
-			m.falseTarget = int.Parse(lines[5].Split(" ").Last());
+			m.test = lines[3].Split(" ").Last().ToLong();
+			m.trueTarget = lines[4].Split(" ").Last().ToInt();
+			m.falseTarget = lines[5].Split(" ").Last().ToInt();
 
 			monkeys.Add(m);
 		}
@@ -105,12 +105,12 @@ public class Solver : ISolver
 				.ToList();
 
 			Monkey m = new Monkey();
-			m.number = int.Parse(lines[0].Replace("Monkey ", "").Replace(":", ""));
+			m.number = lines[0].Replace("Monkey ", "").ReplaceRemove(":").ToInt();
 			m.items = lines[1]
-				.Split(":", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+				.TrimSplit(":")
 				.Last()
-				.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-				.Select(s => long.Parse(s))
+				.TrimSplit(",")
+				.Select(s => s.ToLong())
 				.ToList();
 			if (lines[2] == "Operation: new = old * old")
 			{
@@ -118,16 +118,16 @@ public class Solver : ISolver
 			}
 			else if (lines[2].Contains("*"))
 			{
-				m.operation = new Func<long, long>(i => i * long.Parse(lines[2].Split(" ").Last()));
+				m.operation = new Func<long, long>(i => i * lines[2].Split(" ").Last().ToLong());
 			}
 			else if (lines[2].Contains("+"))
 			{
-				m.operation = new Func<long, long>(i => i + long.Parse(lines[2].Split(" ").Last()));
+				m.operation = new Func<long, long>(i => i + lines[2].Split(" ").Last().ToLong());
 			}
 
-			m.test = long.Parse(lines[3].Split(" ").Last());
-			m.trueTarget = int.Parse(lines[4].Split(" ").Last());
-			m.falseTarget = int.Parse(lines[5].Split(" ").Last());
+			m.test = lines[3].Split(" ").Last().ToLong();
+			m.trueTarget = lines[4].Split(" ").Last().ToInt();
+			m.falseTarget = lines[5].Split(" ").Last().ToInt();
 
 			magicMod = magicMod * m.test;
 
