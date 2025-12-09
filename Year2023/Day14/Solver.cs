@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		Rock[,] grid = input.AsGridMatrix((c, x, y) => new Rock(c, x, y));
+		Rock[,] grid = input.ParseGridMatrix((c, x, y) => new Rock(c, x, y));
 		grid = grid.ExtendGridMatrix(1, (x, y) => new Rock('#', x, y));
 
 		RollUp(grid);
@@ -32,7 +32,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		Rock[,] grid = input.AsGridMatrix((c, x, y) => new Rock(c, x, y));
+		Rock[,] grid = input.ParseGridMatrix((c, x, y) => new Rock(c, x, y));
 		grid = grid.ExtendGridMatrix(1, (x, y) => new Rock('#', x, y));
 
 		long target = 1000000000;

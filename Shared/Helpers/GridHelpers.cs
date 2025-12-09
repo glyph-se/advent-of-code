@@ -5,7 +5,7 @@ namespace Shared.Helpers;
 
 public static class GridHelpers
 {
-	public static IReadOnlyDictionary<(int x, int y), TReturn> AsGridDict<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
+	public static IReadOnlyDictionary<(int x, int y), TReturn> ParseGridDict<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
 	{
 		var lines = input.ParseLines();
 
@@ -24,7 +24,7 @@ public static class GridHelpers
 		return grid.AsReadOnly();
 	}
 
-	public static TReturn[,] AsGridMatrix<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
+	public static TReturn[,] ParseGridMatrix<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
 	{
 		var lines = input.ParseLines();
 
@@ -136,7 +136,7 @@ public static class GridHelpers
 		return list;
 	}
 
-	public static IReadOnlyList<TReturn> AsGridList<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
+	public static IReadOnlyList<TReturn> ParseGridList<TReturn>(this string input, Func<char, int, int, TReturn> constructor)
 	{
 		var lines = input.ParseLines();
 

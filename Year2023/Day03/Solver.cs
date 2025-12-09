@@ -10,7 +10,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		Part?[,] grid = input.AsGridMatrix((c, x, y) => CreatePart(c, x, y));
+		Part?[,] grid = input.ParseGridMatrix((c, x, y) => CreatePart(c, x, y));
 		grid = grid.ExtendGridMatrixWithNull(1);
 
 
@@ -90,7 +90,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		Part?[,] grid = input.AsGridMatrix((c, x, y) => CreatePart(c, x, y));
+		Part?[,] grid = input.ParseGridMatrix((c, x, y) => CreatePart(c, x, y));
 		grid = grid.ExtendGridMatrixWithNull(1);
 
 		HashSet<Part> visited = new HashSet<Part>();

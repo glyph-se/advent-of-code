@@ -7,13 +7,13 @@ public class Solver : ISolver
 		await Task.Yield();
 
 		HashSet<Point> grid = input
-			.AsGridList((c, x, y) => CreatePoint(c, x, y))
+			.ParseGridList((c, x, y) => CreatePoint(c, x, y))
 			.Where(p => p != null)
 			.Cast<Point>()
 			.ToHashSet();
 
 		List<Blizzard> blizzards = input
-			.AsGridList((c, x, y) => CreateBlizzard(c, x, y))
+			.ParseGridList((c, x, y) => CreateBlizzard(c, x, y))
 			.Where(b => b != null)
 			.Cast<Blizzard>()
 			.ToList();
@@ -92,14 +92,14 @@ public class Solver : ISolver
 		await Task.Yield();
 
 		HashSet<Point> grid = input
-			.AsGridList((c, x, y) => CreatePoint(c, x, y))
+			.ParseGridList((c, x, y) => CreatePoint(c, x, y))
 			.Where(p => p != null)
 			.Cast<Point>()
 			.ToHashSet();
 
 
 		List<Blizzard> blizzards = input
-			.AsGridList((c, x, y) => CreateBlizzard(c, x, y))
+			.ParseGridList((c, x, y) => CreateBlizzard(c, x, y))
 			.Where(b => b != null)
 			.Cast<Blizzard>()
 			.ToList();

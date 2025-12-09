@@ -50,7 +50,7 @@ public class Solver : ISolver
 
 	private static Node[,] BuildGrid(string input)
 	{
-		var nodes = input.AsGridMatrix((c, row, col) => CreateNode(c, row, col));
+		var nodes = input.ParseGridMatrix((c, row, col) => CreateNode(c, row, col));
 
 
 		for (int col = 0; col < nodes.GetLength(0); col++)

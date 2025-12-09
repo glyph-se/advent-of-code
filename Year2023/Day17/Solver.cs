@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var grid = input.AsGridMatrix((c, x, y) => new CityBlock(c, x, y));
+		var grid = input.ParseGridMatrix((c, x, y) => new CityBlock(c, x, y));
 
 		var start = grid[0, 0];
 		var end = grid[grid.GetUpperBound(0), grid.GetUpperBound(1)];
@@ -94,7 +94,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var grid = input.AsGridMatrix((c, x, y) => new CityBlock(c, x, y));
+		var grid = input.ParseGridMatrix((c, x, y) => new CityBlock(c, x, y));
 
 		var start = grid[0, 0];
 		var end = grid[grid.GetUpperBound(0), grid.GetUpperBound(1)];

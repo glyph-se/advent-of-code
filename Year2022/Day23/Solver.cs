@@ -25,7 +25,7 @@ public class Solver : ISolver
 		long result = 0;
 
 
-		Elf?[,] orgGrid = input.AsGridMatrix((c, x, y) => CreateElf(c, x, y));
+		Elf?[,] orgGrid = input.ParseGridMatrix((c, x, y) => CreateElf(c, x, y));
 
 		var allElves = orgGrid.AsList();
 
@@ -132,7 +132,7 @@ public class Solver : ISolver
 
 		List<Elf> allElves = new();
 
-		Elf?[,] orgGrid = input.AsGridMatrix((c, x, y) => CreateElf(c, x, y));
+		Elf?[,] orgGrid = input.ParseGridMatrix((c, x, y) => CreateElf(c, x, y));
 
 		Elf[,] grid = new Elf[orgGrid.GetLength(0) + 2000, orgGrid.GetLength(1) + 2000];
 

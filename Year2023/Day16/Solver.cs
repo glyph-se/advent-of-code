@@ -8,7 +8,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var grid = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
+		var grid = input.ParseGridMatrix((c, x, y) => new CharPoint(c, x, y));
 		grid = grid.ExtendGridMatrix(1, (x, y) => new CharPoint('#', x, y));
 
 		// Start one to the left because first can be a mirror
@@ -24,7 +24,7 @@ public class Solver : ISolver
 
 		long result = 0;
 
-		var grid = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
+		var grid = input.ParseGridMatrix((c, x, y) => new CharPoint(c, x, y));
 		grid = grid.ExtendGridMatrix(1, (x, y) => new CharPoint('#', x, y));
 
 		for (int i = 0; i <= grid.GetUpperBound(0); i++)

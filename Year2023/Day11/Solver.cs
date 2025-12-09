@@ -28,7 +28,7 @@ public class Solver : ISolver
 	{
 		long result = 0;
 
-		var universe = input.AsGridMatrix((c, x, y) => new CharPoint(c, x, y));
+		var universe = input.ParseGridMatrix((c, x, y) => new CharPoint(c, x, y));
 
 		var universeList = universe.AsList();
 
