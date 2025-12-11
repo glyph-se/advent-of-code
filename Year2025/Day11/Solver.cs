@@ -9,8 +9,6 @@ public class Solver : ISolver
 		long result = 0;
 		Dictionary<string, List<string>> graph = ParseGraph(input);
 
-
-
 		result = FindNumberOfPaths(graph, "you", "out");
 
 		return result.ToString();
@@ -36,8 +34,6 @@ public class Solver : ISolver
 
 		return result.ToString();
 	}
-
-
 
 	private static Dictionary<string, List<string>> ParseGraph(string input)
 	{
